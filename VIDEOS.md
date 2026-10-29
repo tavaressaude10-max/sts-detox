@@ -18,7 +18,10 @@ estar acessíveis publicamente e os vídeos devem permitir incorporação.
 O player só é carregado ao clicar. A troca de playlist encerra o vídeo anterior.
 Se a API falhar ou não retornar vídeos públicos, a seção oferece o player nativo
 da playlist, um link para o YouTube e a opção de tentar carregar novamente.
-Os nove vídeos locais da galeria de sessões reais foram preservados.
+A galeria de sessões reais foi removida da home em 29/10/2026 a pedido do
+cliente. Os nove arquivos locais foram preservados; alguns continuam usados
+em outras seções. A biblioteca de playlists permanece em `#videos`.
+Títulos e descrições exibidos pela biblioteca padronizam a palavra “DETOX”.
 
 Execute `npm run build` para gerar a pasta `build` para a hospedagem.
 Esta entrega é independente das pastas antigas do computador de origem.

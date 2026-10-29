@@ -39,8 +39,11 @@ function toPlaylistVideos(items: PlaylistResponse["items"]): PlaylistVideo[] {
     return [
       {
         id,
-        title: snippet?.title || "Vídeo da playlist",
-        description: (snippet?.description ?? "").replace(/\s+/g, " ").trim(),
+        title: (snippet?.title || "Vídeo da playlist").replace(/\bdetox\b/gi, "DETOX"),
+        description: (snippet?.description ?? "")
+          .replace(/\bdetox\b/gi, "DETOX")
+          .replace(/\s+/g, " ")
+          .trim(),
         thumbnail:
           snippet?.thumbnails?.["medium"]?.url ||
           `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
@@ -109,7 +112,7 @@ export function VideoPlaylistBrowser({
         if (!cancelled) {
           setVideos(nextVideos);
           setSelectedId(nextVideos[0]!.id);
-          setPlaylistTitle(data.playlistTitle || title);
+          setPlaylistTitle((data.playlistTitle || title).replace(/\bdetox\b/gi, "DETOX"));
         }
       } catch {
         if (!cancelled) setFailed(true);

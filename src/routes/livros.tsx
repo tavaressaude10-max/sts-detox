@@ -36,19 +36,19 @@ const livros = {
       "Capa do livro Enciclopédia Corpo Humano: O Mais Extraordinário Laboratório do Mundo, de Severino Tavares da Silva.",
   },
   detox: {
-    titulo: "Detox Iônico - Entre a Medicina Convencional e as Terapias Integrativas",
+    titulo: "DETOX Iônico - Entre a Medicina Convencional e as Terapias Integrativas",
     autor: "Severino Tavares da Silva",
     capa: capaDetoxIonico.url as string | null,
     capaAlt:
-      "Capa do livro Detox Iônico: Entre a Medicina Convencional e as Terapias Integrativas, de Severino Tavares da Silva.",
+      "Capa do livro DETOX Iônico: Entre a Medicina Convencional e as Terapias Integrativas, de Severino Tavares da Silva.",
   },
   bioequilibrio: {
     titulo:
-      "Detox BioEquilíbrio - Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo",
+      "DETOX BioEquilíbrio - Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo",
     autor: "Severino Tavares da Silva",
     capa: capaBioequilibrio.url as string | null,
     capaAlt:
-      "Capa do livro Detox BioEquilíbrio: Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo, de Severino Tavares da Silva.",
+      "Capa do livro DETOX BioEquilíbrio: Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo, de Severino Tavares da Silva.",
   },
 };
 
@@ -73,7 +73,7 @@ const jsonLd = {
       image: capaDetoxIonico.url,
       url: amazonLivroDetox,
       description:
-        "Obra dedicada ao Detox Iônico e ao diálogo entre a medicina convencional e as terapias integrativas, com interesse investigativo e responsabilidade na comunicação.",
+        "Obra dedicada ao DETOX Iônico e ao diálogo entre a medicina convencional e as terapias integrativas, com interesse investigativo e responsabilidade na comunicação.",
     },
     {
       "@type": "Book",
@@ -90,7 +90,7 @@ const jsonLd = {
 
 const tituloSeo = "Livros de Severino Tavares da Silva | STS BioEquilíbrio";
 const descricaoSeo =
-  "Conheça os livros Enciclopédia Corpo Humano, Detox Iônico e Detox BioEquilíbrio, de Severino Tavares da Silva. Obras educativas sobre o organismo humano e as práticas integrativas.";
+  "Conheça os livros Enciclopédia Corpo Humano, DETOX Iônico e DETOX BioEquilíbrio, de Severino Tavares da Silva. Obras educativas sobre o organismo humano e as práticas integrativas.";
 
 export const Route = createFileRoute("/livros")({
   head: () => ({
@@ -165,7 +165,7 @@ const prefacio = [
 const duvidasLivros = [
   {
     q: "Os três livros já estão publicados?",
-    a: "Sim. Atualmente estão disponíveis três títulos de Severino Tavares da Silva: Enciclopédia - Corpo Humano: O Mais Extraordinário Laboratório do Mundo, Detox Iônico - Entre a Medicina Convencional e as Terapias Integrativas e Detox BioEquilíbrio - Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo.",
+    a: "Sim. Atualmente estão disponíveis três títulos de Severino Tavares da Silva: Enciclopédia - Corpo Humano: O Mais Extraordinário Laboratório do Mundo, DETOX Iônico - Entre a Medicina Convencional e as Terapias Integrativas e DETOX BioEquilíbrio - Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo.",
   },
   {
     q: "Como posso adquirir os livros?",
@@ -176,19 +176,19 @@ const duvidasLivros = [
     a: "Sim. Utilize o botão de contato sobre as três obras para consultar disponibilidade, formatos, valores e condições de envio.",
   },
   {
-    q: "O livro Detox BioEquilíbrio apresenta resultados médicos comprovados?",
+    q: "O livro DETOX BioEquilíbrio apresenta resultados médicos comprovados?",
     a: "A obra possui finalidade educativa e reflexiva. Organiza fundamentos, observações e reflexões relacionados ao Método STS BioEquilíbrio, sem se apresentar como comprovação de diagnóstico, prevenção, tratamento ou cura de doenças.",
   },
   {
-    q: "Qual a diferença entre Detox Iônico e Detox BioEquilíbrio?",
-    a: "O livro Detox Iônico aborda o tema e o diálogo entre a medicina convencional e as terapias integrativas. Detox BioEquilíbrio concentra-se nos fundamentos, reflexões e observações relacionados ao desenvolvimento do Método STS BioEquilíbrio.",
+    q: "Qual a diferença entre DETOX Iônico e DETOX BioEquilíbrio?",
+    a: "O livro DETOX Iônico aborda o tema e o diálogo entre a medicina convencional e as terapias integrativas. DETOX BioEquilíbrio concentra-se nos fundamentos, reflexões e observações relacionados ao desenvolvimento do Método STS BioEquilíbrio.",
   },
   {
     q: "A Enciclopédia é indicada apenas para profissionais?",
     a: "Não. A obra também foi desenvolvida para estudantes, professores, terapeutas, famílias e leitores interessados em compreender o corpo humano por meio de uma linguagem visual e acessível.",
   },
   {
-    q: "O livro Detox Iônico substitui formação profissional?",
+    q: "O livro DETOX Iônico substitui formação profissional?",
     a: "Não. O livro é uma publicação educativa. Formação, habilitação profissional e orientações específicas de uso devem ser tratadas separadamente.",
   },
   {
@@ -236,7 +236,7 @@ function LivrosPage() {
             <p className="mt-7 max-w-[58ch] text-pretty text-lg leading-8 text-muted-foreground">
               Três obras de Severino Tavares da Silva desenvolvidas para leitores que buscam
               conhecimento organizado, linguagem acessível e uma compreensão responsável do
-              funcionamento humano, do Detox Iônico e do Método STS BioEquilíbrio.
+              funcionamento humano, do DETOX Iônico e do Método STS BioEquilíbrio.
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
               <a
@@ -249,13 +249,13 @@ function LivrosPage() {
                 href="#detox-ionico"
                 className="rounded-full bg-surface px-6 py-3.5 font-semibold text-foreground ring-1 ring-border transition-all hover:-translate-y-0.5 hover:ring-aqua/40"
               >
-                Ver Detox Iônico
+                Ver DETOX Iônico
               </a>
               <a
                 href="#bioequilibrio"
                 className="rounded-full bg-surface px-6 py-3.5 font-semibold text-foreground ring-1 ring-border transition-all hover:-translate-y-0.5 hover:ring-[#c9a227]/60"
               >
-                Ver Detox BioEquilíbrio
+                Ver DETOX BioEquilíbrio
               </a>
             </div>
           </div>
@@ -388,7 +388,7 @@ function LivrosPage() {
       >
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="rise lg:col-span-7">
-            <p className="eyebrow mb-4 text-aqua">Detox Iônico e práticas integrativas</p>
+            <p className="eyebrow mb-4 text-aqua">DETOX Iônico e práticas integrativas</p>
             <h2 className="text-balance font-display text-3xl font-bold leading-tight lg:text-4xl">
               {livros.detox.titulo}
             </h2>
@@ -397,12 +397,12 @@ function LivrosPage() {
               336 páginas
             </p>
             <p className="mt-6 text-pretty text-base leading-8 text-muted-foreground">
-              Uma obra dedicada ao Detox Iônico e ao diálogo entre a medicina convencional e as
+              Uma obra dedicada ao DETOX Iônico e ao diálogo entre a medicina convencional e as
               terapias integrativas, abordando o tema com interesse investigativo, visão
               integrativa e responsabilidade na comunicação.
             </p>
             <p className="mt-4 text-pretty text-base leading-8 text-muted-foreground">
-              O livro acompanha a trajetória de estudo que deu origem à evolução do Detox Iônico
+              O livro acompanha a trajetória de estudo que deu origem à evolução do DETOX Iônico
               para uma compreensão mais cuidadosa, na qual a observação do fenômeno não deve ser
               confundida com diagnóstico ou comprovação automática da eliminação de toxinas
               específicas.
@@ -418,7 +418,7 @@ function LivrosPage() {
                 rel="noopener noreferrer"
                 className="inline-block rounded-full bg-deep px-6 py-3.5 font-semibold text-aqua-soft transition-all hover:-translate-y-0.5 hover:bg-deep-2"
               >
-                Quero adquirir o livro Detox Iônico
+                Quero adquirir o livro DETOX Iônico
               </a>
               <a
                 href={waLivroDetox}
@@ -464,7 +464,7 @@ function LivrosPage() {
               />
             ) : (
               <CapaPlaceholder
-                titulo="Detox BioEquilíbrio"
+                titulo="DETOX BioEquilíbrio"
                 nota="Imagem oficial da capa será inserida aqui."
                 tom="dourado"
               />
@@ -491,7 +491,7 @@ function LivrosPage() {
                 e interação contínua entre corpo, mente e ambiente.
               </p>
               <p>
-                A obra Detox BioEquilíbrio apresenta fundamentos, reflexões e observações práticas
+                A obra DETOX BioEquilíbrio apresenta fundamentos, reflexões e observações práticas
                 relacionados ao Método STS BioEquilíbrio, dentro de uma proposta de observação
                 funcional do organismo, percepção sensorial, relaxamento e experiência corporal
                 integrada.
@@ -548,7 +548,7 @@ function LivrosPage() {
               rel="noopener noreferrer"
               className="mt-9 inline-block rounded-full bg-[#0d1b3a] px-6 py-3.5 font-semibold text-[#e8cf8a] transition-all hover:-translate-y-0.5 hover:bg-[#132552]"
             >
-              Comprar Detox BioEquilíbrio na Amazon
+              Comprar DETOX BioEquilíbrio na Amazon
             </a>
             <p className="mt-3 text-sm text-muted-foreground">
               A compra é realizada na página oficial da obra na Amazon.
@@ -615,7 +615,7 @@ function LivrosPage() {
               </p>
               <p>
                 Suas publicações percorrem três campos complementares de estudo: a compreensão
-                integrada do corpo humano, a análise responsável do Detox Iônico e os fundamentos
+                integrada do corpo humano, a análise responsável do DETOX Iônico e os fundamentos
                 do Método STS BioEquilíbrio.
               </p>
             </div>
@@ -668,7 +668,7 @@ function LivrosPage() {
               rel="noopener noreferrer"
               className="rounded-full px-6 py-3.5 font-semibold text-aqua-soft ring-1 ring-aqua-soft/40 transition-all hover:-translate-y-0.5 hover:bg-aqua-soft/10"
             >
-              Quero o livro Detox Iônico
+              Quero o livro DETOX Iônico
             </a>
             <a
               href={amazonLivroBioequilibrio}
@@ -676,7 +676,7 @@ function LivrosPage() {
               rel="noopener noreferrer"
               className="rounded-full px-6 py-3.5 font-semibold text-[#e8cf8a] ring-1 ring-[#c9a227]/70 transition-all hover:-translate-y-0.5 hover:bg-[#c9a227]/15"
             >
-              Detox BioEquilíbrio na Amazon
+              DETOX BioEquilíbrio na Amazon
             </a>
             <a
               href={waTresLivros}

@@ -13,8 +13,8 @@ const ancoras = [
 
 const livros = [
   { href: "/livros#enciclopedia", label: "Enciclopédia" },
-  { href: "/livros#detox-ionico", label: "Detox Iônico" },
-  { href: "/livros#bioequilibrio", label: "Detox BioEquilíbrio" },
+  { href: "/livros#detox-ionico", label: "DETOX Iônico" },
+  { href: "/livros#bioequilibrio", label: "DETOX BioEquilíbrio" },
   { href: "/livros#autor", label: "Sobre o autor" },
 ];
 
@@ -60,7 +60,7 @@ export function SiteHeader({ ancorasHome = true }: { ancorasHome?: boolean }) {
         <Link
           to="/"
           className="flex min-w-0 items-center gap-3"
-          aria-label="STS Detox BioEquilíbrio - início"
+          aria-label="STS DETOX BioEquilíbrio - início"
         >
           <img
             src="/sts-favicon.png"
@@ -70,7 +70,7 @@ export function SiteHeader({ ancorasHome = true }: { ancorasHome?: boolean }) {
             className="size-10 shrink-0 rounded-full ring-1 ring-deep/20"
           />
           <span className="truncate font-display text-sm font-bold sm:text-base">
-            Detox BioEquilíbrio
+            DETOX BioEquilíbrio
           </span>
         </Link>
 

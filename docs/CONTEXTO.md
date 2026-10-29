@@ -2,6 +2,12 @@
 
 ## Objetivo e estado conhecido
 
+Em 29/10/2026, a pedido do cliente, a seção “Galeria de demonstrações” foi
+removida da home. Os arquivos de vídeo foram preservados, incluindo os usados
+em outras seções. O botão principal agora aponta para `#videos`. Os textos
+do site foram padronizados para “DETOX”, inclusive títulos recebidos pela API
+das playlists. Alteração local, sem publicação.
+
 Atualização em 29/10/2026: ambiente Windows preparado; Seroval atualizado
 de 1.6.7 para 1.7.2 por override, sem alterar as demais versões do lockfile.
 Instalação limpa, TypeScript, build e auditoria passaram (zero vulnerabilidades).
@@ -59,7 +65,7 @@ vulnerabilidades conhecidas em 28/10/2026; consulte `SEGURANCA.md`.
 | `src/components/SiteFooter.tsx` | Rodapé e redes sociais |
 | `src/components/VideoPlaylists.tsx` | Seleção entre playlists |
 | `src/components/VideoPlaylistBrowser.tsx` | Busca, miniaturas, player e fallback |
-| `src/components/VideoGaleria.tsx` | Nove vídeos locais |
+| `src/components/VideoGaleria.tsx` | Componente antigo dos nove vídeos; não montado na home |
 | `src/lib/video-playlists.ts` | IDs e endpoint das playlists |
 | `src/lib/whatsapp.ts` | Contatos e links Amazon |
 | `src/styles.css` | Tema, tipografia e estilos |

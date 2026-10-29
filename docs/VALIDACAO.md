@@ -39,6 +39,19 @@ dentro de `<div>` na estrutura SPA. Não foi alterado nesta correção transitiv
 Avisos de depreciação de tsconfck, Recharts e ESLint e recomendação do Vite
 sobre tsconfig paths não impediram as verificações. Nenhum `--force` foi usado.
 
+## Ajustes visuais — 29/10/2026
+
+- Removida a seção “Galeria de demonstrações”; arquivos de mídia preservados.
+- Textos do site padronizados para “DETOX”, inclusive metadados, mensagens
+  pré-preenchidas e títulos/descrições da biblioteca externa.
+- `npm.cmd run verificar`: TypeScript e build passaram. `git diff --check`
+  sem erros. Dependências não alteradas nesta etapa.
+- Home e `/livros` conferidas no navegador local; nenhuma ocorrência de
+  “Detox” nos textos renderizados. Elemento `#galeria` ausente na home.
+- Conteúdo gravado dentro de imagens/vídeos e do player externo não foi editado.
+  Reprodução não foi testada novamente nesta alteração de apresentação.
+- Sem push ou publicação nesta etapa.
+
 ## Histórico da entrega — 28/10/2026
 
 ## Estado atual após correção de segurança

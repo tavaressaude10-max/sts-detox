@@ -1,4 +1,4 @@
-// Playlists do STS Detox. Para trocar o conteúdo, altere apenas os IDs.
+// Playlists do STS DETOX. Para trocar o conteúdo, altere apenas os IDs.
 export const videoPlaylists = [
   {
     key: "apresentacao",

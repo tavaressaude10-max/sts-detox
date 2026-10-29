@@ -5,7 +5,6 @@ import videoFormacao from "@/assets/video-6.mp4.asset.json";
 import capaEnciclopedia from "@/assets/capa-enciclopedia.jpeg.asset.json";
 import capaDetoxIonico from "@/assets/capa-detox-ionico.jpeg.asset.json";
 import capaBioequilibrio from "@/assets/capa-bioequilibrio.jpeg.asset.json";
-import { VideoGaleria } from "@/components/VideoGaleria";
 import { VideoPlaylists } from "@/components/VideoPlaylists";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -33,16 +32,16 @@ const wa = (mensagem: string) =>
   )}&type=phone_number&app_absent=0`;
 
 const waGeral = wa(
-  "Olá! Conheci o STS Detox BioEquilíbrio pelo site e gostaria de mais informações.",
+  "Olá! Conheci o STS DETOX BioEquilíbrio pelo site e gostaria de mais informações.",
 );
 const waPessoal = wa(
-  "Olá! Conheci o STS Detox BioEquilíbrio pelo site e gostaria de informações para uso pessoal.",
+  "Olá! Conheci o STS DETOX BioEquilíbrio pelo site e gostaria de informações para uso pessoal.",
 );
 const waProfissional = wa(
-  "Olá! Sou profissional e gostaria de conhecer o equipamento STS Detox BioEquilíbrio.",
+  "Olá! Sou profissional e gostaria de conhecer o equipamento STS DETOX BioEquilíbrio.",
 );
 const waFormacao = wa(
-  "Olá! Gostaria de informações sobre a formação STS Detox BioEquilíbrio.",
+  "Olá! Gostaria de informações sobre a formação STS DETOX BioEquilíbrio.",
 );
 
 const redesSociais = [
@@ -66,17 +65,17 @@ const redesSociais = [
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "STS Detox BioEquilíbrio — Relaxamento e Equilíbrio Funcional" },
+      { title: "STS DETOX BioEquilíbrio — Relaxamento e Equilíbrio Funcional" },
       {
         name: "description",
         content:
-          "O STS Detox BioEquilíbrio é a evolução do Detox Iônico: uma proposta de bem-estar, relaxamento e equilíbrio funcional, com informação responsável e sem promessas de cura.",
+          "O STS DETOX BioEquilíbrio é a evolução do DETOX Iônico: uma proposta de bem-estar, relaxamento e equilíbrio funcional, com informação responsável e sem promessas de cura.",
       },
-      { property: "og:title", content: "STS Detox BioEquilíbrio" },
+      { property: "og:title", content: "STS DETOX BioEquilíbrio" },
       {
         property: "og:description",
         content:
-          "Da curiosidade do Detox Iônico ao estudo do organismo: relaxamento, conforto e bem-estar com comunicação responsável.",
+          "Da curiosidade do DETOX Iônico ao estudo do organismo: relaxamento, conforto e bem-estar com comunicação responsável.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -191,11 +190,11 @@ function Index() {
               Equipamento, conhecimento e prática responsável
             </p>
             <h1 className="text-balance font-display text-4xl font-extrabold leading-[1.08] md:text-5xl lg:text-6xl">
-              STS Detox BioEquilíbrio: equipamento e formação para experiências
+              STS DETOX BioEquilíbrio: equipamento e formação para experiências
               de relaxamento e bem-estar
             </h1>
             <p className="mt-7 max-w-[52ch] text-pretty text-lg leading-8 text-muted-foreground">
-              Conheça uma evolução responsável do Detox Iônico para uso pessoal
+              Conheça uma evolução responsável do DETOX Iônico para uso pessoal
               ou profissional, com orientação, segurança, formação e suporte.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
@@ -208,10 +207,10 @@ function Index() {
                 Quero conhecer pelo WhatsApp
               </a>
               <a
-                href="#galeria"
+                href="#videos"
                 className="rounded-full bg-surface px-7 py-3.5 font-semibold text-foreground ring-1 ring-border transition-all hover:-translate-y-0.5 hover:ring-aqua/40"
               >
-                Ver sessões reais
+                Ver vídeos
               </a>
             </div>
             <p className="mt-6 font-mono text-xs text-muted-foreground">
@@ -241,10 +240,10 @@ function Index() {
           <div className="rise lg:col-span-7">
             <p className="eyebrow mb-4 text-aqua">O que é</p>
             <h2 className="text-balance font-display text-4xl font-bold leading-tight">
-              O que é o STS Detox BioEquilíbrio?
+              O que é o STS DETOX BioEquilíbrio?
             </h2>
             <p className="mt-6 text-pretty text-base leading-8 text-muted-foreground">
-              O STS Detox BioEquilíbrio é uma proposta complementar voltada ao
+              O STS DETOX BioEquilíbrio é uma proposta complementar voltada ao
               relaxamento, ao conforto e ao bem-estar. Durante a sessão, os pés
               permanecem em água preparada para condução elétrica, enquanto o
               equipamento produz estímulos elétricos de baixa intensidade.
@@ -326,12 +325,12 @@ function Index() {
               Transforme conhecimento em oportunidade profissional
             </h2>
             <h3 className="mt-7 font-display text-2xl font-bold text-aqua-soft lg:text-3xl">
-              Curso Detox Iônico Prático
+              Curso DETOX Iônico Prático
             </h3>
             <p className="mt-4 max-w-[62ch] text-pretty text-base leading-7 text-aqua-soft/80 lg:text-lg">
               Formação a distância para quem deseja entrar no mercado de
               trabalho ou ampliar seus conhecimentos e fortalecer o próprio
-              negócio com Detox Iônico.
+              negócio com DETOX Iônico.
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -376,7 +375,7 @@ function Index() {
               </p>
               <ul className="mt-4 grid gap-3 text-sm text-aqua-soft/80 sm:grid-cols-2">
                 {[
-                  "Aparelho de Detox Iônico",
+                  "Aparelho de DETOX Iônico",
                   "1 eletrodo iônico para 100 sessões",
                   "2 cintas para aplicação de vibropuntura",
                 ].map((item) => (
@@ -574,7 +573,7 @@ function Index() {
               sempre.
             </p>
             <p className="mt-4 max-w-[62ch] text-pretty text-base leading-8 text-muted-foreground">
-              O STS Detox BioEquilíbrio nasce da história do Detox Iônico e
+              O STS DETOX BioEquilíbrio nasce da história do DETOX Iônico e
               amplia sua compreensão: o foco deixa de estar exclusivamente na
               água e passa a incluir o estudo do organismo.
             </p>
@@ -607,7 +606,7 @@ function Index() {
             </h2>
             <p className="mt-6 max-w-[60ch] text-pretty text-base leading-8 text-muted-foreground">
               Conheça as três obras de Severino Tavares da Silva sobre o
-              funcionamento integrado do corpo humano, o Detox Iônico e o
+              funcionamento integrado do corpo humano, o DETOX Iônico e o
               desenvolvimento do Método STS BioEquilíbrio.
             </p>
             <Link
@@ -634,27 +633,27 @@ function Index() {
             <li className="sm:order-1 sm:self-center">
               <img
                 src={capaDetoxIonico.url}
-                alt="Capa do livro Detox Iônico: Entre a Medicina Convencional e as Terapias Integrativas, de Severino Tavares da Silva."
+                alt="Capa do livro DETOX Iônico: Entre a Medicina Convencional e as Terapias Integrativas, de Severino Tavares da Silva."
                 width={600}
                 height={800}
                 loading="lazy"
                 className="w-full rounded-2xl object-contain shadow-lg"
               />
               <p className="mt-3 text-center font-display text-sm font-bold text-deep">
-                Detox Iônico
+                DETOX Iônico
               </p>
             </li>
             <li className="sm:order-3 sm:self-center">
               <img
                 src={capaBioequilibrio.url}
-                alt="Capa do livro Detox BioEquilíbrio: Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo, de Severino Tavares da Silva."
+                alt="Capa do livro DETOX BioEquilíbrio: Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo, de Severino Tavares da Silva."
                 width={600}
                 height={800}
                 loading="lazy"
                 className="w-full rounded-2xl object-contain shadow-lg ring-1 ring-[#c9a227]/40"
               />
               <p className="mt-3 text-center font-display text-sm font-bold text-deep">
-                Detox BioEquilíbrio
+                DETOX BioEquilíbrio
               </p>
             </li>
           </ul>
@@ -662,25 +661,6 @@ function Index() {
       </section>
 
       <VideoPlaylists />
-
-      {/* 8 — SESSÕES REAIS */}
-      <section
-        id="galeria"
-        className="mx-auto max-w-7xl scroll-mt-24 px-6 py-24 lg:px-10 lg:py-32"
-      >
-        <div className="mb-12 flex items-end justify-between">
-          <div>
-            <p className="eyebrow mb-3 text-aqua">Sessões reais</p>
-            <h2 className="text-balance font-display text-4xl font-bold">
-              Galeria de demonstrações
-            </h2>
-          </div>
-          <span className="hidden font-mono text-xs text-muted-foreground sm:block">
-            vídeos verticais
-          </span>
-        </div>
-        <VideoGaleria />
-      </section>
 
       {/* 9 — DÚVIDAS */}
       <section id="duvidas" className="scroll-mt-24 bg-surface py-24 lg:py-32">
@@ -713,7 +693,7 @@ function Index() {
           <div className="rise lg:col-span-7">
             <p className="eyebrow mb-4 text-aqua">Contato</p>
             <h2 className="text-balance font-display text-4xl font-bold">
-              Fale com o STS Detox BioEquilíbrio
+              Fale com o STS DETOX BioEquilíbrio
             </h2>
             <p className="mt-4 max-w-[50ch] text-base leading-8 text-muted-foreground">
               Atendimento para uso pessoal, parcerias profissionais e formação.
@@ -760,7 +740,7 @@ function Index() {
           <div className="rise self-start border-l border-aqua/40 bg-aqua-soft/40 p-8 lg:col-span-5 lg:p-10">
             <p className="eyebrow mb-3 text-deep/60">Informação importante</p>
             <p className="text-pretty text-base leading-8 text-deep/80">
-              O STS Detox BioEquilíbrio é apresentado como uma prática
+              O STS DETOX BioEquilíbrio é apresentado como uma prática
               complementar de bem-estar e relaxamento.{" "}
               <strong className="font-semibold text-deep">
                 Não substitui consulta, diagnóstico, acompanhamento ou
