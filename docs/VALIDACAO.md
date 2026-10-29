@@ -110,3 +110,14 @@ teste de implantação automática ou teste visual ponta a ponta nesta entrega.
 Esses passos dependem das contas do cliente e constam em CHECKLIST/DESTINOS.
 O proprietário confirmou que a reimplantação anterior por ZIP funcionou e
 confirmou o domínio `https://stsdetox.com.br`.
+
+## DETOX PET — 29/10/2026
+
+- Quarto livro incluído na home e em `/livros`, com capa oficial local.
+- Capa e botão “Ver na Amazon” apontam para `https://www.amazon.com/dp/B0HNWDSW4V`, com `_blank` e `noopener noreferrer`.
+- Produto e autor confirmados na página Amazon em navegador.
+- `npm ci` concluído; auditoria da instalação: zero vulnerabilidades.
+- `npm run verificar` passou (TypeScript e build).
+- Navegador local: quatro capas carregadas em 1440 px; grade de uma coluna em 390 px sem overflow horizontal; cartão DETOX PET conferido em `/livros` no celular.
+- Alterações locais anteriores sobre material de estudo foram preservadas e excluídas deste commit.
+- Publicação usa integração Hostinger existente: `tavaressaude10-max/sts-detox`, `main`, Node 22, saída `build`.

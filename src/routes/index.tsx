@@ -1,3 +1,4 @@
+import { DetoxPetCard } from "@/components/DetoxPetCard";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import videoHero from "@/assets/video-4.mp4.asset.json";
 import videoPessoal from "@/assets/video-1.mp4.asset.json";
@@ -598,16 +599,16 @@ function Index() {
 
       {/* LIVROS */}
       <section id="livros" className="scroll-mt-24 bg-surface py-24 lg:py-32">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:px-10">
-          <div className="rise lg:col-span-7">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:px-10">
+          <div className="rise">
             <p className="eyebrow mb-4 text-aqua">Publicações</p>
             <h2 className="text-balance font-display text-4xl font-bold leading-tight">
               Conhecimento que continua nos livros
             </h2>
             <p className="mt-6 max-w-[60ch] text-pretty text-base leading-8 text-muted-foreground">
-              Conheça as três obras de Severino Tavares da Silva sobre o
+              Conheça as quatro obras de Severino Tavares da Silva sobre o
               funcionamento integrado do corpo humano, o DETOX Iônico e o
-              desenvolvimento do Método STS BioEquilíbrio.
+              desenvolvimento do Método STS BioEquilíbrio, incluindo o livro DETOX PET.
             </p>
             <Link
               to="/livros"
@@ -616,8 +617,8 @@ function Index() {
               Conhecer os livros
             </Link>
           </div>
-          <ul className="rise grid grid-cols-1 gap-5 sm:grid-cols-3 lg:col-span-5">
-            <li className="sm:order-2">
+          <ul className="rise grid grid-cols-1 items-start gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <li className="mx-auto w-full max-w-[280px]">
               <img
                 src={capaEnciclopedia.url}
                 alt="Capa do livro Enciclopédia Corpo Humano: O Mais Extraordinário Laboratório do Mundo, de Severino Tavares da Silva."
@@ -630,7 +631,7 @@ function Index() {
                 Enciclopédia — Corpo Humano
               </p>
             </li>
-            <li className="sm:order-1 sm:self-center">
+            <li className="mx-auto w-full max-w-[280px]">
               <img
                 src={capaDetoxIonico.url}
                 alt="Capa do livro DETOX Iônico: Entre a Medicina Convencional e as Terapias Integrativas, de Severino Tavares da Silva."
@@ -643,7 +644,7 @@ function Index() {
                 DETOX Iônico
               </p>
             </li>
-            <li className="sm:order-3 sm:self-center">
+            <li className="mx-auto w-full max-w-[280px]">
               <img
                 src={capaBioequilibrio.url}
                 alt="Capa do livro DETOX BioEquilíbrio: Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo, de Severino Tavares da Silva."
@@ -656,6 +657,7 @@ function Index() {
                 DETOX BioEquilíbrio
               </p>
             </li>
+            <li><DetoxPetCard /></li>
           </ul>
         </div>
       </section>

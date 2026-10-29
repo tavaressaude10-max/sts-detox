@@ -1,3 +1,4 @@
+import { DetoxPetCard, amazonDetoxPet } from "@/components/DetoxPetCard";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Accordion,
@@ -11,7 +12,6 @@ import { WhatsAppFab } from "@/components/WhatsAppFab";
 import {
   waLivros,
   waLivroDetox,
-  waTresLivros,
   amazonLivroDetox,
   amazonLivroBioequilibrio,
   amazonEnciclopedia,
@@ -55,6 +55,7 @@ const livros = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
+    { "@type": "Book", name: "DETOX PET", inLanguage: "pt-BR", author: { "@type": "Person", name: "Severino Tavares da Silva" }, image: "/assets/capa-detox-pet.jpg", url: amazonDetoxPet },
     {
       "@type": "Book",
       name: livros.enciclopedia.titulo,
@@ -90,7 +91,7 @@ const jsonLd = {
 
 const tituloSeo = "Livros de Severino Tavares da Silva | STS BioEquilíbrio";
 const descricaoSeo =
-  "Conheça os livros Enciclopédia Corpo Humano, DETOX Iônico e DETOX BioEquilíbrio, de Severino Tavares da Silva. Obras educativas sobre o organismo humano e as práticas integrativas.";
+  "Conheça os livros Enciclopédia Corpo Humano, DETOX Iônico, DETOX BioEquilíbrio e DETOX PET, de Severino Tavares da Silva. Obras educativas sobre o organismo humano e as práticas integrativas.";
 
 export const Route = createFileRoute("/livros")({
   head: () => ({
@@ -164,16 +165,16 @@ const prefacio = [
 
 const duvidasLivros = [
   {
-    q: "Os três livros já estão publicados?",
-    a: "Sim. Atualmente estão disponíveis três títulos de Severino Tavares da Silva: Enciclopédia - Corpo Humano: O Mais Extraordinário Laboratório do Mundo, DETOX Iônico - Entre a Medicina Convencional e as Terapias Integrativas e DETOX BioEquilíbrio - Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo.",
+    q: "Os quatro livros já estão publicados?",
+    a: "Sim. Atualmente estão disponíveis quatro títulos de Severino Tavares da Silva: Enciclopédia - Corpo Humano: O Mais Extraordinário Laboratório do Mundo, DETOX Iônico - Entre a Medicina Convencional e as Terapias Integrativas e DETOX BioEquilíbrio - Estímulo Bioelétrico Aplicado ao Equilíbrio Funcional do Organismo e DETOX PET.",
   },
   {
     q: "Como posso adquirir os livros?",
     a: "Clique no botão de compra do livro desejado. Os títulos disponíveis na Amazon abrem diretamente na página oficial de aquisição.",
   },
   {
-    q: "Posso adquirir os três títulos?",
-    a: "Sim. Utilize o botão de contato sobre as três obras para consultar disponibilidade, formatos, valores e condições de envio.",
+    q: "Posso adquirir os quatro títulos?",
+    a: "Sim. Utilize o botão de contato sobre as quatro obras para consultar disponibilidade, formatos, valores e condições de envio.",
   },
   {
     q: "O livro DETOX BioEquilíbrio apresenta resultados médicos comprovados?",
@@ -234,9 +235,9 @@ function LivrosPage() {
               Livros para compreender o corpo humano e ampliar o conhecimento
             </h1>
             <p className="mt-7 max-w-[58ch] text-pretty text-lg leading-8 text-muted-foreground">
-              Três obras de Severino Tavares da Silva desenvolvidas para leitores que buscam
+              Quatro obras de Severino Tavares da Silva desenvolvidas para leitores que buscam
               conhecimento organizado, linguagem acessível e uma compreensão responsável do
-              funcionamento humano, do DETOX Iônico e do Método STS BioEquilíbrio.
+              funcionamento humano, do DETOX Iônico e do Método STS BioEquilíbrio. Conheça também o DETOX PET.
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
               <a
@@ -257,9 +258,10 @@ function LivrosPage() {
               >
                 Ver DETOX BioEquilíbrio
               </a>
+              <a href="#detox-pet" className="rounded-full bg-surface px-6 py-3.5 font-semibold text-foreground ring-1 ring-border hover:ring-aqua/40">Ver DETOX PET</a>
             </div>
           </div>
-          <div className="rise grid grid-cols-2 gap-4 sm:grid-cols-3 lg:col-span-5">
+          <div className="rise grid grid-cols-2 items-start gap-4 lg:col-span-5">
             {livros.enciclopedia.capa ? (
               <img
                 src={livros.enciclopedia.capa}
@@ -288,6 +290,7 @@ function LivrosPage() {
               height={800}
               className="w-full self-center rounded-2xl object-contain shadow-xl ring-1 ring-[#c9a227]/40"
             />
+            <DetoxPetCard />
           </div>
         </div>
       </section>
@@ -557,23 +560,31 @@ function LivrosPage() {
         </div>
       </section>
 
-      {/* AQUISIÇÃO DAS TRÊS OBRAS */}
+      {/* LIVRO 4 */}
+      <section id="detox-pet" className="scroll-mt-24 py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <p className="eyebrow mb-8 text-center text-aqua">Publicações STS</p>
+          <DetoxPetCard />
+        </div>
+      </section>
+
+      {/* AQUISIÇÃO DAS QUATRO OBRAS */}
       <section className="bg-surface py-24 lg:py-32">
         <div className="mx-auto max-w-3xl px-6 text-center lg:px-10">
           <h2 className="text-balance font-display text-4xl font-bold">
-            Deseja conhecer as três obras?
+            Deseja conhecer as quatro obras?
           </h2>
           <p className="mx-auto mt-6 max-w-[62ch] text-pretty text-base leading-8 text-muted-foreground">
-            Entre em contato para consultar a disponibilidade dos três títulos e receber
+            Entre em contato para consultar a disponibilidade dos quatro títulos e receber
             informações sobre formatos, valores e condições de envio.
           </p>
           <a
-            href={waTresLivros}
+            href={waLivros}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-9 inline-block rounded-full bg-deep px-7 py-3.5 font-semibold text-aqua-soft transition-all hover:-translate-y-0.5 hover:bg-deep-2"
           >
-            Quero informações sobre os três livros
+            Quero informações sobre os quatro livros
           </a>
         </div>
       </section>
@@ -650,7 +661,7 @@ function LivrosPage() {
             Leve o conhecimento para seus estudos e sua prática
           </h2>
           <p className="mt-6 max-w-[62ch] text-pretty text-lg leading-8 text-aqua-soft/85">
-            Escolha uma das obras ou consulte as condições para adquirir os três livros de Severino
+            Escolha uma das obras ou consulte as condições para adquirir os quatro livros de Severino
             Tavares da Silva.
           </p>
           <div className="mt-9 flex flex-wrap gap-4">
@@ -678,13 +689,14 @@ function LivrosPage() {
             >
               DETOX BioEquilíbrio na Amazon
             </a>
+            <a href={amazonDetoxPet} target="_blank" rel="noopener noreferrer" className="rounded-full bg-aqua-soft px-6 py-3.5 font-semibold text-deep">DETOX PET na Amazon</a>
             <a
-              href={waTresLivros}
+              href={waLivros}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full px-6 py-3.5 font-semibold text-aqua-soft ring-1 ring-aqua-soft/40 transition-all hover:-translate-y-0.5 hover:bg-aqua-soft/10"
             >
-              Quero informações sobre os três livros
+              Quero informações sobre os quatro livros
             </a>
           </div>
         </div>

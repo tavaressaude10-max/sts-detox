@@ -2,6 +2,14 @@
 
 ## Objetivo e estado conhecido
 
+Em 29/10/2026, DETOX PET foi acrescentado como quarto livro na home e em
+`/livros`, preservando os três títulos anteriores. A capa oficial foi obtida
+da página Amazon informada pelo cliente (`https://www.amazon.com/dp/B0HNWDSW4V`)
+e é servida localmente em `public/assets/capa-detox-pet.jpg`. O componente
+`src/components/DetoxPetCard.tsx` reúne capa, título e botão “Ver na Amazon”;
+capa e botão abrem o endereço em nova aba. A grade da home tem uma, duas ou
+quatro colunas conforme a largura da tela. Publicação pelo fluxo GitHub existente.
+
 Em 29/10/2026, a pedido do cliente, a seção “Galeria de demonstrações” foi
 removida da home. Os arquivos de vídeo foram preservados, incluindo os usados
 em outras seções. O botão principal agora aponta para `#videos`. Os textos
