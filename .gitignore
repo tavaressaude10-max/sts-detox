@@ -1,0 +1,15 @@
+node_modules/
+build/
+dist/
+.output/
+.wrangler/
+.vite/
+coverage/
+*.log
+*.zip
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+/.codex/
