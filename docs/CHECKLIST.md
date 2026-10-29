@@ -16,7 +16,7 @@
 - [x] Instalar Node 22 >=22.12 e Git na máquina do cliente.
 - [x] Extrair/abrir o projeto e executar `npm.cmd run preparar`.
 - [x] Conferir visualmente o site local (resultados e limites em `VALIDACAO.md`).
-- [ ] Criar/conferir repositório do cliente e enviar o código preservando histórico.
+- [x] Criar/conferir repositório do cliente e enviar o código preservando histórico (remoto vazio confirmado; primeiro push em 29/10/2026).
 - [ ] Conectar esse repositório ao site correto na Hostinger.
 - [ ] Confirmar root, Node, build, saída `build` e branch.
 - [ ] Confirmar o primeiro deploy e suas rotas no domínio.

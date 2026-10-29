@@ -11,6 +11,11 @@ com sucesso e sem referências: remoto vazio na consulta de 29/10/2026.
 A conexão com a Hostinger permanece expressamente fora desta etapa.
 Git local inicializado em `main`, com `origin` apontando para a URL confirmada.
 Autoria configurada localmente com o nome e e-mail informados pelo cliente.
+Primeiro commit enviado em 29/10/2026:
+`ac2e8b94ced0f5f123519004a9e42d64963d5038`.
+O push para `origin/main` foi concluído sem force; `git ls-remote` confirmou
+o mesmo hash no GitHub e `main` passou a acompanhar `origin/main`.
+Este registro confirma o envio do código, não uma implantação na Hostinger.
 
 O ambiente local dispõe de Node 22.23.4, npm 10.9.9 e Git 2.56.0.windows.3.
 `.gitignore` exclui dependências, builds, ZIPs, logs e arquivos `.env`;
@@ -33,7 +38,8 @@ nesta entrega.
 | Conta/plano da Hostinger que hospeda o site | A CONFIRMAR pelo cliente |
 | Domínio de produção | https://stsdetox.com.br (confirmado pelo proprietário) |
 | Integração GitHub autorizada na Hostinger | PENDENTE DE CONFIGURAÇÃO/VERIFICAÇÃO |
-| Primeiro commit publicado via GitHub | A REGISTRAR depois do teste |
+| Primeiro commit enviado ao GitHub | ac2e8b94ced0f5f123519004a9e42d64963d5038 — 29/10/2026 |
+| Primeiro commit implantado na Hostinger via GitHub | NÃO REALIZADO NESTA ETAPA |
 | Data e resultado do teste automático | A REGISTRAR |
 
 Registre URLs públicas e informações operacionais aqui. As senhas, tokens,
