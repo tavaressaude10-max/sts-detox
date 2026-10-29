@@ -1,5 +1,11 @@
 # Publicar pelo GitHub do cliente
 
+Atualização de 29/10/2026: o cliente autorizou a publicação e a integração
+automática. O MCP confirmou `tavaressaude10-max/sts-detox`, branch `main`,
+ativa para `stsdetox.com.br`. Push em `main` agora pode publicar imediatamente.
+Os avisos de não conectar nas seções históricas abaixo foram superados por
+essa autorização. Consulte `DESTINOS.md` para destino e backup anterior.
+
 Fluxo desejado: computador → commit/push no GitHub → build/publicação na
 Hostinger. A integração nativa da Hostinger executa o deploy; não foi incluído
 um segundo publicador por FTP ou GitHub Actions.

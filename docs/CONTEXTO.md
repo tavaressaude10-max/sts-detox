@@ -6,7 +6,8 @@ Em 29/10/2026, a pedido do cliente, a seção “Galeria de demonstrações” f
 removida da home. Os arquivos de vídeo foram preservados, incluindo os usados
 em outras seções. O botão principal agora aponta para `#videos`. Os textos
 do site foram padronizados para “DETOX”, inclusive títulos recebidos pela API
-das playlists. Alteração local, sem publicação.
+das playlists. Publicação autorizada e executada em 29/10/2026 pelo GitHub;
+destino, backup e limites da verificação estão em `DESTINOS.md` e `VALIDACAO.md`.
 
 Atualização em 29/10/2026: ambiente Windows preparado; Seroval atualizado
 de 1.6.7 para 1.7.2 por override, sem alterar as demais versões do lockfile.
@@ -15,7 +16,8 @@ As três playlists, os nove vídeos locais e `/livros` foram testados no navegad
 limites e ocorrência transitória no vídeo 04 estão em `VALIDACAO.md`.
 O cliente confirmou o repositório `tavaressaude10-max/sts-detox` e autorizou
 commit/push em `main`. O remoto foi consultado e estava vazio; Git local
-inicializado. A Hostinger não deve ser conectada nesta etapa.
+inicializado. A restrição inicial de não conectar a Hostinger foi superada
+pela autorização posterior explícita de publicação e automação.
 
 O site apresenta o STS Detox BioEquilíbrio, equipamento, uso pessoal e
 profissional, formação, livros de Severino Tavares da Silva e contato por

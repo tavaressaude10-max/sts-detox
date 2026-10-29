@@ -39,6 +39,25 @@ dentro de `<div>` na estrutura SPA. Não foi alterado nesta correção transitiv
 Avisos de depreciação de tsconfck, Recharts e ESLint e recomendação do Vite
 sobre tsconfig paths não impediram as verificações. Nenhum `--force` foi usado.
 
+## Publicação GitHub/Hostinger — 29/10/2026
+
+Cliente autorizou publicação e automação em `main`. Commit de conteúdo:
+`01db87f0a2ab79e4130e2595f68347b7643a5f1c`. A Hostinger confirmou o checkout
+desse commit no build `01a187ef-c565-716e-8f46-98c82397566a` e a integração
+automática ativa. Backup da fonte anterior e SHA256 em `DESTINOS.md`.
+
+Verificação HTTPS pública: home servindo título “STS DETOX BioEquilíbrio”,
+JS `index-BNSAfYew.js` e CSS `styles-Bz0x6WdW.css`. O JS publicado contém
+“STS DETOX BioEquilíbrio” e conteúdo de livros, sem “Galeria de demonstrações”.
+Acesso direto a `/livros` retornou HTTP 200.
+
+Limites: o navegador remoto apresentou timeout de conexão; a conferência
+visual desta versão foi feita localmente antes de publicar. Consultas ao
+estado final do build via MCP apresentaram HTTP 500 e timeout ao ler logs,
+apesar de o domínio já servir os novos arquivos. Não foi repetido o teste
+de reprodução nesta publicação. A automação está configurada, mas seu
+acionamento por um push posterior ainda precisa de confirmação.
+
 ## Ajustes visuais — 29/10/2026
 
 - Removida a seção “Galeria de demonstrações”; arquivos de mídia preservados.

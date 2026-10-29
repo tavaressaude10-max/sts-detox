@@ -1,5 +1,24 @@
 # Destinos e acessos a preencher pelo responsável
 
+## Publicação autorizada — 29/10/2026
+
+O cliente autorizou substituir `stsdetox.com.br` pela versão sem galeria e
+com DETOX em maiúsculas, usando `tavaressaude10-max/sts-detox`, branch `main`,
+e ativar publicações automáticas. A integração foi confirmada ativa via MCP.
+Conta de hospedagem: `u897433725`. Configuração: Vite, Node 22, npm,
+script `build`, saída `build`, raiz do repositório.
+
+Backup local da fonte anterior: `stsdetox-backup-fonte-anterior-20261029.zip`,
+cópia do ZIP que o build anterior identifica como sua origem.
+SHA256: `0895C15529B43CBAAED65F57B0198E1F7D8CA7D55FB5F809638C17D0BA75189A`.
+Build anterior: `01a1845b-e71e-73ca-9ddb-7926c4822dcc`.
+O backup está fora do Git e permite reconstruir a versão anterior; não é
+um snapshot integral da conta da hospedagem.
+
+Primeiro build Git iniciado: `01a187ef-c565-716e-8f46-98c82397566a`, commit
+`01db87f0a2ab79e4130e2595f68347b7643a5f1c`. Resultado final em `VALIDACAO.md`.
+Os registros abaixo descrevem etapas anteriores e não restringem esta autorização.
+
 ## Conferência local — 29/10/2026
 
 `git rev-parse --show-toplevel`, `git status --short --branch` e
