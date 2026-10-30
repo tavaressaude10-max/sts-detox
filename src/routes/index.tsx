@@ -184,53 +184,44 @@ function Index() {
       <SiteHeader />
 
       {/* 1 — ABERTURA */}
-      <section className="relative overflow-hidden border-b border-border/70">
-        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 py-20 lg:grid-cols-12 lg:px-10 lg:py-24">
-          <div className="rise lg:col-span-6">
-            <p className="eyebrow mb-5 text-aqua">
-              Equipamento, conhecimento e prática responsável
-            </p>
-            <h1 className="text-balance font-display text-4xl font-extrabold leading-[1.08] md:text-5xl lg:text-6xl">
-              STS DETOX BioEquilíbrio: equipamento e formação para experiências
-              de relaxamento e bem-estar
+      <section aria-labelledby="titulo-entrada" className="relative border-b border-border/70 bg-gradient-to-br from-surface via-background to-aqua-soft/45">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:px-10 lg:py-20">
+          <div className="rise min-w-0 lg:col-span-7">
+            <h1 id="titulo-entrada" className="font-display text-[clamp(2rem,5vw,3.75rem)] font-extrabold leading-[1.12] tracking-tight text-deep">
+              STS DETOX <span className="block text-deep-2">BioEquilíbrio</span>
             </h1>
-            <p className="mt-7 max-w-[52ch] text-pretty text-lg leading-8 text-muted-foreground">
-              Conheça uma evolução responsável do DETOX Iônico para uso pessoal
-              ou profissional, com orientação, segurança, formação e suporte.
+            <p className="mt-6 max-w-[32ch] font-display text-xl font-semibold leading-relaxed text-foreground sm:text-2xl">
+              Equipamento e conhecimento para compreender a técnica
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <p className="mt-5 max-w-[52ch] text-lg leading-8 text-muted-foreground">
+              Conheça o aparelho, explore os materiais de estudo e descubra os livros de Severino Tavares da Silva.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <a
+                href="#o-que-e"
+                className="inline-flex min-h-14 items-center justify-center rounded-full bg-deep px-6 py-4 text-center text-base font-semibold text-white shadow-md transition-colors hover:bg-deep-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
+              >
+                Conhecer o equipamento
+              </a>
               <a
                 href={waGeral}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-deep px-7 py-3.5 font-semibold text-aqua-soft transition-all hover:-translate-y-0.5 hover:bg-deep-2"
+                className="inline-flex min-h-14 items-center justify-center rounded-full border border-deep/35 bg-surface px-6 py-4 text-center text-base font-semibold text-deep transition-colors hover:bg-aqua-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
               >
-                Quero conhecer pelo WhatsApp
-              </a>
-              <a
-                href="#videos"
-                className="rounded-full bg-surface px-7 py-3.5 font-semibold text-foreground ring-1 ring-border transition-all hover:-translate-y-0.5 hover:ring-aqua/40"
-              >
-                Ver vídeos
+                Falar pelo WhatsApp
               </a>
             </div>
-            <p className="mt-6 font-mono text-xs text-muted-foreground">
-              Uso pessoal e profissional • Orientação de uso • Formação e
-              suporte
-            </p>
           </div>
-          <div className="rise lg:col-span-6 lg:pl-10">
+          <div className="rise mx-auto w-full min-w-0 max-w-[440px] lg:col-span-5">
             <video
               src={videoHero.url}
+              aria-label="Apresentação do equipamento STS DETOX BioEquilíbrio"
               controls
               playsInline
               preload="metadata"
-              className="aspect-[4/5] max-h-[620px] w-full rounded-3xl bg-deep object-cover shadow-2xl ring-1 ring-border"
+              className="aspect-[4/5] w-full rounded-3xl bg-deep object-contain shadow-xl ring-1 ring-deep/15"
             />
-            <p className="mt-4 text-sm leading-6 text-muted-foreground">
-              Conheça o equipamento, sua utilização e a proposta de formação
-              STS.
-            </p>
           </div>
         </div>
       </section>

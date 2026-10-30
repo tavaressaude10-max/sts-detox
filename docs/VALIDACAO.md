@@ -121,3 +121,15 @@ confirmou o domínio `https://stsdetox.com.br`.
 - Navegador local: quatro capas carregadas em 1440 px; grade de uma coluna em 390 px sem overflow horizontal; cartão DETOX PET conferido em `/livros` no celular.
 - Alterações locais anteriores sobre material de estudo foram preservadas e excluídas deste commit.
 - Publicação usa integração Hostinger existente: `tavaressaude10-max/sts-detox`, `main`, Node 22, saída `build`.
+- Publicação confirmada pela Hostinger: commit `c0a1d509594ddb7710829245da3cf9d30a887664`, build `01a1891b-10cf-72d7-9599-648723c15d6e`, estado `completed`. Cache do servidor/CDN limpo após deploy. `/livros` público confirmou capa carregada e os dois links em nova aba.
+
+## Nova entrada — 29/10/2026
+
+- Retomada do chat interrompido: reaproveitados `npm ci` (341 pacotes, zero vulnerabilidades) e `npm run verificar` (TypeScript e build, saída 0), ambos concluídos naquela execução. Não houve nova alteração de código após esses testes.
+- Backup anterior: `backup-entrada-20261029-185039.zip`, fora do Git.
+- Publicação limitada ao bloco de abertura já preparado no índice Git. Edições locais anteriores sobre material de estudo permanecem fora deste envio; certificado e demais seções publicados são preservados.
+- Conferência local em 1440 × 1000 e 390 × 844: entrada legível, vídeo à direita no desktop e após os botões no celular; largura do documento igual à viewport móvel (390 px).
+- Botão Conhecer o equipamento testado: navega para `#o-que-e`. Link WhatsApp conferido, mantendo número 5583989094835 e mensagem existentes; nenhuma mensagem enviada.
+- Vídeo da entrada reproduziu: `paused=false`, tempo avançou de 0,03 para 10,71 segundos de 17,07 segundos.
+- Logotipo oficial azul e verde não localizado no projeto; cabeçalho mantido até o responsável fornecer o arquivo.
+- Limites: prévia local inclui edições anteriores não publicadas nas outras seções; a entrada testada é igual à preparada para envio. Não repetidos testes de YouTube, livros ou demais vídeos já aprovados, pois não foram alterados.
