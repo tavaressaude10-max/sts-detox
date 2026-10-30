@@ -15,6 +15,7 @@ const livros = [
   { href: "/livros#enciclopedia", label: "Enciclopédia" },
   { href: "/livros#detox-ionico", label: "DETOX Iônico" },
   { href: "/livros#bioequilibrio", label: "DETOX BioEquilíbrio" },
+  { href: "/livros#detox-pet", label: "DETOX PET" },
   { href: "/livros#autor", label: "Sobre o autor" },
 ];
 
