@@ -39,9 +39,14 @@ function toPlaylistVideos(items: PlaylistResponse["items"]): PlaylistVideo[] {
     return [
       {
         id,
-        title: (snippet?.title || "Vídeo da playlist").replace(/\bdetox\b/gi, "DETOX"),
+        title: (snippet?.title || "Vídeo da playlist")
+          .replace(/\bdetox\b/gi, "DETOX")
+          .replace(/\bbioequil[ií]brio\b/gi, "BIOEQUILÍBRIO")
+          .replace(/\bDETOX\s+iônico\b/gi, "DETOX IÔNICO"),
         description: (snippet?.description ?? "")
           .replace(/\bdetox\b/gi, "DETOX")
+          .replace(/\bbioequil[ií]brio\b/gi, "BIOEQUILÍBRIO")
+          .replace(/\bDETOX\s+iônico\b/gi, "DETOX IÔNICO")
           .replace(/\s+/g, " ")
           .trim(),
         thumbnail:
@@ -112,7 +117,12 @@ export function VideoPlaylistBrowser({
         if (!cancelled) {
           setVideos(nextVideos);
           setSelectedId(nextVideos[0]!.id);
-          setPlaylistTitle((data.playlistTitle || title).replace(/\bdetox\b/gi, "DETOX"));
+          setPlaylistTitle(
+            (data.playlistTitle || title)
+              .replace(/\bdetox\b/gi, "DETOX")
+          .replace(/\bbioequil[ií]brio\b/gi, "BIOEQUILÍBRIO")
+              .replace(/\bDETOX\s+iônico\b/gi, "DETOX IÔNICO"),
+          );
         }
       } catch {
         if (!cancelled) setFailed(true);

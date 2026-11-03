@@ -26,7 +26,7 @@ export function SiteFooter() {
           STS
         </span>
         <span className="font-display text-sm font-bold tracking-tight">
-          DETOX BioEquilíbrio
+          DETOX IÔNICO
         </span>
       </div>
       <nav aria-label="Redes sociais" className="flex flex-wrap items-center gap-2">
@@ -45,7 +45,7 @@ export function SiteFooter() {
         ))}
       </nav>
       <p className="font-mono text-xs text-muted-foreground">
-        © {new Date().getFullYear()} STS DETOX BioEquilíbrio — conteúdo informativo, sem
+        © {new Date().getFullYear()} STS DETOX IÔNICO — conteúdo informativo, sem
         alegações médicas.
       </p>
     </footer>

@@ -1,3 +1,11 @@
+> Estado atual 01/11/2026: adaptação LOCAL Business Node.js 22 + MySQL; entrada server.js.
+> Python/Docker/disco persistente não são requisitos do servidor. Nenhum deploy/push autorizado nesta etapa.
+> Consulte BUSINESS_NODE_MYSQL.md e PRODUCAO.md; instruções anteriores abaixo são históricas.
+
+> Preparação local de produção em 01/11/2026: servidor Node + APIs/F4 e SMTP
+> implementados, sem publicação. A configuração estática histórica abaixo não
+> executa os novos serviços. Consulte `PRODUCAO.md` antes de configurar hospedagem.
+
 # Publicar pelo GitHub do cliente
 
 Atualização de 29/10/2026: o cliente autorizou a publicação e a integração

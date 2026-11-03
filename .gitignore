@@ -13,3 +13,9 @@ coverage/
 .DS_Store
 Thumbs.db
 /.codex/
+/.private-assistant/
+__pycache__/
+*.pyc
+/.private-commerce/
+/.private-assistant-node/
+/.server-build/

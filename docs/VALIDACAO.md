@@ -133,3 +133,8 @@ confirmou o domínio `https://stsdetox.com.br`.
 - Vídeo da entrada reproduziu: `paused=false`, tempo avançou de 0,03 para 10,71 segundos de 17,07 segundos.
 - Logotipo oficial azul e verde não localizado no projeto; cabeçalho mantido até o responsável fornecer o arquivo.
 - Limites: prévia local inclui edições anteriores não publicadas nas outras seções; a entrada testada é igual à preparada para envio. Não repetidos testes de YouTube, livros ou demais vídeos já aprovados, pois não foram alterados.
+- Publicação concluída em 29/10/2026 às 21:08 (America/Sao_Paulo): commit `1f74632a88f72c062491cfe6d1c73dc8b32bac89`, build Hostinger `01a18a22-10e7-7326-b102-9d3036d5225d`, estado `completed`. Disparo automático pelo push confirmado. Nova entrada conferida visualmente em `https://stsdetox.com.br/`; navegação Formação preservada na versão pública. Este resultado pós-publicação fica registrado localmente para o próximo commit de documentação, evitando outro deploy apenas para registrar o anterior.
+
+## Continuidade local — 01/11/2026
+
+Revisadas as 16 alterações de compras; npm ci, TypeScript/build e 20 testes aprovados. Conferência de navegador desktop/móvel, fluxo simulado e bloqueios HTTP descritos em COMPRAS_LOCAL.md. F4 preservado por hashes; nenhuma publicação. Auditoria atual: 14 alertas moderados, sem altos/críticos; ver AUDITORIA-NPM-2026-11-01.json. Integrações externas ainda dependem de credenciais de teste e retorno HTTPS.

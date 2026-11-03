@@ -1,0 +1,54 @@
+.tavares-launcher { position: fixed; right: 1rem; bottom: max(5rem, calc(env(safe-area-inset-bottom) + 4.5rem)); z-index: 49; display: flex; gap: .5rem; align-items: center; padding: .8rem 1rem; border-radius: 2rem; background: var(--surface); color: var(--deep); border: 1px solid var(--deep); box-shadow: 0 4px 20px #0002; font-size: .8rem; font-weight: 700; }
+.tavares-panel::backdrop { background: #072c3480; }
+.tavares-panel:not([open]) { display: none; }
+.tavares-panel { margin: 0 0 0 auto; top: auto; left: auto; border: 0; padding: 0; }
+.tavares-panel { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 71; width: min(440px, calc(100vw - 2.5rem)); max-height: calc(100dvh - 2.5rem); display: flex; flex-direction: column; overflow: hidden; border-radius: 1.25rem; background: var(--surface); color: var(--foreground); box-shadow: 0 20px 70px #0004; font-size: .875rem; line-height: 1.6; }
+.tavares-header { position: relative; padding: 1.25rem 3.2rem 1.1rem 1.25rem; background: var(--deep); color: var(--aqua-soft); }
+.tavares-header h2 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; margin: .25rem 0; }
+.tavares-header p { font-size: .75rem; }
+.tavares-badge { font-size: .625rem; letter-spacing: .08em; font-weight: 700; }
+.tavares-close { position: absolute; top: .75rem; right: .5rem; min-width: 44px; min-height: 44px; display: grid; place-items: center; }
+.tavares-body { padding: 1.25rem; overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+.tavares-body p { margin-bottom: .75rem; }
+.tavares-note { font-size: .75rem; color: var(--muted-foreground); }
+.tavares-body h3 { font-weight: 700; margin: 1rem 0 .5rem; }
+.tavares-topics { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin: 1rem 0; }
+.tavares-topics button, .tavares-questions button { border: 1px solid var(--border); border-radius: .65rem; padding: .6rem .75rem; min-height: 44px; text-align: left; }
+.tavares-topics button[aria-pressed=true] { background: var(--deep); color: var(--aqua-soft); }
+.tavares-questions { display: grid; gap: .4rem; margin: .75rem 0; }
+.tavares-questions button { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+.tavares-panel a:not(.tavares-action) { text-decoration: underline; text-underline-offset: 3px; color: var(--deep); }
+.tavares-action { display: block; width: 100%; border-radius: .65rem; padding: .75rem; background: var(--deep); color: var(--aqua-soft); text-align: center; font-weight: 600; margin: .75rem 0; }
+.tavares-exchange { border-top: 1px solid var(--border); padding-top: 1rem; margin-top: 1rem; overflow-wrap: anywhere; }
+.tavares-question { background: var(--aqua-soft); border-radius: .75rem; padding: .75rem; }
+.tavares-exchange:last-child { min-height: var(--tavares-answer-height, 0); }
+.tavares-review { border: 1px solid var(--border); border-radius: .75rem; padding: .75rem; }
+.tavares-review textarea { width: 100%; border: 1px solid var(--border); padding: .5rem; border-radius: .5rem; resize: vertical; font-size: 16px; margin: .5rem 0; background: var(--surface); }
+.tavares-compose { border-top: 1px solid var(--border); padding: .75rem 1.25rem; background: var(--surface); flex-shrink: 0; }
+.tavares-compose label { display: block; font-size: .75rem; font-weight: 600; margin-bottom: .25rem; }
+.tavares-compose > div { display: flex; gap: .5rem; }
+.tavares-compose input { width: 100%; min-width: 0; padding: .65rem; border: 1px solid var(--border); border-radius: .5rem; font-size: 16px; }
+.tavares-compose button[type=submit] { background: var(--deep); color: var(--aqua-soft); border-radius: .5rem; padding: .5rem .75rem; }
+.tavares-compose button:disabled { opacity: .5; }
+.tavares-reset { font-size: .75rem; min-height: 30px; text-decoration: underline; }
+.tavares-panel button, .tavares-launcher { cursor: pointer; }
+.tavares-panel :focus-visible, .tavares-launcher:focus-visible { outline: 3px solid var(--aqua); outline-offset: 2px; }
+@media (max-width: 540px) { .tavares-panel { right: .5rem; bottom: max(.5rem, env(safe-area-inset-bottom)); width: calc(100vw - 1rem); max-height: calc(100dvh - 1rem - env(safe-area-inset-bottom)); } .tavares-body { padding: 1rem; } }
+@media (prefers-reduced-motion: reduce) { .tavares-body { scroll-behavior: auto; } }
+
+/* No celular, os atalhos ficam no fluxo após o conteúdo, sem cobrir a leitura. */
+@media (max-width: 639px) {
+  .tavares-launcher,
+  .whatsapp-fab {
+    position: static;
+    display: flex;
+    width: fit-content;
+    height: auto;
+    min-height: 48px;
+    margin: 12px auto;
+    padding: 12px 20px;
+    gap: 8px;
+  }
+  .whatsapp-fab span { display: inline; font-size: 13px; }
+  .tavares-launcher { margin-bottom: max(16px, env(safe-area-inset-bottom)); }
+}

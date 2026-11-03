@@ -1,4 +1,16 @@
+> Estado atual 01/11/2026: adaptação LOCAL Business Node.js 22 + MySQL; entrada server.js.
+> Python/Docker/disco persistente não são requisitos do servidor. Nenhum deploy/push autorizado nesta etapa.
+> Consulte docs/BUSINESS_NODE_MYSQL.md e docs/PRODUCAO.md; instruções anteriores abaixo são históricas.
+
+> Preparação local de produção em 01/11/2026: servidor Node + APIs/F4 e SMTP
+> implementados, sem publicação. A configuração estática histórica abaixo não
+> executa os novos serviços. Consulte `docs/PRODUCAO.md` antes de configurar hospedagem.
+
 # STS Detox BioEquilíbrio — entrega ao cliente
+
+Continuidade local em 01/11/2026: estrutura de compra de eletrodos em teste,
+sem publicação. Configuração privada, execução e limites em
+[`docs/COMPRAS_LOCAL.md`](docs/COMPRAS_LOCAL.md).
 
 Projeto completo para continuar o desenvolvimento em outro computador e conta
 do Codex e conectar o GitHub do cliente à Hostinger. Preparado em 28/10/2026.
@@ -95,5 +107,7 @@ antes de atualizar. Não descarte trabalho para conseguir executar o pull.
 | `npm.cmd run preparar` | Instalação, TypeScript e build |
 | `npm.cmd run preview` | Conferir o build gerado localmente |
 
-Não há banco de dados ou backend próprio neste projeto. A instalação não exige
-chave da OpenAI. As dependências externas do site estão em `docs/CONTEXTO.md`.
+O build público é uma SPA sem backend. A avaliação local F4 tem middleware
+privado de desenvolvimento e índice SQLite fora do frontend; consulte
+`docs/INTEGRACAO_PRIVADA_LOCAL.md`. Não há IA conectada ou chave obrigatória.
+As dependências externas do site estão em `docs/CONTEXTO.md`.

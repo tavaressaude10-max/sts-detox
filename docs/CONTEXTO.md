@@ -1,4 +1,32 @@
+> Estado atual 01/11/2026: adaptação LOCAL Business Node.js 22 + MySQL; entrada server.js.
+> Python/Docker/disco persistente não são requisitos do servidor. Nenhum deploy/push autorizado nesta etapa.
+> Consulte BUSINESS_NODE_MYSQL.md e PRODUCAO.md; instruções anteriores abaixo são históricas.
+
+> Preparação local de produção em 01/11/2026: servidor Node + APIs/F4 e SMTP
+> implementados, sem publicação. A configuração estática histórica abaixo não
+> executa os novos serviços. Consulte `PRODUCAO.md` antes de configurar hospedagem.
+
 # Contexto do site e da transferência
+
+01/11/2026: retomada das 16 alterações da estrutura de compras interrompida.
+Rota `/compra`, API Node local separada, Mercado Pago Orders/Checkout Pro e
+SuperFrete sandbox. Sem publicação, credenciais externas ainda não preenchidas,
+F4 preservado. Consulte `COMPRAS_LOCAL.md` para execução e limites.
+
+Atualização local de 31/10/2026: F4 consulta a base privada por middleware de
+desenvolvimento e worker Python. O build público continua SPA sem esse endpoint.
+Oito respostas fixas, sem IA, com fontes verificadas no servidor. Revisão das
+154 páginas OCR: cinco textos corrigidos e 149 OCR excluídos da recuperação;
+não confundir triagem com validação integral de todos os diagramas. Consulte
+`INTEGRACAO_PRIVADA_LOCAL.md`. Não publicar ou enviar o acervo ao Git.
+
+Continuidade local de 30/10/2026: o Assistente Tavares permanece sem IA e sem
+publicação. Teste isolado F3 disponível em `/teste-assistente.html` no servidor
+de desenvolvimento; o proprietário confirmou funcionamento do F3 no Firefox
+externo na Home e em Livros, sem recorrência do travamento após Q. Preparação privada
+dos quatro livros documentada em `BASE_PRIVADA_ASSISTENTE.md`; acervo e índice
+estão em `.private-assistant/`, ignorados pelo Git e bloqueados no Vite.
+Não incluir essa pasta em publicação ou arquivos públicos.
 
 ## Objetivo e estado conhecido
 
@@ -61,6 +89,12 @@ source-map-js 1.2.2 e remoção de Zod não utilizado. A auditoria npm retornou 
 vulnerabilidades conhecidas em 28/10/2026; consulte `SEGURANCA.md`.
 
 ## Arquitetura e arquivos
+
+Correção local de 30/10/2026: a RootShell mantém HeadContent e children, sem
+renderizar html/head/body nem Scripts de SSR. A SPA é montada em `#root`;
+`index.html` é o único proprietário do documento. Reintroduzir o shell de
+documento do TanStack Start nessa montagem causa erro de ancestralidade no
+React 19 e travamento de eventos do formulário. Consulte ASSISTENTE_TAVARES.md.
 
 | Arquivo/pasta | Finalidade |
 | --- | --- |
@@ -136,3 +170,49 @@ O registro da validação da entrega está em `VALIDACAO.md`. O proprietário
 confirmou o domínio `https://stsdetox.com.br`. A conta/repositório/branch do
 GitHub e o vínculo automático com a Hostinger ainda precisam ser informados
 e verificados em `DESTINOS.md`.
+
+## Seção local Eletrodos e conexões — 31/10/2026
+
+O proprietário aprovou manualmente no Firefox a digitação, resposta e rolagem
+F4. Preservar integralmente esse comportamento; componente e base do assistente
+não foram alterados nesta etapa.
+
+Nova seção da home em /#eletrodos-conexoes, após “O que é”, implementada em
+src/components/EletrodosConexoes.tsx. P10 macho; Mike fêmea com dois furos;
+XLR macho e fêmea em espaços separados. Nenhuma imagem de conector foi criada
+ou obtida: fotos reais aguardam fornecimento/aprovação. A seção esclarece que
+P10 não implica compatibilidade com o eletrodo de 250 sessões.
+
+Destaque exclusivo do modelo de 250 sessões para DETOX BioEquilíbrio:
+cabo do aparelho de aproximadamente 1,20 m, conexão P10 e cabo do eletrodo de
+aproximadamente 50 cm. Fluxo textual responsivo, sem escala. Três espaços para
+vídeos futuros; vídeo atual e biblioteca de vídeos mantidos integralmente.
+
+Proposta antiga em proposta-eletrodos.html é um rascunho histórico separado;
+a referência atual para validação é a seção integrada da home. Sem publicação,
+push, contratação, dependências novas ou integração externa.
+
+### Identificação por número — revisão local
+
+Componente preservado e reorganizado: Nº 1 XLR com 1-A macho (3 pinos) e
+1-B fêmea (3 encaixes/furos); Nº 2 P10; Nº 3 Mike fêmea (2 furos).
+Espaços identificados para fotos aprovadas, sem imagens genéricas.
+Estrutura informativa em duas etapas: 100/200 sessões e depois conector,
+com exemplos de identificação do pedido, sem seleção comercial ou pagamento.
+250 sessões separado, exclusivo DETOX BioEquilíbrio, Nº 2 P10, com explicação
+do cabo de 50 cm conectado ao cabo de 1,20 m do aparelho. Assistente F4,
+fontes, base privada e vídeos existentes não alterados. Sem publicação.
+
+### Apresentação compacta com imagens aprovadas — 31/10/2026
+
+EletrodosConexoes.tsx agora usa os dois PNG originais em public/assets, sem
+edição: guia 100/200 com conectores e imagem exclusiva do modelo 250 sessões.
+Cartões, diagramas repetidos e placeholders visuais removidos. Textos curtos
+solicitados preservados, links para ampliar as imagens em nova aba e textos
+alternativos acessíveis. Vídeos existentes intactos; ponto de inserção futuro
+mantido como comentário, sem espaços vazios na apresentação.
+
+No celular (até 639px), atalhos de Assistente e WhatsApp ficam no fluxo ao final
+do conteúdo, sem sobrepor leitura. Desktop mantém flutuantes. WhatsApp segue
+visível e acessível nesse modo móvel mesmo próximo ao contato. Nenhum evento
+de digitação, rolagem ou consulta do F4 foi alterado. Sem venda ou publicação.

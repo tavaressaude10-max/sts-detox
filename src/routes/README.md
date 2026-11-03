@@ -3,7 +3,7 @@
 This delivery uses TanStack Router in a Vite SPA. Its route files came from
 TanStack Start, but the current `vite.hostinger.config.ts` does not configure
 automatic route-tree generation. The tracked `src/routeTree.gen.ts` registers
-the existing `/` and `/livros` routes. Adding a route requires updating the
+the existing `/`, `/livros` and local-test `/compra` routes. Adding a route requires updating the
 registry safely or setting up the appropriate Router generator first.
 Do not create Next.js route conventions here. Preserve the root Outlet in
 `src/routes/__root.tsx`.

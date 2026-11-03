@@ -3,18 +3,18 @@ import { Link } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
 
 const ancoras = [
-  { href: "#o-que-e", label: "O que é" },
+  { href: "#equipamento", label: "Equipamento" },
   { href: "#uso-pessoal", label: "Uso pessoal" },
-  { href: "#uso-profissional", label: "Uso profissional" },
-  { href: "#formacao", label: "Formação" },
+  { href: "#eletrodos-conexoes", label: "Eletrodos" },
+  { href: "#formacao", label: "Material de estudo" },
   { href: "#videos", label: "Vídeos" },
   { href: "#duvidas", label: "Dúvidas" },
 ];
 
 const livros = [
   { href: "/livros#enciclopedia", label: "Enciclopédia" },
-  { href: "/livros#detox-ionico", label: "DETOX Iônico" },
-  { href: "/livros#bioequilibrio", label: "DETOX BioEquilíbrio" },
+  { href: "/livros#detox-ionico", label: "DETOX IÔNICO" },
+  { href: "/livros#bioequilibrio", label: "DETOX BIOEQUILÍBRIO" },
   { href: "/livros#detox-pet", label: "DETOX PET" },
   { href: "/livros#autor", label: "Sobre o autor" },
 ];
@@ -61,7 +61,7 @@ export function SiteHeader({ ancorasHome = true }: { ancorasHome?: boolean }) {
         <Link
           to="/"
           className="flex min-w-0 items-center gap-3"
-          aria-label="STS DETOX BioEquilíbrio - início"
+          aria-label="STS DETOX IÔNICO - início"
         >
           <img
             src="/sts-favicon.png"
@@ -70,8 +70,8 @@ export function SiteHeader({ ancorasHome = true }: { ancorasHome?: boolean }) {
             height={40}
             className="size-10 shrink-0 rounded-full ring-1 ring-deep/20"
           />
-          <span className="truncate font-display text-sm font-bold sm:text-base">
-            DETOX BioEquilíbrio
+          <span className="font-display text-xs font-bold leading-tight min-[360px]:text-sm sm:text-base">
+            STS DETOX IÔNICO
           </span>
         </Link>
 

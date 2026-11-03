@@ -1,5 +1,23 @@
 # Correção dos alertas de dependências
 
+## Preparação de produção — 01/11/2026
+
+Adicionados somente Nodemailer 10.3.1 e seus tipos 8.0.2 para transporte SMTP
+opcional. Lockfile preserva as demais versões e overrides. `npm ci` concluído
+após liberar o arquivo aberto pelo Vite. `npm audit` registrado em
+`AUDITORIA-NPM-PRODUCAO.json`: 14 moderadas na cadeia de ferramentas já conhecida,
+zero altas/críticas. SMTP desativado por padrão; nenhum e-mail foi enviado.
+
+## Auditoria local — 01/11/2026
+
+Durante a continuidade das compras, `npm ci` e `npm audit --json` apontaram
+14 entradas moderadas na cadeia de ferramentas ESLint/minimatch, nenhuma alta
+ou crítica. Resultado integral em `AUDITORIA-NPM-2026-11-01.json`.
+Os resultados históricos de zero alertas abaixo não representam a auditoria
+atual. Nenhuma dependência ou lockfile foi alterado nesta etapa; não se aplicou
+`audit fix --force`. A remediação requer revisão separada das versões e plugins,
+pois parte das sugestões automáticas envolve mudanças incompatíveis.
+
 ## Seroval — 29/10/2026
 
 `npm.cmd explain seroval` identificou a cadeia:
@@ -81,3 +99,7 @@ confirma que houve exploração dessas falhas.
 
 Os ZIPs anteriores foram preservados como versões históricas. Para instalação
 e implantação atualizadas, utilize o pacote com a correção de segurança.
+
+## Business Node/MySQL — 01/11/2026
+
+mysql2 incluído com lockfile, npm ci concluído. Auditoria atual em AUDITORIA-NPM-BUSINESS.json: 14 moderadas, zero altas/críticas. Não aplicado audit fix --force. Registros MySQL cifrados com AES-GCM e contexto; bancos/usuários/chaves separados por ambiente. Originais F4 preservados e snapshot fora do build/Git. Migração/importação explícitas; cobrança e cron de e-mail desativados por padrão. Integração MySQL real ainda pendente.

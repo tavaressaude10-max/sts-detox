@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "server/**/*.ts",
+    "tests/commerce/**/*.ts",
+    "src/lib/shop-catalog.ts",
+    "tests/server/**/*.ts"
+  ],
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "noEmit": true
+  }
+}

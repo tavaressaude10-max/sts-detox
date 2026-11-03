@@ -1,5 +1,20 @@
 # Biblioteca de vídeos
 
+## Revisão local de 31/10/2026 — sem publicação
+
+A home usa agora `src/components/VideosDestaque.tsx`, com o texto aprovado e
+o link do canal existente. A seleção dos dois vídeos principais solicitados
+ainda depende da identificação dos arquivos/links pelo proprietário; a lista
+do componente está vazia e nenhum vídeo foi presumido. Os componentes antigos
+e os IDs abaixo foram preservados, mas não são montados na home.
+
+Os nove vídeos locais permanecem intactos. O vídeo de uso pessoal continua
+sendo `video-1.mp4`; a apresentação existente (`video-4.mp4`) também aparece
+abaixo dos eletrodos, aguardando confirmação de que é a mídia pretendida para
+o conjunto completo. Ver pendências e testes em `docs/REVISAO_LOCAL_2026-10-31.md`.
+
+## Configuração anterior, preservada
+
 A seção `#videos` da home usa as playlists do STS Detox:
 
 - Apresentação: `PLJa8ZRa8ZUeA`
