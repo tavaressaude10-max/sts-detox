@@ -2,7 +2,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { cart, cep, customer, record, text, cents, ShopError } from './domain.ts';
 import { enqueueEmail } from './email.ts';
 import type { DataStore } from '../storage/types.ts';
-import { assertPayment } from './providers.ts';
+import { assertPayment, checkoutAllowed } from './providers.ts';
 import type { Providers, CommerceConfig, PaymentSnapshot } from './providers.ts';
 import type { Customer, OrderLine, PaymentState, ShippingOption, ShippingQuote } from '../../src/lib/shop-catalog.ts';
 import { money } from '../../src/lib/shop-catalog.ts';
@@ -67,7 +67,7 @@ export class CommerceService {
     return this.providers.address(quote.cep);
   }
   async checkout(session: string, input: unknown) {
-    if (this.config.mode === 'production' && !this.config.checkoutEnabled) {
+    if (!checkoutAllowed(this.config)) {
       throw new ShopError('checkout_disabled', 'Compras ainda não liberadas. Fale com o atendimento humano.', 503);
     }
     const body = record(input);

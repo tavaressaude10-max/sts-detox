@@ -7,13 +7,14 @@ import {applicationRuntime} from '../../server/bootstrap.ts';
 import {createPendingApp} from '../../server/app.ts';
 import {RecordCipher,keyHash} from '../../server/storage/crypto.ts';
 
-for(const scenario of ['banco indisponível','chave incompatível','schema incorreto','F4 ausente','sucesso']){
+for(const scenario of ['banco indisponível','chave incompatível','schema incorreto','F4 ausente','sucesso','homologação']){
   test('prontidão HTTP e validação MySQL: '+scenario,async t=>{
+    const mode=scenario==='homologação'?'test':'production';
     const secret=randomBytes(32).toString('hex');
     const cipher=new RecordCipher(secret);
     const bundle=JSON.parse(await readFile('.private-assistant-node/f4.json','utf8'));
-    const records=new Map([[keyHash('schema:v1'),cipher.seal('production:schema:v1',{version:scenario==='schema incorreto'?2:1})]]);
-    if(scenario!=='F4 ausente')records.set(keyHash('assistant:bundle:v1'),cipher.seal('production:assistant:bundle:v1',bundle));
+    const records=new Map([[keyHash('schema:v1'),cipher.seal(mode+':schema:v1',{version:scenario==='schema incorreto'?2:1})]]);
+    if(scenario!=='F4 ausente')records.set(keyHash('assistant:bundle:v1'),cipher.seal(mode+':assistant:bundle:v1',bundle));
     let closed=false;
     let releaseQuery!:()=>void;
     const gate=new Promise<void>(resolve=>{releaseQuery=resolve;});
@@ -34,7 +35,7 @@ for(const scenario of ['banco indisponível','chave incompatível','schema incor
     const addr=app.server.address();
     assert.ok(addr && typeof addr!=='string');
     const base='http://127.0.0.1:'+addr.port;
-    const env={COMMERCE_MODE:'production',COMMERCE_STORAGE:'mysql',COMMERCE_SITE_ORIGIN:'https://stage.example',
+    const env={COMMERCE_MODE:mode,COMMERCE_CHECKOUT_DISABLED:'true',COMMERCE_DATA_KEY:secret,MYSQL_TEST_HOST:'localhost',MYSQL_TEST_USER:'fixture',MYSQL_TEST_PASSWORD:'fixture',MYSQL_TEST_DATABASE:'fixture',COMMERCE_STORAGE:'mysql',COMMERCE_SITE_ORIGIN:'https://stage.example',
       COMMERCE_PRODUCTION_DATA_KEY:scenario==='chave incompatível'?randomBytes(32).toString('hex'):secret,
       COMMERCE_PRODUCTION_CHECKOUT_ENABLED:'false',ASSISTANT_ENABLED:'true',MYSQL_PRODUCTION_HOST:'localhost',
       MYSQL_PRODUCTION_USER:'fixture',MYSQL_PRODUCTION_PASSWORD:'fixture',MYSQL_PRODUCTION_DATABASE:'fixture'};
@@ -47,7 +48,7 @@ for(const scenario of ['banco indisponível','chave incompatível','schema incor
     assert.equal((await fetch(base+'/api/health')).status,200);
     await blocked();
     releaseQuery();
-    if(scenario==='sucesso'){
+    if(scenario==='sucesso' || scenario==='homologação'){
       const runtime=await pending;
       app.activate(runtime.service,runtime.assistant);
       assert.equal((await fetch(base+'/api/ready')).status,200);

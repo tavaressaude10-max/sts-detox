@@ -23,7 +23,7 @@ try {
     const child=spawn(process.execPath,['homologacao.mjs'],{cwd:directory,stdio:'ignore',env:{
       SystemRoot:process.env.SystemRoot,HOST:host,PORT:String(port),HOMOLOG_SITE_ORIGIN:'https://stage.example',
       HOMOLOG_DATA_KEY:randomBytes(32).toString('hex'),HOMOLOG_MYSQL_HOST:host,HOMOLOG_MYSQL_PORT:String(dbPort),
-      HOMOLOG_MYSQL_DATABASE:'fixture',HOMOLOG_MYSQL_USER:'fixture',HOMOLOG_MYSQL_PASSWORD:'fixture'
+      HOMOLOG_MYSQL_DATABASE:'u897433725_sts_homologa',HOMOLOG_MYSQL_USER:'fixture',HOMOLOG_MYSQL_PASSWORD:'fixture'
     }});
     const ended=new Promise(resolve=>child.once('exit',resolve));
     try {

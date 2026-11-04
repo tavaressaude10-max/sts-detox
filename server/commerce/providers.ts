@@ -25,7 +25,10 @@ export function configFromEnv(env: NodeJS.ProcessEnv): CommerceConfig {
     webhookSecret: production ? (env['MERCADOPAGO_PRODUCTION_WEBHOOK_SECRET'] || '') : (env['MERCADOPAGO_TEST_WEBHOOK_SECRET'] || env['MERCADOPAGO_WEBHOOK_SECRET'] || ''),
     superfreteToken: production ? (env['SUPERFRETE_PRODUCTION_TOKEN'] || '') : (env['SUPERFRETE_TEST_TOKEN'] || env['SUPERFRETE_TOKEN'] || ''),
     dataKey: production ? (env['COMMERCE_PRODUCTION_DATA_KEY'] || '') : (env['COMMERCE_DATA_KEY'] || ''), directory,
-    checkoutEnabled: !production || env['COMMERCE_PRODUCTION_CHECKOUT_ENABLED'] === 'true' };
+    checkoutEnabled: env['COMMERCE_CHECKOUT_DISABLED'] !== 'true' && (!production || env['COMMERCE_PRODUCTION_CHECKOUT_ENABLED'] === 'true') };
+}
+export function checkoutAllowed(config: CommerceConfig){
+  return config.checkoutEnabled ?? (config.mode === 'test');
 }
 export type Fetcher = typeof fetch;
 export interface CreatePaymentInput { id: string; email: string; lines: OrderLine[]; shipping: ShippingOption; totalCents: number }
@@ -89,7 +92,7 @@ export function realProviders(config: CommerceConfig, fetcher: Fetcher = fetch):
       return { cep: destination, street: typeof a['logradouro'] === 'string' ? a['logradouro'] : '', district: typeof a['bairro'] === 'string' ? a['bairro'] : '', city: text(a['localidade'],'a cidade'), state: text(a['uf'],'a UF',2,2) };
     },
     async createPayment(input) {
-      if (config.mode === 'production' && !config.checkoutEnabled) throw new ShopError('checkout_disabled','Compras ainda não liberadas. Fale com o atendimento humano.',503);
+      if (!checkoutAllowed(config)) throw new ShopError('checkout_disabled','Compras ainda não liberadas. Fale com o atendimento humano.',503);
       if (config.mode === 'production') requiredSecret(config.webhookSecret, 'webhook');
       const body = paymentBody(input, config.returnOrigin); // Validar antes de qualquer POST externo.
       await verifySeller();

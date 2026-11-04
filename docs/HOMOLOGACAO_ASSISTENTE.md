@@ -17,11 +17,8 @@ Cadastrar apenas HOMOLOG_SITE_ORIGIN (HTTPS do Web App separado),
 HOMOLOG_MYSQL_HOST, HOMOLOG_MYSQL_PORT, HOMOLOG_MYSQL_DATABASE,
 HOMOLOG_MYSQL_USER, HOMOLOG_MYSQL_PASSWORD, HOMOLOG_MYSQL_TLS e HOMOLOG_DATA_KEY.
 Usar usuário dedicado, restrito ao banco de homologação, e chave própria desse
-banco. Host remoto exige TLS com certificado válido. A entrada usa o namespace
-lógico production **dentro do banco isolado** para exercitar as proteções reais.
-O marcador schema:v1 e assistant:bundle:v1 precisam existir nesse namespace e
-estar cifrados com a chave de homologação. Registros no namespace test não
-satisfazem esse teste. A inicialização não cria nem importa registros.
+banco. Host remoto exige TLS com certificado válido. A entrada aceita apenas u897433725_sts_homologa, usa o namespace test e bloqueia o checkout no serviço e no provedor de pagamentos.
+O verificador scripts/validar-homologacao.ps1 usa a chave SSH já cadastrada para encaminhar a conexão ao MySQL local da hospedagem e pede a senha MySQL e a chave em campos ocultos. Faz apenas SELECT.
 
 Medir em partida fria o tempo até GET /api/health (200). GET /api/ready e
 as duas APIs devem retornar 503 até a leitura do schema e validação do F4.
