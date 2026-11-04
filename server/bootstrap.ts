@@ -27,7 +27,11 @@ export async function applicationRuntime(env:NodeJS.ProcessEnv){
   const runtime=await openStorage(env);
   try {
     const enabled=env['ASSISTANT_ENABLED']==='true';
-    if(enabled)await runtime.repository.load();
+    if(enabled || runtime.config.mode==='production'){
+      const bundle=await runtime.repository.load();
+      if(bundle.records.length!==8 || new Set(bundle.records.map(record=>record.id)).size!==8 ||
+        !bundle.records.some(record=>record.book_id==='livro-4' && record.pdf_page===10))throw Error('F4 incompleto.');
+    }
     return {...runtime,service:new CommerceService(runtime.store,realProviders(runtime.config),runtime.config),
       assistant:{origin:runtime.config.origin,enabled,repository:runtime.repository}};
   }catch(error){await runtime.close();throw error;}

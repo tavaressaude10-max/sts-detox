@@ -1,18 +1,37 @@
-import path from 'node:path';
 import { access } from 'node:fs/promises';
-import { createApp } from './app.ts';
-import { applicationRuntime } from './bootstrap.ts';
+import { createPendingApp } from './app.ts';
 
-export async function main(){
-  const port=Number(process.env['PORT'] || 3000);
+export async function main(env:NodeJS.ProcessEnv=process.env){
+  const port=Number(env['PORT'] || 3000);
   if(!Number.isInteger(port)||port<1||port>65535)throw Error('PORT inválida.');
-  await access(path.resolve('build/index.html'));
-  const runtime=await applicationRuntime(process.env);
-  const server=createApp(runtime.service,runtime.assistant);
+  const app=createPendingApp();
+  const {server}=app;
   let closing=false;
-  const close=()=>{if(closing)return;closing=true;server.close(()=>{void runtime.close().finally(()=>process.exit(0));});};
-  server.once('error',()=>{void runtime.close().finally(()=>{console.error('Não foi possível iniciar o servidor.');process.exitCode=1;});});
-  server.listen(port,process.env['HOST'] || (runtime.config.mode==='production'?'0.0.0.0':'127.0.0.1'),()=>console.log('Site e APIs iniciados; modo '+runtime.config.mode+'; porta '+port+'.'));
-  process.on('SIGINT',close);process.on('SIGTERM',close);
-  // E-mails executados por cron-email.js, nunca por timer permanente.
+  let initialized:Promise<void> | undefined;
+  let release:(()=>Promise<void>) | undefined;
+  async function initialize(){
+    try {
+      await access('build/index.html');
+      const {applicationRuntime}=await import('./bootstrap.ts');
+      const runtime=await applicationRuntime(env);
+      release=runtime.close;
+      if(!closing)app.activate(runtime.service,runtime.assistant);
+    }catch{
+      console.error('APIs bloqueadas. Verifique o pacote, a configuração, o schema e o F4.');
+    }
+  }
+  function close(){
+    if(closing)return;
+    closing=true;
+    server.close(async()=>{
+      await initialized;
+      await release?.();
+    });
+  }
+  server.once('error',()=>{console.error('Falha ao abrir a porta HTTP.');process.exitCode=1;});
+  server.listen(port,env['HOST'] || (env['COMMERCE_MODE']==='production'?'0.0.0.0':'127.0.0.1'),()=>{
+    initialized=initialize();
+  });
+  process.once('SIGINT',close);
+  process.once('SIGTERM',close);
 }

@@ -10,7 +10,13 @@ import type { AssistantConfig } from './assistant-http.ts';
 const mime:Record<string,string>={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.ico':'image/x-icon','.mp4':'video/mp4','.woff2':'font/woff2','.txt':'text/plain; charset=utf-8'};
 export function inside(root:string,target:string){const relative=path.relative(root,target);return relative==='' || (!relative.startsWith('..'+path.sep)&&relative!=='..'&&!path.isAbsolute(relative));}
 export function createApp(service:CommerceService,assistant:AssistantConfig,buildDirectory=path.resolve('build')) {
-  const commerce=createCommerceHandler(service), f4=createAssistantHandler(assistant);
+  const app=createPendingApp(buildDirectory);
+  app.activate(service,assistant);
+  return app.server;
+}
+
+export function createPendingApp(buildDirectory=path.resolve('build')) {
+  let handlers: {commerce: ReturnType<typeof createCommerceHandler>, f4: ReturnType<typeof createAssistantHandler>} | undefined;
   const server=createServer(async(req,res)=>{
     res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');
     res.setHeader('X-Frame-Options','DENY');
@@ -18,8 +24,13 @@ export function createApp(service:CommerceService,assistant:AssistantConfig,buil
     try {
       const url=new URL(req.url || '/','http://local.invalid');
       if(url.pathname==='/api/health'&&req.method==='GET'){res.writeHead(200,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end('{"status":"ok"}');return;}
-      if(url.pathname.startsWith('/api/loja/')){await commerce(req,res);return;}
-      if(url.pathname==='/api/assistente-local'){await f4(req,res);return;}
+      if(url.pathname==='/api/ready' || url.pathname.startsWith('/api/loja/') || url.pathname==='/api/assistente-local'){
+        if(!handlers){res.writeHead(503,{'Cache-Control':'no-store'});res.end();return;}
+        if(url.pathname==='/api/ready'){res.writeHead(200,{'Cache-Control':'no-store'});res.end();return;}
+        if(url.pathname==='/api/assistente-local')await handlers.f4(req,res);
+        else await handlers.commerce(req,res);
+        return;
+      }
       if(url.pathname.startsWith('/api/')){fail(404);return;}
       if(req.method!=='GET'&&req.method!=='HEAD'){fail(405);return;}
       const pathname=decodeURIComponent(url.pathname);
@@ -47,5 +58,7 @@ export function createApp(service:CommerceService,assistant:AssistantConfig,buil
     } catch {if(!res.headersSent)fail(404);else res.destroy();}
   });
   server.requestTimeout=20_000;server.headersTimeout=10_000;
-  return server;
+  return {server, activate(service:CommerceService, assistant:AssistantConfig){
+    handlers={commerce:createCommerceHandler(service), f4:createAssistantHandler(assistant)};
+  }};
 }
