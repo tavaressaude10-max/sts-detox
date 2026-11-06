@@ -180,7 +180,7 @@ function Index() {
                 href="#equipamento"
                 className="inline-flex min-h-14 items-center justify-center rounded-full bg-deep px-6 py-4 text-center text-base font-semibold text-white shadow-md transition-colors hover:bg-deep-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
               >
-                Conhecer o DETOX BIOEQUILÍBRIO
+                CONHECER O DETOX BIOEQUILÍBRIO
               </a>
               <a
                 href={waGeral}
@@ -214,7 +214,7 @@ function Index() {
           <div className="rise lg:col-span-7">
             <p className="eyebrow mb-4 text-aqua">O que é</p>
             <h2 className="text-balance font-display text-4xl font-bold leading-tight">
-              O que é o DETOX BIOEQUILÍBRIO?
+              O QUE É O DETOX BIOEQUILÍBRIO?
             </h2>
             <p className="mt-6 text-pretty text-base leading-8 text-muted-foreground">
               O DETOX BIOEQUILÍBRIO é uma proposta complementar voltada ao
@@ -534,7 +534,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="rounded-xl bg-deep px-6 py-4 text-sm font-semibold text-aqua-soft transition-all hover:-translate-y-0.5 hover:bg-deep-2"
               >
-                Conhecer o DETOX BIOEQUILÍBRIO
+                CONHECER O DETOX BIOEQUILÍBRIO
               </a>
               <a
                 href={waProfissional}

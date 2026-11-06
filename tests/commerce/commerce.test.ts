@@ -10,6 +10,7 @@ import { PrivateStore } from '../../server/commerce/store.ts';
 import { CommerceService, verifiedState } from '../../server/commerce/service.ts';
 import type { StoredOrder, OrderNotifications } from '../../server/commerce/service.ts';
 import { createCommerceServer, verifyWebhook } from '../../server/commerce/http.ts';
+import { returnAccess, validReturnAccess } from '../../server/commerce/return-access.ts';
 
 const config: CommerceConfig={mode:'test',origin:'http://127.0.0.1:5174',returnOrigin:'https://checkout-test.example',accessToken:'TEST-FIXTURE-NOT-A-CREDENTIAL',testSellerId:'123456',webhookSecret:'webhook-fixture-secret',superfreteToken:'TEST-SUPERFRETE-FIXTURE',dataKey:'a'.repeat(64),directory:''};
 const buyer={name:'Pessoa de Teste',document:'52998224725',phone:'83999999999',email:'cliente@example.test',address:{cep:'01001000',street:'Praça de Teste',number:'10',complement:'Teste',district:'Centro',city:'São Paulo',state:'SP'}};
@@ -182,11 +183,19 @@ test('credencial de vendedor real é bloqueada antes do POST de pagamento',async
 });
 test('webhook exige HMAC, timestamp recente e ID de teste',()=>{
   const ts=String(Date.now()),id='ORDTSTFIXTURE1',requestId='request-fixture';
-  const sig=createHmac('sha256',config.webhookSecret).update(`id:${id.toLowerCase()};request-id:${requestId};ts:${ts};`).digest('hex');
+  const sig=createHmac('sha256',config.webhookSecret).update(`id:${id};request-id:${requestId};ts:${ts};`).digest('hex');
   assert.ok(verifyWebhook(config.webhookSecret,`ts=${ts},v1=${sig}`,requestId,id));
   assert.ok(!verifyWebhook(config.webhookSecret,`ts=${ts},v1=${'0'.repeat(64)}`,requestId,id));
   assert.ok(!verifyWebhook(config.webhookSecret,`ts=${ts},v1=${sig}`,requestId,id,Date.now()+11*60_000));
   assert.ok(!verifyWebhook('',`ts=${ts},v1=${sig}`,requestId,id));
+  // Notificações da compra normalizam o ID; o simulador preserva a query.
+  const lowerSig=createHmac('sha256',config.webhookSecret).update(`id:${id.toLowerCase()};request-id:${requestId};ts:${ts};`).digest('hex');
+  assert.ok(verifyWebhook(config.webhookSecret,`ts=${ts},v1=${lowerSig}`,requestId,id));
+  assert.ok(!verifyWebhook(config.webhookSecret,`ts=${ts},v1=${lowerSig}`,requestId,id+'A'));
+  assert.ok(!verifyWebhook(config.webhookSecret,`ts=${ts},v1=${lowerSig}`,requestId+'x',id));
+  assert.ok(verifyWebhook(config.webhookSecret,`ts=${ts},v1=${lowerSig}`,requestId,id.toLowerCase()));
+  assert.ok(!verifyWebhook(config.webhookSecret,`ts=${ts},v1=${sig}`,requestId+'changed',id));
+  assert.ok(!verifyWebhook(config.webhookSecret,`ts=${ts},v1=${sig}`,requestId,id+'2'));
 });
 test('HTTP: sessão, CSRF, erro sem credenciais e retorno forjado não aprovam pagamento',async t=>{
   const f=await fixture(t),server=createCommerceServer(f.service);await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));
@@ -218,4 +227,41 @@ test('rollback após timeout externo preserva intenção e chave idempotente já
   assert.ok(await store.get('order:'+ids[0]));
   await assert.rejects(()=>service.checkout('s',request),/timeout externo/);
   assert.equal(ids.length,2);assert.equal(ids[0],ids[1]);
+});
+
+test('retorno em outra sessão exige autorização temporária do pedido e não cria pagamentos',async t=>{
+  const f=await fixture(t),{request}=await draft(f);
+  let captured:CreatePaymentInput|undefined;
+  const create=f.providers.createPayment;
+  f.providers.createPayment=async input=>{captured=input;return create(input);};
+  const checkout=await f.service.checkout('session-a',request);
+  assert.ok(captured?.returnToken);
+  const token=captured.returnToken,now=Date.now();
+  const urls=paymentBody(captured,config.returnOrigin).config.online;
+  assert.equal(new URL(urls.success_url).hash,'#confirmacao='+token);
+  assert.ok(validReturnAccess(config.dataKey,'test',checkout.orderId,token,now));
+  assert.ok(!validReturnAccess(config.dataKey,'production',checkout.orderId,token,now));
+  assert.ok(!validReturnAccess(config.dataKey,'test',checkout.orderId+'a',token,now));
+  assert.ok(!validReturnAccess(config.dataKey,'test',checkout.orderId,token,now+8*86400_000));
+  assert.ok(!validReturnAccess(config.dataKey,'test',checkout.orderId,token+'a',now));
+  await assert.rejects(f.service.status('new-private-session',checkout.orderId),{status:404});
+  assert.equal((await f.service.status('new-private-session',checkout.orderId,token)).status,'pending');
+  f.approve();
+  for(let i=0;i<3;i++){
+    const result=await f.service.status('new-private-session',checkout.orderId,token);
+    assert.equal(result.status,'approved');assert.equal(result.paidCents,result.totalCents);
+    assert.ok(!JSON.stringify(result).includes(buyer.email));assert.ok(!('customer' in result));
+  }
+  assert.equal(f.creates,1);
+  const expired=returnAccess(config.dataKey,'test',checkout.orderId,now-1);
+  await assert.rejects(f.service.status('new-private-session',checkout.orderId,expired),{status:404});
+  const server=createCommerceServer(f.service);await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));
+  t.after(async()=>{await new Promise<void>(resolve=>server.close(()=>resolve()));});
+  const base='http://127.0.0.1:'+(server.address() as {port:number}).port;
+  const session=await fetch(base+'/api/loja/session'),cookie=session.headers.get('set-cookie')!.split(';')[0]!;
+  const endpoint=base+'/api/loja/orders/'+checkout.orderId;
+  assert.equal((await fetch(endpoint+'?retorno=aprovado',{headers:{Cookie:cookie}})).status,404);
+  const response=await fetch(endpoint,{headers:{Cookie:cookie,'X-Shop-Return-Token':token}});
+  assert.equal(response.status,200);assert.equal((await response.json()).status,'approved');
+  assert.equal(f.creates,1);
 });

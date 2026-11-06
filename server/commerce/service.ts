@@ -6,6 +6,7 @@ import { assertPayment, checkoutAllowed } from './providers.ts';
 import type { Providers, CommerceConfig, PaymentSnapshot } from './providers.ts';
 import type { Customer, OrderLine, PaymentState, ShippingOption, ShippingQuote } from '../../src/lib/shop-catalog.ts';
 import { money } from '../../src/lib/shop-catalog.ts';
+import { returnAccess, validReturnAccess } from './return-access.ts';
 
 interface StoredQuote extends ShippingQuote { session: string; quantity: number }
 export interface StoredOrder {
@@ -96,7 +97,8 @@ export class CommerceService {
       const order=await this.store.get<StoredOrder>(`order:${id}`);
       if(!order || order.session!==session || order.fingerprint!==fingerprint) throw new ShopError('checkout_conflict','Confira novamente o pedido.',409);
       if (order.checkoutUrl) return { orderId: id, checkoutUrl: order.checkoutUrl };
-      const remote = await this.providers.createPayment({ id, email: order.customer.email, lines: order.lines, shipping: order.shipping, totalCents: order.totalCents });
+      const returnToken = returnAccess(this.config.dataKey, this.config.mode, id, this.now() + 7 * 86400_000);
+      const remote = await this.providers.createPayment({ id, email: order.customer.email, lines: order.lines, shipping: order.shipping, totalCents: order.totalCents, returnToken });
       assertPayment(remote,this.config);
       if (remote.external_reference !== id || cents(remote.total_amount) !== order.totalCents || !remote.checkout_url) throw new ShopError('payment_mismatch','Não foi possível verificar o pagamento.',502);
       order.paymentId = remote.id; order.checkoutUrl = remote.checkout_url; order.status = 'pending';
@@ -123,9 +125,9 @@ export class CommerceService {
       return order;
     });
   }
-  async status(session: string, id: string) {
+  async status(session: string, id: string, returnToken = '') {
     const existing = await this.store.get<StoredOrder>(`order:${id}`);
-    if (!existing || existing.session !== session) throw new ShopError('not_found','Pedido não encontrado nesta sessão. Fale com o atendimento humano.',404);
+    if (!existing || (existing.session !== session && !validReturnAccess(this.config.dataKey, this.config.mode, id, returnToken, this.now()))) throw new ShopError('not_found','Pedido não encontrado nesta sessão. Fale com o atendimento humano.',404);
     const order = await this.synchronize(id);
     const notifications=await this.store.get<OrderNotifications>(`outbox:${id}`);
     return { id: order.id, status: order.status, totalCents: order.totalCents, paidCents: order.paidCents, verifiedAt: order.verifiedAt, test: this.config.mode === 'test', notifications: notifications?.delivery || 'not_prepared' };

@@ -1,5 +1,4 @@
 import { waGeral } from "@/lib/whatsapp";
-import videoAparelho from "@/assets/video-4.mp4.asset.json";
 
 export const itensConjunto = [
   "Aparelho DETOX BIOEQUILÍBRIO",
@@ -24,7 +23,7 @@ export function DestaqueBioequilibrio() {
             id="equipamento-titulo"
             className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl"
           >
-            Conheça o DETOX BIOEQUILÍBRIO
+            CONHEÇA O DETOX BIOEQUILÍBRIO
           </h2>
           <p className="mt-6 text-lg leading-8 text-aqua-soft/85">
             Equipamento, acessórios e conhecimento reunidos em uma proposta
@@ -35,7 +34,7 @@ export function DestaqueBioequilibrio() {
               href="#conjunto-completo"
               className="inline-flex min-h-12 items-center rounded-full bg-aqua-soft px-6 py-3 text-sm font-semibold text-deep"
             >
-              Conhecer o DETOX BIOEQUILÍBRIO
+              CONHECER O DETOX BIOEQUILÍBRIO
             </a>
             <a
               href={waGeral}
@@ -84,7 +83,7 @@ export function ConjuntoCompleto() {
             id="conjunto-titulo"
             className="font-display text-3xl font-bold leading-tight sm:text-4xl"
           >
-            Conheça o DETOX BIOEQUILÍBRIO completo
+            CONHEÇA O DETOX BIOEQUILÍBRIO COMPLETO
           </h2>
           <p className="mt-5 text-base leading-8 text-muted-foreground">
             Veja o aparelho e seus acessórios e conheça melhor o funcionamento
@@ -109,7 +108,7 @@ export function ConjuntoCompleto() {
         <figure className="mx-auto w-full max-w-[440px]">
           <video
             id="video-conjunto"
-            src={videoAparelho.url}
+            src="/assets/Vídeo Tavares.mp4"
             controls
             playsInline
             preload="metadata"

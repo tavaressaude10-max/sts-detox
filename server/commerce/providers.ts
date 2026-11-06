@@ -31,7 +31,7 @@ export function checkoutAllowed(config: CommerceConfig){
   return config.checkoutEnabled ?? (config.mode === 'test');
 }
 export type Fetcher = typeof fetch;
-export interface CreatePaymentInput { id: string; email: string; lines: OrderLine[]; shipping: ShippingOption; totalCents: number }
+export interface CreatePaymentInput { id: string; email: string; lines: OrderLine[]; shipping: ShippingOption; totalCents: number; returnToken?: string }
 export interface PaymentSnapshot { id: string; external_reference: string; user_id: string; currency: string; total_amount: string; total_paid_amount: string; status: string; status_detail?: string; live_mode?: boolean; checkout_url?: string; transactions?: { payments?: { status: string; status_detail?: string; paid_amount?: string }[] } }
 export interface Providers {
   quote(cep: string, quantity: number): Promise<ShippingOption[]>;
@@ -43,7 +43,7 @@ export interface Providers {
 export function paymentBody(input: CreatePaymentInput, returnOrigin: string) {
   const base = new URL(returnOrigin);
   if (base.protocol !== 'https:' || ['localhost','127.0.0.1'].includes(base.hostname) || base.username || base.password || base.pathname !== '/') throw new ShopError('return_not_configured', 'O retorno seguro do pagamento de teste ainda não foi configurado.', 503);
-  const url = (state: string) => `${base.origin}/compra?pedido=${encodeURIComponent(input.id)}&retorno=${state}`;
+  const url = (state: string) => `${base.origin}/compra?pedido=${encodeURIComponent(input.id)}&retorno=${state}${input.returnToken ? '#confirmacao='+encodeURIComponent(input.returnToken) : ''}`;
   return {
     type: 'online', processing_mode: 'manual', capture_mode: 'automatic_async', expiration_time: 'PT30M',
     total_amount: (input.totalCents / 100).toFixed(2), external_reference: input.id,

@@ -25,23 +25,71 @@ function Help() { return <a href={waGeral} target="_blank" rel="noopener norefer
 
 interface Result { id: string; status: PaymentState; totalCents: number; paidCents?: number; test: boolean }
 export function PaymentReturn({ orderId }: { orderId: string }) {
-  const [result,setResult]=useState<Result | null>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false);
-  const mounted=useRef(true);
-  async function refresh() {
-    setBusy(true);setError('');
-    try { const data=await shopRequest<Result>(`/orders/${encodeURIComponent(orderId)}`);if(mounted.current)setResult(data); }
-    catch { if(mounted.current)setError('Não foi possível confirmar o pagamento agora. Atualize o status ou fale com professor Tavares.'); }
-    finally { if(mounted.current)setBusy(false); }
-  }
-  useEffect(()=>{ mounted.current=true;void refresh();return()=>{mounted.current=false;}; },[orderId]);
-  const labels: Record<PaymentState,string>={created:'Aguardando pagamento',pending:'Pagamento pendente',approved:result?.test?'Pagamento aprovado — teste':'Pagamento aprovado',rejected:'Pagamento recusado',cancelled:'Pagamento cancelado ou expirado',refunded:'Pagamento devolvido ou contestado'};
-  return <section aria-live="polite" className="rounded-3xl border border-border bg-surface p-6 sm:p-10">
-    <h1 className="font-display text-3xl font-bold text-deep">{result ? labels[result.status] : 'Conferindo o pagamento'}</h1>
-    <p className="mt-4 break-all text-sm text-muted-foreground">Pedido {orderId}</p>
-    {result?.status==='approved' ? <><p className="mt-6 leading-7">{result.test ? 'Seu pagamento de teste foi confirmado pelo Mercado Pago. Nenhum produto será enviado nesta etapa de testes.' : 'Seu pagamento foi confirmado pelo Mercado Pago. Seu pedido seguirá para preparação e envio.'}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{result.test ? 'As confirmações de teste foram preparadas, sem envio de e-mail.' : 'Guarde o número do pedido. Para acompanhar a entrega, fale com professor Tavares.'}</p></> : result?.status==='pending' || result?.status==='created' ? <p className="mt-6 leading-7">A confirmação ainda está pendente. Se escolheu Pix, siga as instruções do Mercado Pago. Evite iniciar outro pagamento enquanto aguarda.</p> : result ? <p className="mt-6 leading-7">{paymentFailure}</p> : null}
-    {result && <p className="mt-5 font-semibold">Total do pedido: {money(result.totalCents)}{result.status==='approved' && result.paidCents!==undefined && <span className="block">Total pago: {money(result.paidCents)}</span>}</p>}
+  const [result,setResult]=useState<Result | null>(null),[error,setError]=useState('');
+  const [retry,setRetry]=useState(0),[busy,setBusy]=useState(false);
+  useEffect(()=>{
+    let active=true, timer: ReturnType<typeof setTimeout> | undefined, attempts=0;
+    const storageKey='sts-payment-return:'+orderId;
+    const fragment=new URLSearchParams(window.location.hash.slice(1));
+    let token=fragment.get('confirmacao') || '';
+    try {
+      if(token) sessionStorage.setItem(storageKey,token);
+      else token=sessionStorage.getItem(storageKey) || '';
+    } catch { /* Sessão original funciona mesmo sem storage. */ }
+    if(fragment.has('confirmacao')) window.history.replaceState(window.history.state,'',window.location.pathname+window.location.search);
+    setResult(null);setError('');
+    async function refresh() {
+      if(!active)return;
+      setBusy(true);attempts++;
+      let continuePolling=true;
+      try {
+        const data=await shopRequest<Result>('/orders/'+encodeURIComponent(orderId),undefined,token);
+        if(!active)return;
+        setResult(data);setError('');
+        continuePolling=['created','pending'].includes(data.status);
+      } catch(e) {
+        if(!active)return;
+        const denied=e instanceof CheckoutError && e.code==='not_found';
+        continuePolling=!denied;
+        setError(denied
+          ? 'Não foi possível acessar este pedido nesta sessão. Abra o endereço de retorno na janela em que iniciou a compra na loja. Não pague novamente.'
+          : 'Ainda não foi possível confirmar o pagamento. Tentaremos consultar novamente automaticamente. Não pague novamente.');
+      } finally { if(active)setBusy(false); }
+      if(active && continuePolling) {
+        if(attempts<60) timer=setTimeout(()=>void refresh(),5000);
+        else setError('A confirmação está demorando. Você pode consultar novamente ou voltar mais tarde. Não é necessário pagar novamente.');
+      }
+    }
+    void refresh();
+    return()=>{active=false;if(timer)clearTimeout(timer);};
+  },[orderId,retry]);
+  const approved=result?.status==='approved';
+  const labels: Record<PaymentState,string>={created:'Aguardando pagamento',pending:'Pagamento pendente ou em análise',approved:'✅ PAGAMENTO APROVADO!',rejected:'Pagamento recusado',cancelled:'Pagamento cancelado ou expirado',refunded:'Pagamento devolvido ou contestado'};
+  const descriptions: Partial<Record<PaymentState,string>>={
+    created:'Aguardamos a confirmação do Mercado Pago. A tela será atualizada automaticamente.',
+    pending:'O Mercado Pago ainda não confirmou a aprovação. Se você já pagou, aguarde: a tela será atualizada automaticamente. Não inicie outro pagamento.',
+    rejected:'O Mercado Pago informou que o pagamento foi recusado. Este pedido não está confirmado.',
+    cancelled:'O pagamento foi cancelado ou expirou. Este pedido não está confirmado.',
+    refunded:'O Mercado Pago informou devolução ou contestação deste pagamento. Fale com o atendimento para conferir o pedido.',
+  };
+  return <section aria-live="polite" className="rounded-3xl border border-deep/20 bg-surface p-6 shadow-sm sm:p-10">
+    <h1 className="font-display text-3xl font-bold text-deep">{result ? labels[result.status] : error ? 'Confirmação indisponível' : 'Conferindo o pagamento'}</h1>
+    {approved ? <>
+      <p className="mt-6 leading-7">Seu pagamento foi confirmado com sucesso.</p>
+      <dl className="mt-6 space-y-3 rounded-2xl bg-aqua-soft/30 p-5 text-deep">
+        <div><dt className="font-semibold">Pedido:</dt><dd className="break-all text-sm">{result.id}</dd></div>
+        <div><dt className="font-semibold">Valor pago:</dt><dd className="text-2xl font-bold">{money(result.paidCents!)}</dd></div>
+      </dl>
+      <p className="mt-6 font-semibold leading-7">Obrigado por comprar na STS DETOX IÔNICO!</p>
+      <p className="mt-2 leading-7">Em breve, seu pedido seguirá para preparação.</p>
+      {result.test && <p className="mt-4 rounded-xl border border-deep/20 p-4 text-sm leading-6">Simulação de teste: nenhum dinheiro real foi movimentado. Não haverá preparação ou envio de produtos.</p>}
+    </> : <>
+      <p className="mt-4 break-all text-sm text-muted-foreground">Pedido: {orderId}</p>
+      {result && <p className="mt-6 leading-7">{descriptions[result.status]}</p>}
+      {result && <p className="mt-5 font-semibold">Total do pedido: {money(result.totalCents)}</p>}
+    </>}
     {error && <p role="alert" className="mt-5 text-sm leading-7">{error}</p>}
-    <div className="mt-7 flex flex-wrap gap-3"><button type="button" disabled={busy} onClick={()=>void refresh()} className={primary}>{busy?'Consultando…':'Atualizar status'}</button><a href="/compra" className={secondary}>Voltar à compra</a></div>
+    <div className="mt-7 flex flex-wrap gap-3">{!approved && <button type="button" disabled={busy} onClick={()=>setRetry(value=>value+1)} className={primary}>{busy?'Consultando…':'Consultar novamente'}</button>}<a href="/" className={secondary}>Voltar à loja</a></div>
     <Help /><CompraConditions />
   </section>;
 }
@@ -56,9 +104,18 @@ export function CompraEletrodos({ initialProduct }: { initialProduct: string }) 
   const shippingOption=quote?.options.find(o=>o.id===shipping);
   const subtotal=items.reduce((sum,i)=>sum+(shopProducts.find(p=>p.id===i.productId)?.priceCents ?? 0)*i.quantity,0);
   const stageRef=useRef<HTMLDivElement>(null);
+  const postalRef=useRef<HTMLInputElement>(null);
   function focusStage(){requestAnimationFrame(()=>{stageRef.current?.focus();stageRef.current?.scrollIntoView({block:'start',behavior:'smooth'});});}
   function resetQuote(){setQuote(null);setShipping('');setStep('shipping');setError('');setAccepted(false);checkoutKey.current=crypto.randomUUID();}
   function changeItems(next:CartItem[]){setItems(next);resetQuote();}
+  function changePostal(next:string){
+    setPostal(next);resetQuote();setAddressNotice('');
+    setBuyer(prev=>prev.address.cep===next.replace(/\D/g,'')?prev:{...prev,address:{...emptyCustomer.address}});
+  }
+  function editPostal(){
+    resetQuote();setAddressNotice('');focusStage();
+    requestAnimationFrame(()=>{postalRef.current?.focus();postalRef.current?.select();});
+  }
   async function calculate(event: FormEvent) {
     event.preventDefault();setBusy(true);setError('');setQuote(null);setShipping('');
     try{setQuote(await shopRequest<ShippingQuote>('/quotes',{items,cep:postal}));}
@@ -108,18 +165,19 @@ export function CompraEletrodos({ initialProduct }: { initialProduct: string }) 
       {totalQty>=9 ? <><h2 className="font-display text-xl font-bold">Para 9 unidades ou mais, fale com o professor Tavares</h2><Help /></> : step==='shipping' ? <>
         <h2 className="font-display text-2xl font-bold">Calcule seu frete</h2>
         <form onSubmit={calculate} className="mt-5 flex flex-col items-start gap-4 sm:flex-row sm:items-end">
-          <label className="w-full text-sm font-semibold sm:max-w-xs">CEP<input aria-label="CEP para calcular frete" required inputMode="numeric" autoComplete="postal-code" pattern="[0-9]{5}-?[0-9]{3}" maxLength={9} placeholder="00000-000" disabled={busy} className={inputClass} value={postal} onChange={e=>{setPostal(e.target.value.replace(/[^\d-]/g,''));resetQuote();}} /></label>
+          <label className="w-full text-sm font-semibold sm:max-w-xs">CEP<input ref={postalRef} aria-label="CEP para calcular frete" required inputMode="numeric" autoComplete="postal-code" pattern="[0-9]{5}-?[0-9]{3}" maxLength={9} placeholder="00000-000" disabled={busy} className={inputClass} value={postal} onChange={e=>changePostal(e.target.value.replace(/[^\d-]/g,''))} /></label>
           <button disabled={busy} className={primary}>{busy?'Calculando…':'Calcular frete'}</button>
         </form>
         {quote && <fieldset disabled={busy} className="mt-7"><legend className="text-sm font-semibold">Escolha a entrega</legend><div className="mt-3 grid gap-3 sm:grid-cols-2">{quote.options.map(option=><label key={option.id} className={`flex cursor-pointer items-start gap-3 rounded-xl border p-4 ${shipping===option.id?'border-deep bg-aqua-soft/30':'border-border'}`}><input type="radio" name="shipping" value={option.id} checked={shipping===option.id} onChange={()=>setShipping(option.id)} className="mt-1" /><span><strong>{option.name} · {money(option.priceCents)}</strong><span className="mt-1 block text-sm text-muted-foreground">{option.deliveryDays} dia(s) útil(eis) após postagem</span></span></label>)}</div>{quote.options.length<2 && <p className="mt-3 text-sm text-muted-foreground">Uma das modalidades não está disponível para esta cotação.</p>}<button type="button" disabled={!shippingOption || busy} onClick={()=>void continuePurchase()} className={`${primary} mt-6`}>Continuar compra</button></fieldset>}
       </> : step==='details' ? <form onSubmit={review}>
         <h2 className="font-display text-2xl font-bold">Endereço de entrega</h2>
         <p className="mt-3 text-sm leading-7 text-muted-foreground">Confira o endereço encontrado para seu CEP e complete número e complemento.</p>
+        <button type="button" onClick={editPostal} className={`${secondary} mt-4`}>Alterar CEP e recalcular frete</button>
         {addressNotice && <p role="status" className="mt-3 text-sm">{addressNotice}</p>}
         <div className="mt-6 grid gap-5 sm:grid-cols-2">{addressField('cep','CEP','postal-code')}{addressField('street','Logradouro','address-line1')}{addressField('number','Número (ou S/N)')}{addressField('complement','Complemento (opcional)','address-line2')}{addressField('district','Bairro')}{addressField('city','Cidade','address-level2')}{addressField('state','UF','address-level1')}</div>
         <h2 className="mt-10 font-display text-2xl font-bold">Seus dados</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2">{field('name','Nome completo','text','name')}{field('document','CPF ou CNPJ')}{field('phone','Telefone/WhatsApp','tel','tel')}{field('email','E-mail','email','email')}</div>
-        <div className="mt-8 flex flex-wrap gap-3"><button className={primary}>Conferir pedido</button><button type="button" onClick={()=>{setStep('shipping');setError('');focusStage();}} className={secondary}>Alterar produtos ou frete</button></div>
+        <div className="mt-8 flex flex-wrap gap-3"><button className={primary}>Conferir pedido</button><button type="button" onClick={()=>{setStep('shipping');setAccepted(false);setError('');focusStage();}} className={secondary}>Alterar produtos ou frete</button></div>
       </form> : quote && shippingOption ? <>
         <h2 className="font-display text-2xl font-bold">Confira seu pedido</h2>
         <ul className="mt-6 divide-y divide-border">{quote.lines.map(line=><li key={line.productId} className="py-4"><strong>{line.title}</strong><p className="mt-1 text-sm leading-7">{line.connector} · {line.quantity} unidade(s) · {money(line.unitPriceCents)} cada</p><p className="mt-1 font-semibold">{money(line.subtotalCents)}</p></li>)}</ul>

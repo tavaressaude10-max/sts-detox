@@ -11,7 +11,7 @@ export default defineConfig({
     // API de compras isolada; não compartilha middleware nem dados com o F4.
     proxy: { '/api/loja': 'http://127.0.0.1:8788' },
     fs: {
-      deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/.private-assistant/**', '**/.private-assistant-node/**', '**/.private-commerce/**', '**/.server-build/**', '**/server/**', '**/scripts/**', '**/tests/**'],
+      deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/.codex/**', '**/.hostinger/**', '**/*.{zip,log}', '**/.private-assistant/**', '**/.private-assistant-node/**', '**/.private-commerce/**', '**/.server-build/**', '**/server/**', '**/scripts/**', '**/tests/**'],
     },
   },
   build: {

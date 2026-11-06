@@ -6,6 +6,6 @@
     "noUncheckedIndexedAccess": true, "exactOptionalPropertyTypes": true,
     "rewriteRelativeImportExtensions": true
   },
-  "include": ["server/**/*.ts", "src/lib/shop-catalog.ts"],
+  "include": ["server/**/*.ts", "src/lib/shop-catalog.ts", "src/lib/assistant-context.ts"],
   "exclude": ["server/assistant-local-plugin.ts", "server/commerce/main.ts"]
 }

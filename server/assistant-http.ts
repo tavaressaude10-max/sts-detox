@@ -2,7 +2,8 @@ import { respondFromBundle } from './assistant-core.ts';
 import type { AssistantRepository } from './assistant-core.ts';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 
-export interface AssistantConfig { origin: string; repository: AssistantRepository; enabled: boolean }
+export type PrivateSearch = (question: string) => ReturnType<typeof respondFromBundle>['answer'];
+export interface AssistantConfig { origin: string; repository: AssistantRepository; enabled: boolean; search?: PrivateSearch }
 // Mesmo worker curado do F4 local. Não oferece arquivos, exportação ou pesquisa bruta.
 export function createAssistantHandler(config: AssistantConfig) {
   let active=0, start=0, count=0;
@@ -25,7 +26,12 @@ export function createAssistantHandler(config: AssistantConfig) {
       let timer:ReturnType<typeof setTimeout>|undefined;
       try {
         const bundle=await Promise.race([config.repository.load(),new Promise<never>((_,reject)=>{timer=setTimeout(()=>reject(Error('timeout')),8000);})]);
-        reply(200,respondFromBundle(bundle,payload));
+        const curated = respondFromBundle(bundle,payload);
+        if (curated.answer && config.search) {
+          curated.answer.sourceLabel = curated.answer.sourceLabel.replace(/(página \d+) do PDF/u, '$1 do livro');
+        }
+        const found = !curated.answer && config.search?.(payload.question);
+        reply(200,found ? {mode:'private-local-search',answer:found} : curated);
       } finally {if(timer)clearTimeout(timer);}
 
     } catch {reply(503,{error:'Base privada indisponível.'});} finally {active--;}

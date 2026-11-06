@@ -24,15 +24,28 @@ try {
   tunnel.on('error',()=>stream.destroy(new Error('SSH')));
   connection=await mysql.createConnection({stream,user,password,database:'u897433725_sts_homologa',connectTimeout:12000});
   async function read(name){
+    stage='execução do SELECT de '+name;
     const [rows]=await connection.execute('SELECT payload FROM sts_records WHERE environment=? AND record_key=?',['test',keyHash(name)]);
+    stage=rows.length===0?'localização de '+name+' (registro ausente em test)':'unicidade de '+name;
     if(rows.length!==1)throw Error();
-    return cipher.open('test:'+name,rows[0].payload);
+    stage='formato binário de '+name;
+    const payload=rows[0].payload;
+    if(!Buffer.isBuffer(payload) || payload.length<29)throw Error();
+    stage='autenticação AES-GCM de '+name+' no contexto test';
+    try {
+      return cipher.open('test:'+name,payload);
+    }catch(error){
+      if(error instanceof SyntaxError)stage='interpretação do JSON autenticado de '+name;
+      throw error;
+    }
   }
-  stage='leitura autenticada do schema v1';
-  if((await read('schema:v1'))?.version!==1)throw Error();
+  const schema=await read('schema:v1');
+  stage='versão do schema autenticado (esperado 1)';
+  if(schema?.version!==1)throw Error();
   console.log('Schema v1 autenticado.');
-  stage='leitura e validação das oito respostas';
-  const bundle=validateBundle(await read('assistant:bundle:v1'));
+  const rawBundle=await read('assistant:bundle:v1');
+  stage='validação das oito respostas autenticadas';
+  const bundle=validateBundle(rawBundle);
   const records=bundle.records;
   if(records.length!==8 || new Set(records.map(r=>r.id)).size!==8 || new Set(records.map(r=>r.text.trim())).size!==8)throw Error();
   for(const record of records){

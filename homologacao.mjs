@@ -13,4 +13,12 @@ for(const name of ['HOST','PORT','TLS','DATABASE','USER','PASSWORD']){
 if(env.MYSQL_TEST_DATABASE!=='u897433725_sts_homologa'){
   throw Error('Informe o banco dedicado de homologação.');
 }
-await main(env);
+let search;
+if(process.argv.includes('--pesquisa-local')){
+  if(env.HOST!=='127.0.0.1' || env.COMMERCE_SITE_ORIGIN!=='http://127.0.0.1:'+env.PORT){
+    throw Error('A pesquisa privada exige origem e servidor locais.');
+  }
+  const {openPrivateSearch}=await import('./scripts/pesquisa-local.mjs');
+  search=openPrivateSearch();
+}
+await main(env,search);

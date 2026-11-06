@@ -1,5 +1,34 @@
 # Conferência de frete e conectores — 01/11/2026
 
+## Nova investigação — 05/11/2026
+
+Falha relatada para uma unidade de `e250-p10` (250 sessões, P10, R$ 339,00)
+não reproduzida nesta investigação. Nenhuma alteração de código, credencial
+ou reinicialização foi necessária.
+
+- API direta em 127.0.0.1:8788 e sessão pelo proxy em 127.0.0.1:5174:
+  HTTP 200, modo `test`, sessão/CSRF presentes.
+- Configuração local: `COMMERCE_MODE=test`, origem http://127.0.0.1:5174,
+  token legado `SUPERFRETE_TOKEN` preenchido e aceito no sandbox; nenhuma
+  credencial de produção utilizada. O fallback legado é previsto no modo teste.
+- Chamada real ao sandbox: HTTP 200. Payload conferido com destino `15375126`,
+  origem `58315000`, serviços `1,2`, pacote 11 × 11 × 21 cm e 0,3 kg.
+- POST real `/api/loja/quotes` pelo proxy, com cookie/CSRF, CEP `15375-126`
+  e uma unidade de `e250-p10`: HTTP 200, CEP normalizado `15375126`,
+  subtotal de 33900 centavos.
+- Reteste pelo botão “Calcular frete” no navegador: PAC R$ 70,64 / 16 dias úteis;
+  SEDEX R$ 92,98 / 10 dias úteis após postagem. Valores retornados pelo sandbox,
+  sem mocks. Não foi acionado “Continuar compra”.
+
+Os registros históricos abaixo comprovam ausência/rejeição anterior de token
+e um timeout isolado, seguidos de sucesso com credencial sandbox. Sem registro
+da requisição específica relatada agora, não é possível atribuir sua causa
+a um desses eventos. A configuração e a comunicação estão funcionais no reteste.
+Não foram executados build/testes unitários, pois não houve mudança de código;
+a validação desta etapa foi integração real sandbox, HTTP local e interface.
+Produtos, preços, Assistente Tavares e demais seções preservados. Nenhum pedido,
+pagamento, etiqueta, commit, push ou publicação efetuado.
+
 Somente local. Não publicar. Cotação real no sandbox confirmada no reteste abaixo;
 isso não homologa produção ou pagamentos.
 

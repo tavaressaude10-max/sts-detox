@@ -4,9 +4,10 @@ import { bookTitles, makeHandoff, questionsFor, topics, type Topic, type Answer 
 import { wa } from '@/lib/whatsapp';
 import './assistente-tavares.css';
 import { resolveAssistantAnswer } from '@/lib/assistant-response';
+import { resolveBookContext, type Subject } from '@/lib/assistant-context';
 import { OPEN_ASSISTANT_EVENT } from '@/lib/assistant-open';
 
-type Exchange = Answer & { question: string };
+type Exchange = Answer & { question: string; subjects?: Subject[] };
 export function AssistenteTavares() {
   const [open, setOpen] = useState(false);
   const [topic, setTopic] = useState<Topic>('Equipamento');
@@ -64,10 +65,12 @@ export function AssistenteTavares() {
     const timeout = window.setTimeout(() => controller.abort(), 10_000);
     setPending(true); clearInput(); setDraft(null);
     try {
-      const answer = await resolveAssistantAnswer(question, product, controller.signal, history.at(-1)?.clarification === 'price-product');
+      const last = history.at(-1);
+      const answer = await resolveAssistantAnswer(question, product, controller.signal, last?.clarification === 'price-product', last?.subjects);
       if (request.current !== controller) return;
       if (answer.product) setProduct(answer.product);
-      setHistory(previous => [...previous, { question: question.trim(), ...answer }].slice(-20));
+      const subjects = answer.subjects ?? resolveBookContext(question).subjects;
+      setHistory(previous => [...previous, { question: question.trim(), ...answer, subjects }].slice(-20));
     } catch {
       if (request.current === controller) setHistory(previous => [...previous, { question: question.trim(), text: 'A consulta demorou mais que o esperado. Posso preparar sua mensagem para atendimento humano.', handoff: true, reason: 'unsupported' as const }].slice(-20));
     } finally {

@@ -1,7 +1,8 @@
 import { access } from 'node:fs/promises';
 import { createPendingApp } from './app.ts';
+import type { PrivateSearch } from './assistant-http.ts';
 
-export async function main(env:NodeJS.ProcessEnv=process.env){
+export async function main(env:NodeJS.ProcessEnv=process.env, search?: PrivateSearch){
   const port=Number(env['PORT'] || 3000);
   if(!Number.isInteger(port)||port<1||port>65535)throw Error('PORT inválida.');
   const app=createPendingApp();
@@ -15,7 +16,7 @@ export async function main(env:NodeJS.ProcessEnv=process.env){
       const {applicationRuntime}=await import('./bootstrap.ts');
       const runtime=await applicationRuntime(env);
       release=runtime.close;
-      if(!closing)app.activate(runtime.service,runtime.assistant);
+      if(!closing)app.activate(runtime.service,search ? {...runtime.assistant,search} : runtime.assistant);
     }catch{
       console.error('APIs bloqueadas. Verifique o pacote, a configuração, o schema e o F4.');
     }

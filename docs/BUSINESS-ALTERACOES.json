@@ -1,0 +1,49 @@
+{
+  "backup": "backup-business-node-mysql-20261101-195523.zip",
+  "privateOriginalFilesUnchanged": 389,
+  "sourceAndPublicUnchanged": true,
+  "modified": [
+    ".env.example",
+    ".gitignore",
+    "docs/CONTEXTO.md",
+    "docs/GITHUB_HOSTINGER.md",
+    "docs/PRODUCAO.md",
+    "docs/SEGURANCA.md",
+    "package-lock.json",
+    "package.json",
+    "README.md",
+    "server/assistant-http.ts",
+    "server/assistant-local-plugin.ts",
+    "server/commerce/email.ts",
+    "server/commerce/providers.ts",
+    "server/commerce/service.ts",
+    "server/main.ts",
+    "tests/commerce/commerce.test.ts",
+    "tests/commerce/production.test.ts",
+    "tests/server/app.test.ts",
+    "vite.hostinger.config.ts"
+  ],
+  "removed": [
+    ".dockerignore",
+    "Dockerfile"
+  ],
+  "added": [
+    "server/assistant-core.ts",
+    "server/assistant-file.ts",
+    "server/bootstrap.ts",
+    "server/email-job.ts",
+    "server/storage/crypto.ts",
+    "server/storage/mysql.ts",
+    "server/storage/types.ts",
+    "scripts/db-migrate.mjs",
+    "scripts/export-f4-node.mjs",
+    "scripts/import-f4-mysql.mjs",
+    "tests/server/node-mysql.test.ts",
+    "docs/AUDITORIA-NPM-BUSINESS.json",
+    "server.js",
+    "cron-email.js",
+    "tsconfig.server.json",
+    "docs/BUSINESS-ALTERACOES.json",
+    "docs/BUSINESS_NODE_MYSQL.md"
+  ]
+}

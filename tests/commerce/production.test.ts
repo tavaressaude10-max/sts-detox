@@ -48,7 +48,7 @@ test('reconciliação rejeita ambiente, vendedor, moeda e valor divergentes',()=
 });
 test('HMAC de produção aceita apenas ID do ambiente e assinatura recente',()=>{
   const ts=String(Date.now()),request='request-fixture',id=remote.id;
-  const hash=createHmac('sha256',config.webhookSecret).update(`id:${id.toLowerCase()};request-id:${request};ts:${ts};`).digest('hex');
+  const hash=createHmac('sha256',config.webhookSecret).update(`id:${id};request-id:${request};ts:${ts};`).digest('hex');
   assert.ok(verifyWebhook(config.webhookSecret,`ts=${ts},v1=${hash}`,request,id,Date.now(),'production'));
   assert.equal(verifyWebhook(config.webhookSecret,`ts=${ts},v1=${hash}`,request,id),false);
   assert.equal(verifyWebhook('other',`ts=${ts},v1=${hash}`,request,id,Date.now(),'production'),false);

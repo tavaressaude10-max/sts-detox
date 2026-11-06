@@ -1,5 +1,150 @@
 # Compras de eletrodos — somente teste local
 
+## Preparação da primeira compra simulada — 05/11/2026
+
+Webhook externo confirmado às 14h19: assinatura válida, HTTP 200, evento Order,
+modo teste e vendedor corretos. Esse recurso externo não tinha pedido local
+associado: ainda não valida o ciclo completo de uma compra originada na loja.
+
+Proprietário autorizou preparar/liberar exclusivamente checkout de teste, sem
+criar pedidos nesta etapa. Credencial reconfirmada por GET /users/me: vendedor
+test_user e ID correspondente; credenciais de produção ausentes. Leitura/escrita
+do PrivateStore verificadas com marcador diagnóstico removido após conferência.
+Esta execução usa arquivos cifrados em `.private-commerce`, não MySQL.
+URLs de retorno de sucesso/pendência/falha apontam à mesma origem HTTPS do túnel;
+GET /compra e /api/loja/session retornaram 200, sessão test e cookie Secure.
+Retorno completo e registro via webhook aguardam a primeira compra simulada.
+
+Processo diagnóstico reiniciado com `COMMERCE_MODE=test`,
+`COMMERCE_CHECKOUT_DISABLED=false`, `COMMERCE_DIAGNOSTIC_TEST_CHECKOUT=true`,
+`COMMERCE_PRODUCTION_CHECKOUT_ENABLED=false` e origens HTTPS do túnel.
+O script continua recusando produção; checkout permanece bloqueado por padrão
+e só é liberado pela opção explícita acima junto da configuração normal.
+Credenciais e arquivo `.env.commerce.local` não alterados.
+Log: `%LOCALAPPDATA%/Temp/sts-detox-tunnel/webhook-diagnostic-20261105-142429.log`.
+Nenhum POST de criação de order, pedido, pagamento ou e-mail enviado nesta etapa.
+
+## Diagnóstico temporário do webhook — 05/11/2026
+
+Reteste às 14h04 (Brasília): HTTP 401/signature_mismatch em 16 ms. Rota POST,
+evento Order, modo teste, vendedor, ID esperado, query e corpo correspondem;
+sem headers duplicados ou espaços externos em request-id. HMAC do manifesto
+normalizado como no SDK e alternativas de capitalização não coincidem.
+Comparação isolada com o código oficial do SDK: oito cenários fictícios
+concordaram com o validador local. Sonda exclusivamente em loopback usando corpo
+deliberadamente inválido: assinatura válida, seguida de 400/test_guard antes
+de qualquer consulta/processamento de pedido. Nenhuma sonda assinada com segredo
+real foi enviada ao túnel público.
+Inspeção booleana do segredo local identificou espaços internos e padrão de
+texto de instrução de preenchimento; valor não exibido nem alterado. É necessário
+conferir a cópia do valor puro no painel antes de nova simulação. Não se concluiu
+que a origem da divergência é falha no algoritmo. Nenhum pagamento ou publicação.
+
+Reteste às 13h57 (Brasília): POST chegou à rota correta; HTTP 401 em 11 ms,
+`signature_mismatch`, mesmo após preservar a capitalização. Essa correção não
+comprovou a causa da divergência real. Diagnóstico ampliado: compara HMAC do
+manifesto do SDK, variações de capitalização apenas para observação, presença
+única de headers/query, correspondência do ID esperado/corpo/query, modo do
+payload e vendedor. Somente booleanos são registrados; corpo é limitado a 24 KB,
+usado em memória e descartado, nunca gravado. Nenhuma alternativa diagnóstica
+é aceita pelo handler. Startup confere por booleano se o segredo carregado
+corresponde ao arquivo. Teste HTTP isolado com fixtures confirmou 200/401,
+preservação do processamento e ausência de segredos/IDs no log. Build aprovado.
+Aguarda nova simulação externa para observar esses indicadores adicionais.
+
+Continuidade: duas simulações chegaram à rota POST correta e retornaram 401,
+`signature_mismatch`. Segredo preenchido, sem espaços externos, modo test.
+Comparação com o SDK Node oficial revelou que o código local convertia `data.id`
+para minúsculas no manifesto HMAC, enquanto o SDK preserva a capitalização.
+Falha reproduzida com segredo fictício e ID de teste em maiúsculas. Corrigido
+localmente para assinar `id:<data.id>;request-id:<x-request-id>;ts:<ts>;` com
+o ID recebido na query. ID do corpo é conferido depois da autenticação, não
+substitui o identificador da query na assinatura. Segredo não alterado;
+HMAC-SHA256, comparação em tempo constante, prazo e bloqueios de ambiente mantidos.
+Testes cobrem maiúsculas/minúsculas e rejeição de ID/request-id adulterados.
+30 testes de compras e `npm run verificar` aprovados. Aguarda nova simulação
+externa para confirmar se essa diferença explica a assinatura recebida.
+Referência: https://github.com/mercadopago/sdk-nodejs/blob/master/src/utils/webhook/index.ts
+e teste oficial `uppercase dataId is preserved in HMAC` em `webhook.spec.ts`.
+
+`scripts/diagnose-webhook.mjs` inicia a mesma API na porta 8788, exclusivamente
+em teste e com checkout desativado por padrão (liberação explícita documentada acima). Observa no máximo 200 requisições às rotas
+de webhook, sem mudar as validações ou o processamento. Registra somente hora,
+contador local, método POST/OTHER, correspondência da rota, resultado categórico
+da validação de assinatura, status HTTP e duração. Não registra URL/query, IDs
+externos, assinatura, segredo, headers, corpo, dados pessoais ou resposta remota.
+Saída desta execução: `%LOCALAPPDATA%/Temp/sts-detox-tunnel/webhook-diagnostic-20261105-134822.log`.
+O processo recebeu a mesma origem HTTPS temporária documentada abaixo e relê
+o segredo do arquivo privado. Para desativar o diagnóstico, encerrar esse processo
+e iniciar a entrada normal `server/commerce/main.ts` com o ambiente adequado;
+não perder as substituições temporárias de origem/teste/bloqueio de checkout.
+
+Validação: sete cenários em memória (assinatura válida, divergente, ID ausente,
+ID de outro ambiente, request-id ausente, formato inválido e timestamp expirado),
+ausência de credenciais nos registros e recusa de produção. Sem chamadas HTTP
+nesses cenários. `npm run verificar` e 30 testes de compras aprovados. Sessão
+HTTPS retornou 200/test após reinício. Sem mudanças visuais, ordens externas,
+pagamentos, envio de simulação, publicação ou alterações em produção.
+A causa da simulação anterior não pode ser recuperada dos logs existentes;
+aguarda-se nova simulação pelo proprietário para registrar o motivo exato.
+
+## Túnel HTTPS temporário — 05/11/2026
+
+Prévia de homologação ativa nesta execução:
+`https://uncertainty-rack-conducted-locations.trycloudflare.com/compra`.
+Webhook a cadastrar posteriormente pelo responsável, somente em teste:
+`https://uncertainty-rack-conducted-locations.trycloudflare.com/api/loja/webhooks/mercadopago`.
+Nenhuma configuração do Mercado Pago foi alterada ou notificação enviada.
+
+Cloudflared portátil oficial 2026.10.7, SHA-256 conferido com o release oficial,
+em `%TEMP%/sts-detox-tunnel/cloudflared.exe`; sem serviço Windows instalado.
+Túnel aponta para 127.0.0.1:5174; proxy existente encaminha `/api/loja` à porta 8788.
+Vite aceita somente o novo hostname adicional através da variável de processo
+`__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS`. Não liberar todos os hosts.
+API iniciada com variáveis de processo: `COMMERCE_MODE=test`,
+`COMMERCE_SITE_ORIGIN` e `MERCADOPAGO_TEST_RETURN_ORIGIN` iguais à origem HTTPS,
+`COMMERCE_CHECKOUT_DISABLED=true` e `COMMERCE_PRODUCTION_CHECKOUT_ENABLED=false`.
+Arquivo `.env.commerce.local` e credenciais preservados. As substituições acima
+valem apenas para os processos iniciados; um reinício comum não as mantém.
+Criar pagamentos permanece bloqueado nesta preparação.
+
+Vite passou a bloquear também `.codex`, `.hostinger`, ZIPs e logs pela regra fs.deny.
+`npm run verificar` aprovado. GET HTTPS `/compra`: 200 e formulário renderizado
+com aviso de teste; GET `/api/loja/session`: 200, mode=test e cookie Secure.
+Bloqueios de `.env.commerce.local`, backup ZIP existente e código do servidor
+verificados exclusivamente com HEAD em loopback: 403, sem ler conteúdo.
+Caminhos inexistentes podem receber HTML da SPA; isso não comprova exposição.
+
+Manter computador ligado, conectado, sem suspensão, e Vite/API/cloudflared ativos.
+Ao encerrar o túnel, a URL temporária deixa de funcionar; um novo túnel gera outro
+endereço, que exige alinhar origem, retorno, hostname permitido e webhook de teste.
+Começar a compra pelo HTTPS durante a homologação: a origem HTTP local não
+corresponde à origem autorizada da API nesta execução.
+Sem pedidos, pagamentos, deploy, push ou alteração no site oficial.
+
+## Alteração de CEP no endereço — 05/11/2026
+
+Na etapa “Endereço de entrega”, o botão “Alterar CEP e recalcular frete”
+descarta a cotação e modalidade anteriores, retorna ao cálculo e focaliza o CEP.
+Só é possível avançar após nova cotação e seleção de entrega. Ao editar o CEP,
+o endereço anterior é limpo; ao continuar, a consulta preenche o novo endereço.
+Nome, CPF/CNPJ, telefone e e-mail permanecem durante a navegação entre etapas.
+Número/complemento precisam ser preenchidos novamente quando o CEP muda.
+O botão “Alterar produtos ou frete” foi preservado; trocar apenas a modalidade
+mantém o endereço e os dados pessoais. Alterar itens ou CEP invalida a cotação.
+
+Validação local no navegador integrado, com SuperFrete sandbox e ViaCEP reais:
+uma unidade `e250-p10`, R$ 339,00; CEP 15375-126 / PAC R$ 70,64, total R$ 409,64;
+troca para 58417-065 / SEDEX R$ 24,28, total R$ 363,28; retorno pelo botão
+existente e troca para PAC R$ 18,91, total R$ 357,91. Confirmados os novos
+logradouro/cidade/UF, limpeza de número/complemento, preservação dos quatro
+dados pessoais e bloqueio de continuação até selecionar a nova modalidade.
+Revisão e retorno aos dados testados sem acionar pagamento. Conferência visual
+desktop realizada; Firefox não automatizado nesta etapa.
+`npm.cmd run verificar` aprovado e `npm.cmd run test:commerce`: 30/30 aprovados.
+Sem mudanças em produtos/preços, pagamento, Assistente ou outras seções;
+sem pedidos externos, commit, push ou publicação.
+
 Complemento local de 01/11/2026: acesso discreto ao mesmo Assistente Tavares
 e respostas comerciais isoladas do F4. Sem mudanças no fluxo de compra ou
 integrações. Consulte [ASSISTENTE_COMPRAS.md](ASSISTENTE_COMPRAS.md).
@@ -140,3 +285,6 @@ reprodução dos nove vídeos/YouTube. HTTP e build não comprovam reprodução.
 As pendências editoriais de vídeos em `REVISAO_LOCAL_2026-10-31.md` continuam
 dependendo da identificação das mídias pelo proprietário; não integram esta
 etapa de compras e não foram preenchidas com vídeos presumidos.
+
+### Compra simulada de 05/11/2026 — confirmação
+Consulta autenticada confirmou a única order de R$ 357,91 como processed/accredited, vendedor de teste e valor integral pago. Pedido local reconciliado para approved, sem novo POST de pagamento; notificações apenas preparadas, sem envio. Webhook chegou duas vezes às 18:14Z e retornou 401: diagnóstico comprovou HMAC válido com ID em minúsculas, enquanto o simulador anterior preservava capitalização. Validador aceita os dois manifestos para o mesmo ID canônico, mantendo segredo, request-id, prazo, ambiente e consulta autenticada. Retorno em outra sessão permanece protegido (404); tela agora orienta abrir a URL na janela original da compra. A troca para janela privativa não transfere o cookie da loja. Testes commerce: 30 aprovados. Nenhuma credencial alterada e nenhuma publicação.

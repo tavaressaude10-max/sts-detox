@@ -1,5 +1,13 @@
 # Homologação isolada do Assistente Tavares
 
+Na máquina de homologação, a opção `node homologacao.mjs --pesquisa-local` ativa a
+consulta ao catálogo e ao índice FTS5 em `.private-assistant/` após uma pergunta
+sem resposta no F4. Requer Node 22 com `node:sqlite` e FTS5, HOST=127.0.0.1 e
+HOMOLOG_SITE_ORIGIN igual a http://127.0.0.1:PORT (substituir PORT pela porta local).
+O servidor abre search.sqlite somente para leitura. As citações são extrativas,
+limitadas a texto nativo ou OCR revisado. Manter o índice e o catálogo fora do
+build público e dos pacotes hospedados.
+
 Preparação local em Node 22.12+ da série 22: npm ci, npm run verificar e
 python scripts/pacote-homologacao.py. O ZIP de runtime contém o frontend, o
 servidor compilado, o lockfile e duas entradas. Usar homologacao.mjs neste

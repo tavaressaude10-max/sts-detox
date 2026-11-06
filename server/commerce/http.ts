@@ -15,7 +15,12 @@ export function verifyWebhook(secret: string, signature: string, requestId: stri
   if (!/^\d{10,13}$/.test(ts) || !/^[a-f0-9]{64}$/i.test(hash)) return false;
   const time = ts.length <= 10 ? Number(ts)*1000 : Number(ts);
   if (Math.abs(now-time) > 10*60_000) return false;
-  return equal(mac(secret,`id:${dataId.toLowerCase()};request-id:${requestId};ts:${ts};`),hash.toLowerCase());
+  // Entregas de Order assinam o ID em minúsculas; o simulador também pode
+  // preservar a capitalização. Ambos identificam o mesmo recurso canônico.
+  // Os dois caminhos exigem HMAC válido, request-id e timestamp recente.
+  const canonical = equal(mac(secret,`id:${dataId.toLowerCase()};request-id:${requestId};ts:${ts};`),hash.toLowerCase());
+  const simulator = equal(mac(secret,`id:${dataId};request-id:${requestId};ts:${ts};`),hash.toLowerCase());
+  return canonical || simulator;
 }
 async function body(req: IncomingMessage) {
   if (!req.headers['content-type']?.startsWith('application/json')) throw new ShopError('content_type','Use JSON.',415);
@@ -74,7 +79,7 @@ export function createCommerceHandler(service: CommerceService) {
         if(url.pathname==='/api/loja/checkout') { json(res,200,await service.checkout(id,input));return; }
       }
       const match=/^\/api\/loja\/orders\/(STS-[a-f0-9]{32})$/.exec(url.pathname);
-      if(req.method==='GET' && match) { json(res,200,await service.status(id,match[1]!));return; }
+      if(req.method==='GET' && match) { json(res,200,await service.status(id,match[1]!,String(req.headers['x-shop-return-token'] ?? '')));return; }
       throw new ShopError('not_found','Não encontrado.',404);
     } catch(error) {
       const known=error instanceof ShopError;
