@@ -133,3 +133,44 @@ confirmou o domínio `https://stsdetox.com.br`.
 - Vídeo da entrada reproduziu: `paused=false`, tempo avançou de 0,03 para 10,71 segundos de 17,07 segundos.
 - Logotipo oficial azul e verde não localizado no projeto; cabeçalho mantido até o responsável fornecer o arquivo.
 - Limites: prévia local inclui edições anteriores não publicadas nas outras seções; a entrada testada é igual à preparada para envio. Não repetidos testes de YouTube, livros ou demais vídeos já aprovados, pois não foram alterados.
+
+## Versão institucional parcial — 07/11/2026
+
+- Worktree isolado .worktrees/institucional-parcial, branch codex/institucional-parcial,
+  HEAD 674d6fa8, sem commit, stage, push, merge ou implantação.
+- Node 22.23.4; npm ci concluído: 341 pacotes, lockfile inalterado.
+- npm run verificar: TypeScript e build estático aprovados. Saída build/.
+  JS index-CJbE2IHU.js (482,49 kB), CSS styles-B8bzqIaJ.css.
+- npm ci informou sete vulnerabilidades moderadas; npm audit --omit=dev: zero.
+  Dependências não alteradas. Aviso de vite-tsconfig-paths mantido, sem falha.
+- Preservação conferida por hashes Git (normalizando finais de linha em textos):
+  todos os 21 arquivos públicos da base, inclusive os nove MP4, intactos.
+  package.json, lockfile, configuração Vite, árvore de rotas, componentes de playlists
+  e definição das playlists permanecem iguais à base publicada.
+- HTTP local: Home, Livros e 20 mídias públicas responderam 200.
+- Inspeção do bundle: sem /compra, /api/loja, /api/assistente-local, Mercado Pago
+  ou Assistente Tavares. server/, server.js e rota compra ausentes no worktree.
+- Navegador integrado: Home e Livros em desktop (1280) e celular (390x844),
+  sem overflow horizontal observado. Guia de eletrodos legível, capas carregadas.
+  Menu móvel/submenu DETOX PET e recarga direta de /livros#detox-pet aprovados.
+  FAQ de diagnóstico abriu corretamente. Âncoras internas da home válidas.
+  Nove links Consultar este modelo apontam ao WhatsApp; nenhum link /compra.
+  WhatsApp móvel com position:static. Nenhuma mensagem enviada.
+- Quatro players locais montados com readyState=4 e sem erro de mídia;
+  novo Vídeo Tavares.mp4 reproduziu (tempo de 0,26 a 5,32 segundos).
+  Listagens reais: Apresentação 1 vídeo, Aulas 2, Diversos 1. Troca aprovada.
+  Nenhum erro de console registrado na consulta final.
+- git diff --check aprovado.
+
+Ocorrências resolvidas: primeira instalação npm no sandbox falhou (Exit handler
+never called); repetição com rede concluiu. Verificação iniciada antes do fim da
+instalação encontrou tipos React duplicados via pasta ancestral; após npm ci,
+verificação completa passou sem alteração de código para contornar o erro.
+Prévia isolada não era acessível ao navegador; repetição em loopback fora do
+sandbox permitiu os testes. Comparação binária inicial de .htaccess detectou apenas
+conversão de finais de linha; comparação com filtros Git confirmou preservação.
+
+Limites: sem teste em celular físico, sem reprodução completa dos nove MP4
+ou dos vídeos do YouTube. HTTP, metadados e listagem não comprovam reprodução
+integral. Nenhuma nova verificação do painel Hostinger ou publicação realizada.
+A referência ativa 674d6fa8 foi confirmada pelo proprietário nesta conversa.

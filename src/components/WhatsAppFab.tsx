@@ -3,6 +3,15 @@ import { MessageCircle } from "lucide-react";
 
 export function WhatsAppFab({ href }: { href: string }) {
   const [hidden, setHidden] = useState(false);
+  const [mobile, setMobile] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 639px)');
+    const update = () => setMobile(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
 
   useEffect(() => {
     const alvos = [
@@ -32,10 +41,10 @@ export function WhatsAppFab({ href }: { href: string }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar pelo WhatsApp"
-      aria-hidden={hidden}
-      tabIndex={hidden ? -1 : 0}
-      className={`fixed right-4 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-50 inline-flex size-12 items-center justify-center rounded-full bg-deep text-aqua-soft shadow-xl transition-all duration-300 hover:bg-deep-2 sm:right-5 sm:bottom-5 sm:h-auto sm:w-auto sm:gap-2 sm:px-4 sm:py-2.5 sm:text-xs ${
-        hidden ? "pointer-events-none translate-y-3 opacity-0" : "opacity-100"
+      aria-hidden={hidden && !mobile}
+      tabIndex={hidden && !mobile ? -1 : 0}
+      className={`whatsapp-fab fixed right-4 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-50 inline-flex size-12 items-center justify-center rounded-full bg-deep text-aqua-soft shadow-xl transition-all duration-300 hover:bg-deep-2 sm:right-5 sm:bottom-5 sm:h-auto sm:w-auto sm:gap-2 sm:px-4 sm:py-2.5 sm:text-xs ${
+        hidden && !mobile ? "pointer-events-none translate-y-3 opacity-0" : "opacity-100"
       }`}
     >
       <MessageCircle className="size-5" aria-hidden="true" />

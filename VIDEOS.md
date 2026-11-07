@@ -26,3 +26,10 @@ Títulos e descrições exibidos pela biblioteca padronizam a palavra “DETOX�
 Execute `npm run build` para gerar a pasta `build` para a hospedagem.
 Esta entrega é independente das pastas antigas do computador de origem.
 Consulte `docs/CONTEXTO.md` para o histórico e `docs/GITHUB_HOSTINGER.md` para publicar.
+
+## Versão institucional parcial — 07/11/2026
+
+Biblioteca original e suas três playlists preservadas integralmente. Os nove MP4
+existentes foram mantidos; Vídeo Tavares.mp4 foi acrescentado para o conjunto.
+VideosDestaque não foi incorporado. Nenhum backend novo é necessário; a listagem
+continua dependendo da API externa e a reprodução depende do YouTube.

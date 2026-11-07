@@ -1,3 +1,9 @@
+> Preparação institucional parcial — 07/11/2026. Branch codex/institucional-parcial,
+> baseada na versão publicada 674d6fa8; melhorias selecionadas de f904a0a.
+> SPA estática: npm ci, npm run verificar, saída build; sem servidor Node em produção.
+> Somente / e /livros. Loja, checkout, frete, pagamentos, webhook e Assistente excluídos.
+> Sem commit, push ou implantação. Ver INSTITUCIONAL_PARCIAL.md.
+
 # Publicar pelo GitHub do cliente
 
 Atualização de 29/10/2026: o cliente autorizou a publicação e a integração

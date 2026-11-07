@@ -141,3 +141,18 @@
     animation: none;
   }
 }
+
+/* Atendimento humano no fluxo da página em telas pequenas. */
+@media (max-width: 639px) {
+  .whatsapp-fab {
+    position: static;
+    display: flex;
+    width: fit-content;
+    height: auto;
+    min-height: 48px;
+    margin: 12px auto;
+    padding: 12px 20px;
+    gap: 8px;
+  }
+  .whatsapp-fab span { display: inline; font-size: 13px; }
+}
