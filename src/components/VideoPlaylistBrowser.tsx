@@ -70,6 +70,8 @@ export function VideoPlaylistBrowser({
   const [selectedId, setSelectedId] = useState("");
   const [playlistTitle, setPlaylistTitle] = useState(title);
   const [playing, setPlaying] = useState(false);
+  // Substituição local do quinto vídeo da home; Aulas e Diversos permanecem na API.
+  const presentationVideoId = playlistId === "PLJa8ZRa8ZUeA" ? "oEDxOYeRHDo" : null;
   const selected = videos.find((video) => video.id === selectedId) ?? videos[0];
   const playlistUrl = `https://www.youtube.com/playlist?list=${encodeURIComponent(playlistId)}`;
 
@@ -107,7 +109,15 @@ export function VideoPlaylistBrowser({
         );
         if (!response.ok) throw new Error("Playlist indisponível");
         const data = (await response.json()) as PlaylistResponse;
-        const nextVideos = toPlaylistVideos(data.items);
+        const nextVideos = toPlaylistVideos(data.items).map((video) =>
+          presentationVideoId && video.id === "GuCLmhi-Ed8"
+            ? {
+                ...video,
+                id: presentationVideoId,
+                thumbnail: `https://i.ytimg.com/vi/${presentationVideoId}/hqdefault.jpg`,
+              }
+            : video,
+        );
         if (!nextVideos.length) throw new Error("Playlist sem vídeos públicos");
         if (!cancelled) {
           setVideos(nextVideos);
@@ -127,7 +137,7 @@ export function VideoPlaylistBrowser({
       window.clearTimeout(timeout);
       controller.abort();
     };
-  }, [playlistId, title, shouldLoad, attempt]);
+  }, [playlistId, title, shouldLoad, attempt, presentationVideoId]);
 
   useEffect(() => {
     const stop = (event: Event) => {
@@ -162,7 +172,9 @@ export function VideoPlaylistBrowser({
     }
   }
 
-  const embedUrl = failed
+  const embedUrl = failed && presentationVideoId
+    ? `https://www.youtube.com/embed/${presentationVideoId}?autoplay=1&rel=0`
+    : failed
     ? `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(playlistId)}&autoplay=1&rel=0`
     : `https://www.youtube.com/embed/${selected?.id}?autoplay=1&rel=0`;
 
