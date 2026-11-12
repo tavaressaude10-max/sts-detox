@@ -59,6 +59,14 @@ export function VideoPlaylists() {
             title={active.label}
           />
         </div>
+        <a
+          href="https://www.youtube.com/@DetoxIonicoBioEquilibrio"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-8 inline-flex min-h-12 items-center rounded-full bg-deep px-6 py-3 text-sm font-semibold text-aqua-soft transition-colors hover:bg-deep/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua"
+        >
+          Ver todos os vídeos no YouTube
+        </a>
       </div>
     </section>
   );
