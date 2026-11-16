@@ -1,3 +1,5 @@
+> Inicialização limpa — 16/11/2026: manter server.js; entrega Node completa por Git. Preparação local, sem deploy. Guia vigente: [HOSTINGER_INICIALIZACAO_LIMPA.md](docs/HOSTINGER_INICIALIZACAO_LIMPA.md). Quarentena retorna 503 intencional; homologação funcional ainda tem pré-requisitos.
+
 > ETAPA 2 — 16/11/2026: integração LOCAL isolada em codex/integracao-assistente-loja, baseada em 15e639ec. Sem push/deploy. Procedimento vigente: [INTEGRACAO_ETAPA_2.md](docs/INTEGRACAO_ETAPA_2.md). As instruções históricas abaixo não autorizam publicação nem descrevem os bloqueios atuais.
 
 > Preparação institucional parcial — 07/11/2026. Branch codex/institucional-parcial,

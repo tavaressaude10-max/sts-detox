@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite dev --config vite.hostinger.config.ts",
     "build": "npm run build:frontend && npm run build:server",
-    "build:hostinger": "npm run build",
+    "build:hostinger": "npm run build && npm run hosting:check",
     "build:dev": "vite build --config vite.hostinger.config.ts --mode development",
     "preview": "vite preview --config vite.hostinger.config.ts",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.commerce.json",
@@ -29,7 +29,9 @@
     "f4:import": "node scripts/import-f4-mysql.mjs",
     "local:integration": "node --experimental-strip-types tools/local-commerce/run.ts",
     "test:integration": "node --experimental-strip-types --test tests/integration/*.test.ts",
-    "test:guards": "node --experimental-strip-types --test tests/server/quarantine.test.ts tests/server/security-homologation.test.ts tests/server/homologation-entry.test.ts tests/server/hostinger-contract.test.ts"
+    "test:guards": "node --experimental-strip-types --test tests/server/quarantine.test.ts tests/server/security-homologation.test.ts tests/server/homologation-entry.test.ts tests/server/hostinger-contract.test.ts",
+    "hosting:check": "node tools/hosting-check.mjs",
+    "test:hosting": "node --experimental-strip-types --test tests/server/clean-entry.test.ts tests/server/homologation.test.ts"
   },
   "overrides": {
     "rolldown": "1.2.1",
