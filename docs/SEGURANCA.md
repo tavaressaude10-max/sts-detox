@@ -81,3 +81,7 @@ confirma que houve exploração dessas falhas.
 
 Os ZIPs anteriores foram preservados como versões históricas. Para instalação
 e implantação atualizadas, utilize o pacote com a correção de segurança.
+
+## Integração isolada — 16/11/2026
+
+Lockfile do backend preservado. npm audit: 7 moderadas na cadeia typescript-eslint/minimatch, 0 altas/críticas. Sem correção forçada. Entradas hospedáveis mantêm quarentena/autenticação e bloqueios comerciais; simulador separado somente loopback, em memória, sem provedores externos. Ver INTEGRACAO_ETAPA_2.md.

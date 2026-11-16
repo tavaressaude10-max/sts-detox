@@ -51,6 +51,7 @@ function OpcaoEletrodo({
           cada
         </span>
       </p>
+      <a className="mt-3 inline-flex min-h-11 items-center justify-center rounded-full bg-deep px-4 text-sm font-semibold text-white" href={`/compra?produto=e${sessoes}-${sessoes === 250 ? 'p10' : ['xlr-macho','xlr-femea','p10','mike'][conectores.indexOf(conector)]}`}>Testar compra</a>
       <a
         href={wa(`Olá! Gostaria de informações sobre o eletrodo de aproximadamente ${sessoes} sessões, ${conector}.`)}
         target="_blank"

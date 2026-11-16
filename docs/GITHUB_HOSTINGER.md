@@ -1,3 +1,5 @@
+> ETAPA 2 — 16/11/2026: integração LOCAL isolada em codex/integracao-assistente-loja, baseada em 15e639ec. Sem push/deploy. Procedimento vigente: [INTEGRACAO_ETAPA_2.md](INTEGRACAO_ETAPA_2.md). As instruções históricas abaixo não autorizam publicação nem descrevem os bloqueios atuais.
+
 > Preparação institucional parcial — 07/11/2026. Branch codex/institucional-parcial,
 > baseada na versão publicada 674d6fa8; melhorias selecionadas de f904a0a.
 > SPA estática: npm ci, npm run verificar, saída build; sem servidor Node em produção.

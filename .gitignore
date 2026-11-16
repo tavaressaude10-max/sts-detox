@@ -13,3 +13,8 @@ coverage/
 .DS_Store
 Thumbs.db
 /.codex/
+
+.server-build/
+.private-assistant*/
+.private-commerce/
+.worktrees/

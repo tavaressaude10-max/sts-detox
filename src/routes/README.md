@@ -23,3 +23,5 @@ Do not create Next.js route conventions here. Preserve the root Outlet in
 
 `routeTree.gen.ts` originated as a generated file and is tracked in this export.
 Do not assume a new file will be registered automatically by the current build.
+
+Integração etapa 2: /compra está registrada manualmente; habilitada na simulação loopback, mas bloqueada no servidor de homologação.
