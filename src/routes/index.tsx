@@ -12,6 +12,7 @@ import videoHero from "@/assets/video-4.mp4.asset.json";
 import videoPessoal from "@/assets/video-1.mp4.asset.json";
 import videoFormacao from "@/assets/video-6.mp4.asset.json";
 import { VideoPlaylists } from "@/components/VideoPlaylists";
+import { NossoCanalYoutube } from "@/components/NossoCanalYoutube";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
@@ -166,7 +167,7 @@ function Index() {
               id="titulo-entrada"
               className="font-display text-[clamp(2rem,5vw,3.75rem)] font-extrabold leading-[1.12] tracking-tight text-deep"
             >
-              STS DETOX <span className="block text-deep-2">IÔNICO</span>
+              Bem-vindos ao DETOX IÔNICO – <span className="block text-deep-2">BioEquilíbrio</span>
             </h1>
             <p className="mt-6 max-w-[32ch] font-display text-xl font-semibold leading-relaxed text-foreground sm:text-2xl">
               Equipamento e conhecimento para compreender a técnica
@@ -180,7 +181,7 @@ function Index() {
                 href="#equipamento"
                 className="inline-flex min-h-14 items-center justify-center rounded-full bg-deep px-6 py-4 text-center text-base font-semibold text-white shadow-md transition-colors hover:bg-deep-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
               >
-                CONHECER O DETOX BIOEQUILÍBRIO
+                Conhecer o equipamento
               </a>
               <a
                 href={waGeral}
@@ -188,7 +189,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex min-h-14 items-center justify-center rounded-full border border-deep/35 bg-surface px-6 py-4 text-center text-base font-semibold text-deep transition-colors hover:bg-aqua-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
               >
-                Falar com professor Tavares — atendimento humano
+                Falar com o professor Tavares
               </a>
             </div>
           </div>
@@ -493,6 +494,7 @@ function Index() {
       <VitrineLivros />
 
       <VideoPlaylists />
+      <NossoCanalYoutube />
 
       {/* 9 — DÚVIDAS */}
       <section id="duvidas" className="scroll-mt-24 bg-surface py-24 lg:py-32">

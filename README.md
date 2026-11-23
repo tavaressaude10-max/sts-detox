@@ -1,3 +1,5 @@
+> Referência atual — 23/11/2026: versão institucional final em `codex/institucional-final`, somente SPA pública. Consulte `docs/INSTITUCIONAL_FINAL.md` (ou `INSTITUCIONAL_FINAL.md` nesta pasta). Os registros abaixo são históricos; não comprovam o destino atualmente publicado. Sem autorização de push/deploy.
+
 > Preparação institucional parcial — 07/11/2026. Branch codex/institucional-parcial,
 > baseada na versão publicada 674d6fa8; melhorias selecionadas de f904a0a.
 > SPA estática: npm ci, npm run verificar, saída build; sem servidor Node em produção.

@@ -11,6 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LivrosRouteImport } from './routes/livros'
+import { Route as HistoriaRouteImport } from './routes/nossa-historia'
+
+const HistoriaRoute = HistoriaRouteImport.update({
+  id: '/nossa-historia',
+  path: '/nossa-historia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,33 +31,44 @@ const LivrosRoute = LivrosRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/nossa-historia': typeof HistoriaRoute
   '/': typeof IndexRoute
   '/livros': typeof LivrosRoute
 }
 export interface FileRoutesByTo {
+  '/nossa-historia': typeof HistoriaRoute
   '/': typeof IndexRoute
   '/livros': typeof LivrosRoute
 }
 export interface FileRoutesById {
+  '/nossa-historia': typeof HistoriaRoute
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/livros': typeof LivrosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/livros'
+  fullPaths: '/' | '/livros' | '/nossa-historia'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/livros'
-  id: '__root__' | '/' | '/livros'
+  to: '/' | '/livros' | '/nossa-historia'
+  id: '__root__' | '/' | '/livros' | '/nossa-historia'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  HistoriaRoute: typeof HistoriaRoute
   IndexRoute: typeof IndexRoute
   LivrosRoute: typeof LivrosRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/nossa-historia': {
+      id: '/nossa-historia'
+      path: '/nossa-historia'
+      fullPath: '/nossa-historia'
+      preLoaderRoute: typeof HistoriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -69,6 +87,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  HistoriaRoute: HistoriaRoute,
   IndexRoute: IndexRoute,
   LivrosRoute: LivrosRoute,
 }

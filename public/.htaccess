@@ -1,6 +1,9 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+  # Esta entrega possui somente páginas institucionais, sem APIs ou comércio.
+  RewriteRule ^(?:compra|admin|api)(?:/|$) - [R=404,L,NC]
+  RewriteRule (^|/)\.(?!well-known(?:/|$)) - [R=404,L]
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

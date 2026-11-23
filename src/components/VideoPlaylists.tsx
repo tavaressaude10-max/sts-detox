@@ -13,7 +13,7 @@ export function VideoPlaylists() {
     <section
       id="videos"
       aria-labelledby="videos-heading"
-      className="scroll-mt-24 bg-surface py-24 lg:py-32"
+      className="scroll-mt-24 bg-surface py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <p className="eyebrow mb-4 flex items-center gap-2 text-aqua">
@@ -22,7 +22,7 @@ export function VideoPlaylists() {
         </p>
         <h2
           id="videos-heading"
-          className="text-balance font-display text-4xl font-bold leading-tight"
+          className="text-balance font-display text-3xl font-bold leading-tight sm:text-4xl"
         >
           Explore os vídeos
         </h2>

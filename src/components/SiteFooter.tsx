@@ -29,6 +29,7 @@ export function SiteFooter() {
           DETOX IÔNICO
         </span>
       </div>
+      <a href="/nossa-historia" className="inline-flex min-h-11 items-center text-sm font-semibold text-deep underline underline-offset-4">Nossa História</a>
       <nav aria-label="Redes sociais" className="flex flex-wrap items-center gap-2">
         {redesSociais.map(({ href, label, icon: Icon }) => (
           <a

@@ -70,6 +70,8 @@ export function VideoPlaylistBrowser({
   const [selectedId, setSelectedId] = useState("");
   const [playlistTitle, setPlaylistTitle] = useState(title);
   const [playing, setPlaying] = useState(false);
+  // Substituição local do quinto vídeo da home; Aulas e Diversos permanecem na API.
+  const presentationVideoId = playlistId === "PLJa8ZRa8ZUeA" ? "oEDxOYeRHDo" : null;
   const selected = videos.find((video) => video.id === selectedId) ?? videos[0];
   const playlistUrl = `https://www.youtube.com/playlist?list=${encodeURIComponent(playlistId)}`;
 
@@ -107,7 +109,15 @@ export function VideoPlaylistBrowser({
         );
         if (!response.ok) throw new Error("Playlist indisponível");
         const data = (await response.json()) as PlaylistResponse;
-        const nextVideos = toPlaylistVideos(data.items);
+        const nextVideos = toPlaylistVideos(data.items).map((video) =>
+          presentationVideoId && video.id === "GuCLmhi-Ed8"
+            ? {
+                ...video,
+                id: presentationVideoId,
+                thumbnail: `https://i.ytimg.com/vi/${presentationVideoId}/hqdefault.jpg`,
+              }
+            : video,
+        );
         if (!nextVideos.length) throw new Error("Playlist sem vídeos públicos");
         if (!cancelled) {
           setVideos(nextVideos);
@@ -127,7 +137,7 @@ export function VideoPlaylistBrowser({
       window.clearTimeout(timeout);
       controller.abort();
     };
-  }, [playlistId, title, shouldLoad, attempt]);
+  }, [playlistId, title, shouldLoad, attempt, presentationVideoId]);
 
   useEffect(() => {
     const stop = (event: Event) => {
@@ -162,14 +172,16 @@ export function VideoPlaylistBrowser({
     }
   }
 
-  const embedUrl = failed
+  const embedUrl = failed && presentationVideoId
+    ? `https://www.youtube.com/embed/${presentationVideoId}?autoplay=1&rel=0`
+    : failed
     ? `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(playlistId)}&autoplay=1&rel=0`
     : `https://www.youtube.com/embed/${selected?.id}?autoplay=1&rel=0`;
 
   return (
     <div ref={containerRef} aria-busy={loading} className="min-w-0">
       {loading ? (
-        <div role="status" className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
+        <div role="status" className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <span className="sr-only">Carregando vídeos da playlist…</span>
           <div className="aspect-video animate-pulse rounded-2xl bg-aqua-soft motion-reduce:animate-none" />
           <div
@@ -186,7 +198,7 @@ export function VideoPlaylistBrowser({
         </div>
       ) : (
         <div
-          className={`grid min-w-0 gap-5 ${failed ? "" : "lg:grid-cols-[1.5fr_1fr]"}`}
+          className={`grid min-w-0 items-start gap-6 ${presentationVideoId ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]" : failed ? "" : "lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]"}`}
         >
           <div
             ref={playerRef}
@@ -197,7 +209,7 @@ export function VideoPlaylistBrowser({
                 <iframe
                   key={failed ? playlistId : selected?.id}
                   src={embedUrl}
-                  title={selected?.title || title}
+                  title={presentationVideoId ? title : selected?.title || title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
@@ -207,7 +219,7 @@ export function VideoPlaylistBrowser({
                 <button
                   type="button"
                   onClick={() => startVideo()}
-                  aria-label={`Reproduzir ${failed ? "playlist" : "vídeo"}: ${selected?.title || title}`}
+                  aria-label={`Reproduzir ${failed ? "playlist" : "vídeo"}: ${presentationVideoId ? title : selected?.title || title}`}
                   className="group absolute inset-0 h-full w-full overflow-hidden focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-aqua"
                 >
                   {!failed && selected && (
@@ -237,20 +249,21 @@ export function VideoPlaylistBrowser({
                 </button>
               )}
             </div>
-            <div className="space-y-3 p-5 sm:p-6">
+          </div>
+          <div className={`min-w-0 space-y-5 ${presentationVideoId ? "lg:col-start-2" : ""}`}>
+            <div className="space-y-3 rounded-2xl border border-border bg-background p-5 shadow-sm sm:p-6">
+              {!presentationVideoId && (
+                <>
               <p className="eyebrow flex items-center gap-2 text-deep">
                 <ListVideo className="size-4 shrink-0" aria-hidden="true" />
                 {failed
                   ? "Playlist no YouTube"
                   : `${videos.length} ${videos.length === 1 ? "vídeo disponível" : "vídeos disponíveis"}`}
               </p>
-              <h3 className="break-words font-display text-xl font-bold sm:text-2xl">
+              <h3 className="break-words font-display text-xl font-bold leading-snug sm:text-2xl">
                 {failed ? title : selected?.title}
               </h3>
-              {!failed && selected?.description && (
-                <p className="line-clamp-3 break-words text-sm leading-7 text-muted-foreground">
-                  {selected.description}
-                </p>
+                </>
               )}
               {failed && (
                 <p
@@ -283,24 +296,23 @@ export function VideoPlaylistBrowser({
                 )}
               </div>
             </div>
-          </div>
-          {!failed && (
+          {!failed && (!presentationVideoId || videos.some((video) => video.id !== presentationVideoId)) && (
             <aside
               aria-label="Vídeos da playlist"
-              className="min-w-0 rounded-2xl border border-border bg-background p-4 shadow-sm sm:p-5"
+              className="min-w-0 rounded-2xl border border-border bg-background p-5 shadow-sm sm:p-6"
             >
               <p className="eyebrow text-deep">Escolha um vídeo</p>
-              <h3 className="mb-4 mt-2 break-words font-display text-base font-bold">
+              <h3 className="mb-5 mt-2 break-words font-display text-xl font-bold leading-snug">
                 {playlistTitle}
               </h3>
-              <div className="max-h-[440px] space-y-3 overflow-y-auto overscroll-contain p-1 lg:max-h-[520px]">
-                {videos.map((video, index) => (
+              <div className="grid max-h-[440px] grid-cols-1 gap-3 overflow-y-auto overscroll-contain p-1 sm:grid-cols-2 lg:max-h-[520px] lg:grid-cols-1">
+                {videos.filter((video) => !presentationVideoId || video.id !== presentationVideoId).map((video, index) => (
                   <button
                     key={video.id}
                     type="button"
                     aria-pressed={selected?.id === video.id}
                     onClick={() => startVideo(video.id)}
-                    className={`group grid w-full grid-cols-[96px_minmax(0,1fr)] items-center gap-3 rounded-xl border p-2 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-aqua sm:grid-cols-[112px_minmax(0,1fr)] ${selected?.id === video.id ? "border-aqua bg-aqua-soft/60" : "border-border hover:border-aqua hover:bg-aqua-soft/30"}`}
+                    className={`group grid w-full min-w-0 grid-cols-[minmax(80px,0.85fr)_minmax(0,1.15fr)] items-start gap-3 rounded-xl border p-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-aqua ${selected?.id === video.id ? "border-aqua bg-aqua-soft/60" : "border-border hover:border-aqua hover:bg-aqua-soft/30"}`}
                   >
                     <span className="relative aspect-video overflow-hidden rounded-lg bg-deep">
                       <img
@@ -323,14 +335,17 @@ export function VideoPlaylistBrowser({
                         </span>
                       )}
                     </span>
-                    <span className="line-clamp-3 break-words text-sm font-semibold leading-snug">
-                      {video.title}
+                    <span className="min-w-0 space-y-2">
+                      <span className="line-clamp-3 break-words text-sm font-semibold leading-snug">
+                        {video.title}
+                      </span>
                     </span>
                   </button>
                 ))}
               </div>
             </aside>
           )}
+          </div>
         </div>
       )}
     </div>

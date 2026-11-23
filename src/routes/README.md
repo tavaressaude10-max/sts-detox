@@ -1,5 +1,8 @@
 # Routes
 
+Versão institucional final: `/`, `/livros`, `/nossa-historia`. Registro manual em
+`src/routeTree.gen.ts`. Não há rotas comerciais ou privadas nesta entrega.
+
 This delivery uses TanStack Router in a Vite SPA. Its route files came from
 TanStack Start, but the current `vite.hostinger.config.ts` does not configure
 automatic route-tree generation. The tracked `src/routeTree.gen.ts` registers

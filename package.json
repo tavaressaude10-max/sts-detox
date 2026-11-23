@@ -14,6 +14,8 @@
     "preview": "vite preview --config vite.hostinger.config.ts",
     "typecheck": "tsc --noEmit",
     "verificar": "npm run typecheck && npm run build",
+    "test:assistant": "node --experimental-strip-types scripts/test-assistant-public.mjs",
+    "test:institutional": "node scripts/test-institutional.mjs",
     "preparar": "npm ci && npm run verificar",
     "format": "prettier --write ."
   },
