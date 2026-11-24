@@ -27,6 +27,12 @@ export function TrajetoriaTavares() {
         <div className="lg:col-span-4">
           <p className="eyebrow mb-4 text-aqua">Estudo e experiência</p>
           <h2 id="trajetoria-titulo" className="text-balance font-display text-3xl font-bold leading-tight text-deep sm:text-4xl">Uma trajetória construída desde 2015</h2>
+          <a
+            href="/nossa-historia"
+            className="mt-6 inline-flex min-h-14 w-full items-center justify-center rounded-full bg-deep px-6 py-4 text-center text-base font-semibold leading-6 text-white shadow-md transition-colors hover:bg-deep-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep sm:w-auto"
+          >
+            Nossa História — Evolução dos Aparelhos STS
+          </a>
         </div>
         <div className="space-y-5 text-pretty text-base leading-8 text-muted-foreground lg:col-span-8">
           <p>Desde 2015, o professor Tavares dedica-se à aplicação e ao estudo do <strong className="text-foreground">DETOX IÔNICO</strong>, pesquisando, observando e registrando suas próprias experiências, bem como os relatos e experiências de alunos e colaboradores ao longo dos anos.</p>

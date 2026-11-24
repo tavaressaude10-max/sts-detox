@@ -103,7 +103,7 @@ const etapas = [
     n: "03",
     titulo: "Durante a sessão",
     texto:
-      "O equipamento produz estímulos elétricos de baixa intensidade durante o tempo selecionado.",
+      "O equipamento produz estímulos elétricos de baixa intensidade durante o tempo desejado.",
   },
   {
     n: "04",
