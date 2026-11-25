@@ -178,7 +178,7 @@ function Index() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
-                href="#equipamento"
+                href="/nossa-historia#bioequilibrio-atual"
                 className="inline-flex min-h-14 items-center justify-center rounded-full bg-deep px-6 py-4 text-center text-base font-semibold text-white shadow-md transition-colors hover:bg-deep-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
               >
                 Conhecer o equipamento
@@ -531,10 +531,8 @@ function Index() {
             </h2>
             <div className="mt-8 flex max-w-xl flex-wrap gap-4">
               <a
-                href={waPessoal}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="rounded-xl bg-deep px-6 py-4 text-sm font-semibold text-aqua-soft transition-all hover:-translate-y-0.5 hover:bg-deep-2"
+                href="/nossa-historia#bioequilibrio-atual"
               >
                 CONHECER O DETOX BIOEQUILÍBRIO
               </a>

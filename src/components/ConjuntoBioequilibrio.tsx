@@ -31,7 +31,7 @@ export function DestaqueBioequilibrio() {
           </p>
           <div className="mt-8 flex flex-col items-start gap-4">
             <a
-              href="#conjunto-completo"
+              href="/nossa-historia#bioequilibrio-atual"
               className="inline-flex min-h-12 items-center rounded-full bg-aqua-soft px-6 py-3 text-sm font-semibold text-deep"
             >
               CONHECER O DETOX BIOEQUILÍBRIO

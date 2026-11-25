@@ -29,9 +29,10 @@ export function TrajetoriaTavares() {
           <h2 id="trajetoria-titulo" className="text-balance font-display text-3xl font-bold leading-tight text-deep sm:text-4xl">Uma trajetória construída desde 2015</h2>
           <a
             href="/nossa-historia"
-            className="mt-6 inline-flex min-h-14 w-full items-center justify-center rounded-full bg-deep px-6 py-4 text-center text-base font-semibold leading-6 text-white shadow-md transition-colors hover:bg-deep-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep sm:w-auto"
+            className="mx-auto mt-6 flex min-h-11 w-fit max-w-full flex-col items-center justify-center rounded-full bg-deep px-4 py-3 text-center text-sm font-semibold leading-5 text-white shadow-md transition-colors hover:bg-deep-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep lg:-translate-x-[43px]"
           >
-            Nossa História — Evolução dos Aparelhos STS
+            <span>Nossa História —</span>
+            <span>Evolução dos Aparelhos STS</span>
           </a>
         </div>
         <div className="space-y-5 text-pretty text-base leading-8 text-muted-foreground lg:col-span-8">
