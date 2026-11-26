@@ -115,8 +115,20 @@ const etapas = [
 
 const duvidas = [
   {
-    q: "A cor da água e da espuma representa toxinas ou órgãos?",
-    a: "A alteração visual pode decorrer da interação entre água, sais, corrente elétrica e eletrodos. Correspondências da prática e interpretações tradicionais não são comprovação científica e não devem ser utilizadas isoladamente para identificar toxinas, órgãos ou doenças.",
+    q: "Qual é o significado das cores da água e da espuma durante uma sessão de DETOX IÔNICO?",
+    a: (
+      <>
+        <p className="mb-4">
+          Na Medicina Tradicional Chinesa, a teoria dos Cinco Elementos estabelece correspondências entre determinadas cores, órgãos e sistemas do organismo, dentro de uma visão energética e integrativa.
+        </p>
+        <p className="mb-4">
+          Na prática do DETOX IÔNICO, as alterações de cores e espumas também são objeto de observações e interpretações.
+        </p>
+        <p>
+          Porém, a ciência ainda não comprovou que essas alterações sejam toxinas.
+        </p>
+      </>
+    ),
   },
   {
     q: "O STS realiza diagnóstico?",
