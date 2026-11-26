@@ -448,10 +448,7 @@ function Index() {
           </ol>
           <div className="mt-10 rounded-2xl border-l-4 border-aqua bg-aqua-soft/40 p-7">
             <p className="text-pretty text-base leading-8 text-deep/85">
-              A alteração visual da água pode decorrer da interação entre água,
-              sais, corrente elétrica e eletrodos. A cor da água não deve ser
-              utilizada para diagnóstico nem para afirmar a eliminação de
-              toxinas específicas.
+              Saiba mais sobre as alterações de cores e espumas na seção Perguntas frequentes.
             </p>
           </div>
         </div>
