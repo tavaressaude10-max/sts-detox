@@ -3,7 +3,6 @@ import { rememberEquipmentReading } from "@/components/VoltarLeitura";
 import { ConceitoBioequilibrio, TrajetoriaTavares } from "@/components/ConceitoBioequilibrio";
 import {
   DestaqueBioequilibrio,
-  ConjuntoCompleto,
   itensConjunto,
 } from "@/components/ConjuntoBioequilibrio";
 import { VitrineLivros } from "@/components/VitrineLivros";
@@ -216,7 +215,6 @@ function Index() {
 
       {/* USO PESSOAL */}
       <EletrodosConexoes />
-      <ConjuntoCompleto />
 
       <section id="uso-pessoal" className="scroll-mt-24 py-24 lg:py-32">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-12 lg:px-10">
