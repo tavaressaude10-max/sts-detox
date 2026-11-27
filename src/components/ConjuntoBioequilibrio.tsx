@@ -1,4 +1,5 @@
 import { waGeral } from "@/lib/whatsapp";
+import { ArrowRight } from "lucide-react";
 
 export const itensConjunto = [
   "Aparelho DETOX BIOEQUILÍBRIO",
@@ -6,6 +7,13 @@ export const itensConjunto = [
   "1 cinta BioVibracional",
   "Material de estudo digital, incluindo manual de uso e instruções do aparelho e acessórios",
 ];
+
+const destinosConjunto = [
+  "/nossa-historia#bioequilibrio-atual",
+  "#eletrodo-250",
+  "#video-cinta-biovibracional",
+  "#livros",
+] as const;
 
 export function DestaqueBioequilibrio() {
   return (
@@ -54,12 +62,28 @@ export function DestaqueBioequilibrio() {
             {itensConjunto.map((item, index) => (
               <li
                 key={item}
-                className="flex gap-4 border-t border-aqua-soft/15 pt-4 text-sm leading-7"
+                className="border-t border-aqua-soft/15 text-sm leading-7"
               >
-                <span className="font-mono text-aqua-soft/60">
-                  0{index + 1}
-                </span>
-                <span>{item}</span>
+                {destinosConjunto[index] ? (
+                  <a
+                    href={destinosConjunto[index]!}
+                    onClick={() => {
+                      if (index === 2 && window.location.hash === destinosConjunto[index]) {
+                        window.dispatchEvent(new Event("hashchange"));
+                      }
+                    }}
+                    className="relative flex w-full gap-4 pt-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua-soft"
+                  >
+                    <span className="font-mono text-aqua-soft/60">0{index + 1}</span>
+                    <span className="min-w-0 flex-1 pr-5">{item}</span>
+                    <ArrowRight aria-hidden="true" className="absolute right-0 top-[1.375rem] size-4 text-aqua-soft/60" />
+                  </a>
+                ) : (
+                  <div className="flex gap-4 pt-4">
+                    <span className="font-mono text-aqua-soft/60">0{index + 1}</span>
+                    <span>{item}</span>
+                  </div>
+                )}
               </li>
             ))}
           </ul>

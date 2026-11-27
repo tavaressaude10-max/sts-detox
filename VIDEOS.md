@@ -1,5 +1,21 @@
 # Biblioteca de vídeos
 
+## Navegação do conjunto — 27/11/2026, somente local
+
+O item 03 de “O conjunto inclui” aponta para `#video-cinta-biovibracional`.
+Esse destino seleciona Apresentação e abre o vídeo existente `oEDxOYeRHDo`
+no player interno, conforme ID confirmado pelo proprietário. Funciona também
+após trocar de playlist e ao repetir o clique com o mesmo fragmento na URL.
+A abertura direta não depende da resposta da API de listagem.
+Os destinos preparados dos itens 01, 02 e 04 foram preservados.
+
+Validação: `npm run verificar` aprovado; os quatro links foram clicados no
+navegador local e seus destinos conferidos. Trocas Aulas/Diversos → item 03
+confirmaram Apresentação ativa e iframe com o ID correto. Conferência visual
+da seção concluída. O player carregou, mas a reprodução completa não foi
+confirmada. Prévia em `http://127.0.0.1:4187/#equipamento`.
+Sem push ou publicação; aguardando aprovação do proprietário.
+
 A seção `#videos` da home usa as playlists do STS Detox:
 
 - Apresentação: `PLJa8ZRa8ZUeA`

@@ -55,9 +55,13 @@ function toPlaylistVideos(items: PlaylistResponse["items"]): PlaylistVideo[] {
 export function VideoPlaylistBrowser({
   playlistId,
   title,
+  directVideoId,
+  playRequest = 0,
 }: {
   playlistId: string;
   title: string;
+  directVideoId?: string | undefined;
+  playRequest?: number;
 }) {
   const instanceId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -100,7 +104,7 @@ export function VideoPlaylistBrowser({
     let cancelled = false;
     setLoading(true);
     setFailed(false);
-    setPlaying(false);
+    if (!directVideoId) setPlaying(false);
     async function load() {
       try {
         const response = await fetch(
@@ -121,7 +125,7 @@ export function VideoPlaylistBrowser({
         if (!nextVideos.length) throw new Error("Playlist sem vídeos públicos");
         if (!cancelled) {
           setVideos(nextVideos);
-          setSelectedId(nextVideos[0]!.id);
+          setSelectedId((current) => current || directVideoId || nextVideos[0]!.id);
           setPlaylistTitle((data.playlistTitle || title).replace(/\bdetox\b/gi, "DETOX"));
         }
       } catch {
@@ -137,7 +141,13 @@ export function VideoPlaylistBrowser({
       window.clearTimeout(timeout);
       controller.abort();
     };
-  }, [playlistId, title, shouldLoad, attempt, presentationVideoId]);
+  }, [playlistId, title, shouldLoad, attempt, presentationVideoId, directVideoId]);
+
+  useEffect(() => {
+    if (!directVideoId) return;
+    setShouldLoad(true);
+    startVideo(directVideoId);
+  }, [directVideoId, playRequest]);
 
   useEffect(() => {
     const stop = (event: Event) => {
@@ -172,7 +182,9 @@ export function VideoPlaylistBrowser({
     }
   }
 
-  const embedUrl = failed && presentationVideoId
+  const embedUrl = directVideoId && selectedId === directVideoId
+    ? `https://www.youtube.com/embed/${directVideoId}?autoplay=1&rel=0`
+    : failed && presentationVideoId
     ? `https://www.youtube.com/embed/${presentationVideoId}?autoplay=1&rel=0`
     : failed
     ? `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(playlistId)}&autoplay=1&rel=0`
@@ -180,7 +192,7 @@ export function VideoPlaylistBrowser({
 
   return (
     <div ref={containerRef} aria-busy={loading} className="min-w-0">
-      {loading ? (
+      {loading && !directVideoId ? (
         <div role="status" className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <span className="sr-only">Carregando vídeos da playlist…</span>
           <div className="aspect-video animate-pulse rounded-2xl bg-aqua-soft motion-reduce:animate-none" />

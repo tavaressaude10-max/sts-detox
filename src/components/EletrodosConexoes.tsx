@@ -145,7 +145,7 @@ export function EletrodosConexoes() {
             </div>
           ))}
         </div>
-        <div className="mt-6 border-t border-deep/15 pt-5">
+        <div id="eletrodo-250" className="mt-6 scroll-mt-24 border-t border-deep/15 pt-5">
           <h3 className="font-display text-2xl font-bold text-deep">
             Aproximadamente 250 sessões — R$ 339,00 cada
           </h3>

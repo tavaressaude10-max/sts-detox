@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ListVideo } from "lucide-react";
 import { VideoPlaylistBrowser } from "@/components/VideoPlaylistBrowser";
 import { videoPlaylists } from "@/lib/video-playlists";
 
 export function VideoPlaylists() {
   const [activeKey, setActiveKey] = useState<string>(videoPlaylists[0].key);
+  const [cintaRequest, setCintaRequest] = useState(0);
+  useEffect(() => {
+    const openCinta = () => {
+      if (window.location.hash !== "#video-cinta-biovibracional") return;
+      setActiveKey("apresentacao");
+      setCintaRequest((value) => value + 1);
+      document.getElementById("video-cinta-biovibracional")?.scrollIntoView({ block: "start" });
+    };
+    openCinta();
+    window.addEventListener("hashchange", openCinta);
+    return () => window.removeEventListener("hashchange", openCinta);
+  }, []);
   const active =
     videoPlaylists.find((playlist) => playlist.key === activeKey) ??
     videoPlaylists[0];
@@ -52,11 +64,14 @@ export function VideoPlaylists() {
             </button>
           ))}
         </div>
+        <div id="video-cinta-biovibracional" className="scroll-mt-24" />
         <div id="playlist-conteudo">
           <VideoPlaylistBrowser
             key={active.id}
             playlistId={active.id}
             title={active.label}
+            directVideoId={active.key === "apresentacao" && cintaRequest > 0 ? "oEDxOYeRHDo" : undefined}
+            playRequest={cintaRequest}
           />
         </div>
       </div>
