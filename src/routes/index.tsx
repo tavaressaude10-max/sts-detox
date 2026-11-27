@@ -164,7 +164,7 @@ function Index() {
       >
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:px-10 lg:py-20">
           <div className="rise min-w-0 lg:col-span-7">
-            <p className="eyebrow mb-4 text-aqua">BEM-VINDOS À STS DETOX IÔNICO</p>
+            <p className="mb-4 font-mono text-xl font-medium tracking-[0.12em] text-aqua">BEM-VINDOS À STS DETOX IÔNICO</p>
             <h1
               id="titulo-entrada"
               className="font-display text-[clamp(1.75rem,5vw,3.75rem)] font-extrabold leading-[1.12] tracking-tight text-deep"
