@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ListVideo } from "lucide-react";
 import { VideoPlaylistBrowser } from "@/components/VideoPlaylistBrowser";
 import { videoPlaylists } from "@/lib/video-playlists";
+import { VoltarLeitura } from "@/components/VoltarLeitura";
 
 export function VideoPlaylists() {
   const [activeKey, setActiveKey] = useState<string>(videoPlaylists[0].key);
@@ -64,7 +65,9 @@ export function VideoPlaylists() {
             </button>
           ))}
         </div>
-        <div id="video-cinta-biovibracional" className="scroll-mt-24" />
+        <div id="video-cinta-biovibracional" className="scroll-mt-24">
+          <VoltarLeitura destination="/#video-cinta-biovibracional" />
+        </div>
         <div id="playlist-conteudo">
           <VideoPlaylistBrowser
             key={active.id}

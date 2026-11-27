@@ -1,4 +1,5 @@
 import { wa } from "@/lib/whatsapp";
+import { VoltarLeitura } from "@/components/VoltarLeitura";
 const images = {
   guide: "/assets/Guia de Eletrodos e Conectores.png",
   exclusive: "/assets/Eletrodo 250 Sessões com Conector P10.png",
@@ -146,6 +147,7 @@ export function EletrodosConexoes() {
           ))}
         </div>
         <div id="eletrodo-250" className="mt-6 scroll-mt-24 border-t border-deep/15 pt-5">
+          <VoltarLeitura destination="/#eletrodo-250" />
           <h3 className="font-display text-2xl font-bold text-deep">
             Aproximadamente 250 sessões — R$ 339,00 cada
           </h3>

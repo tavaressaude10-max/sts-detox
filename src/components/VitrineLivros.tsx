@@ -5,6 +5,7 @@ import {
 } from "@/lib/whatsapp";
 import { amazonDetoxPet } from "./DetoxPetCard";
 import enciclopedia from "@/assets/capa-enciclopedia.jpeg.asset.json";
+import { VoltarLeitura } from "@/components/VoltarLeitura";
 import ionico from "@/assets/capa-detox-ionico.jpeg.asset.json";
 import bioequilibrio from "@/assets/capa-bioequilibrio.jpeg.asset.json";
 
@@ -39,6 +40,7 @@ export function VitrineLivros() {
   return (
     <section id="livros" className="scroll-mt-24 bg-surface py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <VoltarLeitura destination="/#livros" />
         <p className="eyebrow mb-4 text-aqua">Publicações</p>
         <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl">
           Conhecimento que continua nos livros

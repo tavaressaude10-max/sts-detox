@@ -1,5 +1,6 @@
 import { waGeral } from "@/lib/whatsapp";
 import { ArrowRight } from "lucide-react";
+import { rememberReading, useReadingReturn } from "@/components/VoltarLeitura";
 
 export const itensConjunto = [
   "Aparelho DETOX BIOEQUILÍBRIO",
@@ -16,6 +17,7 @@ const destinosConjunto = [
 ] as const;
 
 export function DestaqueBioequilibrio() {
+  useReadingReturn();
   return (
     <section
       id="equipamento"
@@ -54,7 +56,7 @@ export function DestaqueBioequilibrio() {
             </a>
           </div>
         </div>
-        <div className="rounded-3xl border border-aqua-soft/25 bg-white/5 p-6 sm:p-9">
+        <div id="conjunto-inclui" className="scroll-mt-24 rounded-3xl border border-aqua-soft/25 bg-white/5 p-6 sm:p-9">
           <h3 className="font-display text-xl font-bold text-white">
             O conjunto inclui
           </h3>
@@ -67,7 +69,10 @@ export function DestaqueBioequilibrio() {
                 {destinosConjunto[index] ? (
                   <a
                     href={destinosConjunto[index]!}
-                    onClick={() => {
+                    id={`conjunto-item-${index}`}
+                    onClick={(event) => {
+                      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+                      rememberReading(destinosConjunto[index]!, index);
                       if (index === 2 && window.location.hash === destinosConjunto[index]) {
                         window.dispatchEvent(new Event("hashchange"));
                       }

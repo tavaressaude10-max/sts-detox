@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowDown, Play, X } from 'lucide-react';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { waGeral } from '@/lib/whatsapp';
+import { VoltarLeitura } from '@/components/VoltarLeitura';
 
 export const Route = createFileRoute('/nossa-historia')({
   head: () => ({ meta: [
@@ -88,6 +89,7 @@ function NossaHistoria() {
         <section id="bioequilibrio-atual" aria-labelledby="bioequilibrio-titulo" className="scroll-mt-24 bg-deep py-12 text-aqua-soft sm:py-16">
           <div className="mx-auto grid max-w-7xl items-center gap-8 px-6 lg:grid-cols-2 lg:gap-12 lg:px-10">
             <div>
+              <VoltarLeitura destination="/nossa-historia#bioequilibrio-atual" dark />
               <p className="eyebrow text-aqua-soft/70">O modelo atual</p>
               <h2 id="bioequilibrio-titulo" className="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">DETOX BioEquilíbrio</h2>
               <p className="mt-5 max-w-xl leading-8 text-aqua-soft/85">Encerrando esta apresentação, conheça o aparelho e método desenvolvido pela STS. Selecione a imagem para assistir ao vídeo “DETOX BioEquilíbrio — a Evolução”.</p>
