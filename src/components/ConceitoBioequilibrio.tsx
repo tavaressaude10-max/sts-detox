@@ -1,20 +1,40 @@
 export function ConceitoBioequilibrio() {
   return (
-    <section id="conceito-bioequilibrio" aria-labelledby="conceito-titulo" className="scroll-mt-24 bg-surface py-16 lg:py-24">
+    <section id="conceito-bioequilibrio" aria-labelledby="conceito-titulo" className="relative scroll-mt-24 bg-surface py-16 lg:py-24">
+      <span id="o-que-e" aria-hidden="true" className="absolute top-0 scroll-mt-24" />
       <div className="mx-auto max-w-5xl px-6 lg:px-10">
         <h2 id="conceito-titulo" className="text-balance font-display text-3xl font-bold leading-tight text-deep sm:text-4xl">
           O QUE É DETOX BIOEQUILÍBRIO?
         </h2>
         <div className="mt-8 space-y-5 text-pretty text-base leading-8 text-muted-foreground">
-          <p>O DETOX BIOEQUILÍBRIO é um equipamento de <strong className="text-foreground">DETOX IÔNICO</strong> desenvolvido com uma proposta ampliada de utilização.</p>
-          <p>Nos primeiros 30 minutos, a sessão segue a proposta tradicional do DETOX IÔNICO. A partir desse período, o equipamento permite a continuidade da sessão dentro da proposta BIOEQUILÍBRIO, voltada ao bem-estar e ao equilíbrio funcional do organismo.</p>
-          <p>Por isso, uma sessão com o DETOX BIOEQUILÍBRIO pode chegar a até <strong className="text-foreground">55 minutos</strong>, de acordo com a forma de utilização do equipamento.</p>
+          <p>O DETOX BIOEQUILÍBRIO é um equipamento de <strong className="text-foreground">DETOX IÔNICO</strong> desenvolvido com uma proposta ampliada de utilização, voltada ao relaxamento, ao conforto e ao bem-estar.</p>
+          <p>Durante a sessão, os pés permanecem em água preparada para condução elétrica, enquanto o equipamento produz estímulos elétricos de baixa intensidade.</p>
+          <p>Nos primeiros 30 minutos, a sessão segue a proposta tradicional do DETOX IÔNICO. A partir desse período, o equipamento permite a continuidade da sessão dentro da proposta BIOEQUILÍBRIO.</p>
+          <p>Por isso, uma sessão com o DETOX BIOEQUILÍBRIO pode chegar a até <strong className="text-foreground">55 minutos</strong>, conforme as orientações de utilização do equipamento.</p>
         </div>
         <div className="my-8 grid gap-4 sm:grid-cols-2">
           <p className="rounded-2xl border border-deep/15 bg-background p-6 font-semibold leading-7 text-deep">Até 30 minutos → proposta do DETOX IÔNICO</p>
-          <p className="rounded-2xl border border-deep/15 bg-aqua-soft/45 p-6 font-semibold leading-7 text-deep">Tempo adicional, até 55 minutos → proposta BIOEQUILÍBRIO</p>
+          <p className="rounded-2xl border border-deep/15 bg-aqua-soft/45 p-6 font-semibold leading-7 text-deep">De 30 até 55 minutos → proposta BIOEQUILÍBRIO</p>
         </div>
         <p className="text-pretty text-base leading-8 text-muted-foreground">É essa integração entre o DETOX IÔNICO e a proposta BIOEQUILÍBRIO que dá origem ao nome <strong className="text-foreground">DETOX BIOEQUILÍBRIO</strong>.</p>
+        <div className="mt-10 border-t border-border pt-8">
+          <h3 className="font-display text-xl font-bold text-deep">O que pode ser buscado</h3>
+          <ul className="mt-5 grid gap-4 text-base leading-7 text-muted-foreground sm:grid-cols-2">
+            {[
+              "Momento de relaxamento.",
+              "Sensação de conforto.",
+              "Pausa na rotina.",
+              "Experiência de autocuidado.",
+              "Percepções individuais de descanso e bem-estar.",
+            ].map((item) => (
+              <li key={item} className="flex gap-3">
+                <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-aqua" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-pretty text-base leading-8 text-muted-foreground">As experiências e percepções podem variar de uma pessoa para outra. O equipamento não se destina ao diagnóstico, à prevenção, ao tratamento ou à cura de doenças.</p>
+        </div>
       </div>
     </section>
   );

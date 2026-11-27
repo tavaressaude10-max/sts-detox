@@ -63,14 +63,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const beneficios = [
-  "Momento de relaxamento",
-  "Sensação de conforto",
-  "Pausa na rotina",
-  "Experiência de autocuidado",
-  "Percepções individuais de descanso e bem-estar",
-];
-
 const conhecimentos = [
   "Funcionamento do equipamento",
   "Água e condutividade",
@@ -219,45 +211,6 @@ function Index() {
 
       <ConceitoBioequilibrio />
       <DestaqueBioequilibrio />
-
-      {/* 2 — O QUE É */}
-      <section id="o-que-e" className="bg-surface py-24 lg:py-32">
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-12 lg:px-10">
-          <div className="rise lg:col-span-7">
-            <p className="eyebrow mb-4 text-aqua">O que é</p>
-            <h2 className="text-balance font-display text-4xl font-bold leading-tight">
-              O QUE É O DETOX BIOEQUILÍBRIO?
-            </h2>
-            <p className="mt-6 text-pretty text-base leading-8 text-muted-foreground">
-              O DETOX BIOEQUILÍBRIO é uma proposta complementar voltada ao
-              relaxamento, ao conforto e ao bem-estar. Durante a sessão, os pés
-              permanecem em água preparada para condução elétrica, enquanto o
-              equipamento produz estímulos elétricos de baixa intensidade.
-            </p>
-            <p className="mt-4 text-pretty text-base leading-8 text-muted-foreground">
-              A experiência envolve água, temperatura, minerais dissolvidos,
-              eletrodos e estímulos sensoriais e bioelétricos leves. O objetivo
-              não é realizar diagnóstico nem prometer prevenção, tratamento ou
-              cura de doenças.
-            </p>
-          </div>
-          <div className="rise border-l border-border pl-8 lg:col-span-5 lg:pl-12">
-            <p className="eyebrow mb-4 text-aqua">O que pode ser buscado</p>
-            <ul className="mt-4 grid gap-4 text-sm text-muted-foreground sm:grid-cols-2 lg:grid-cols-1">
-              {beneficios.map((b) => (
-                <li key={b} className="flex gap-2">
-                  <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-aqua" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 text-sm leading-7 text-muted-foreground">
-              As experiências e percepções podem variar de uma pessoa para
-              outra.
-            </p>
-          </div>
-        </div>
-      </section>
 
       <TrajetoriaTavares />
 
