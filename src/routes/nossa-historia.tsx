@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowDown, Play, X } from 'lucide-react';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { waGeral } from '@/lib/whatsapp';
-import { VoltarLeitura } from '@/components/VoltarLeitura';
+import { VoltarLeitura, rememberEquipmentReading, useReadingReturn } from '@/components/VoltarLeitura';
 
 export const Route = createFileRoute('/nossa-historia')({
   head: () => ({ meta: [
@@ -27,6 +27,7 @@ const acervo = [
 ];
 
 function NossaHistoria() {
+  useReadingReturn();
   const dialog = useRef<HTMLDialogElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -67,7 +68,7 @@ function NossaHistoria() {
             <p className="eyebrow mt-8 text-aqua">Memória STS</p>
             <h1 className="mt-4 max-w-4xl font-display text-3xl font-bold leading-tight text-deep sm:text-5xl">Nossa História <span className="mt-3 block text-xl font-medium sm:text-3xl">Evolução dos Aparelhos STS</span></h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground">Uma história contada pelos aparelhos. Reunimos fotografias do nosso acervo para recordar os modelos já lançados e apresentar o DETOX BioEquilíbrio.</p>
-            <a href="#bioequilibrio-atual" className="mt-6 inline-flex min-h-12 items-center gap-3 rounded-full border border-deep/25 px-5 py-3 text-sm font-semibold text-deep hover:bg-aqua-soft/40">Conheça o modelo atual <ArrowDown className="size-4" aria-hidden="true" /></a>
+            <a id="leitura-equipamento-historia" onClick={rememberEquipmentReading} href="#bioequilibrio-atual" className="mt-6 inline-flex min-h-12 items-center gap-3 rounded-full border border-deep/25 px-5 py-3 text-sm font-semibold text-deep hover:bg-aqua-soft/40">Conheça o modelo atual <ArrowDown className="size-4" aria-hidden="true" /></a>
           </div>
         </section>
 

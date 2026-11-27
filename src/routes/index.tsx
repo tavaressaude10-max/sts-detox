@@ -1,4 +1,5 @@
 import { EletrodosConexoes } from "@/components/EletrodosConexoes";
+import { rememberEquipmentReading } from "@/components/VoltarLeitura";
 import { ConceitoBioequilibrio, TrajetoriaTavares } from "@/components/ConceitoBioequilibrio";
 import {
   DestaqueBioequilibrio,
@@ -38,9 +39,6 @@ const waPessoal = wa(
 );
 const waProfissional = wa(
   "Olá! Gostaria de falar com professor Tavares sobre o equipamento DETOX BIOEQUILÍBRIO.",
-);
-const waFormacao = wa(
-  "Olá! Gostaria de informações sobre o material de estudo do aparelho DETOX BIOEQUILÍBRIO.",
 );
 
 export const Route = createFileRoute("/")({
@@ -190,6 +188,7 @@ function Index() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
+                id="leitura-equipamento-entrada" onClick={rememberEquipmentReading}
                 href="/nossa-historia#bioequilibrio-atual"
                 className="inline-flex min-h-14 items-center justify-center rounded-full bg-deep px-6 py-4 text-center text-base font-semibold text-white shadow-md transition-colors hover:bg-deep-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
               >
@@ -387,15 +386,7 @@ function Index() {
               </p>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={waFormacao}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center justify-center rounded-full bg-aqua-soft px-6 py-3.5 text-center text-sm font-semibold text-deep transition-all hover:-translate-y-0.5 hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              >
-                Quero conhecer o material e o equipamento
-              </a>
+            <div className="mt-8 flex flex-col sm:items-start">
               <a
                 href={waProfissional}
                 target="_blank"
@@ -481,9 +472,8 @@ function Index() {
               ))}
             </ul>
             <a
-              href={waFormacao}
-              target="_blank"
-              rel="noopener noreferrer"
+              id="leitura-material-estudo" onClick={rememberEquipmentReading}
+              href="#livros"
               className="mt-10 inline-block rounded-full bg-deep px-6 py-3 text-sm font-semibold text-aqua-soft transition-all hover:-translate-y-0.5 hover:bg-deep-2"
             >
               Conhecer o material de estudo
@@ -541,6 +531,7 @@ function Index() {
             <div className="mt-8 flex max-w-xl flex-wrap gap-4">
               <a
                 className="rounded-xl bg-deep px-6 py-4 text-sm font-semibold text-aqua-soft transition-all hover:-translate-y-0.5 hover:bg-deep-2"
+                id="leitura-equipamento-contato" onClick={rememberEquipmentReading}
                 href="/nossa-historia#bioequilibrio-atual"
               >
                 CONHECER O DETOX BIOEQUILÍBRIO

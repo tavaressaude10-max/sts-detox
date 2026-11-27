@@ -1,6 +1,6 @@
 import { waGeral } from "@/lib/whatsapp";
 import { ArrowRight } from "lucide-react";
-import { rememberReading, useReadingReturn } from "@/components/VoltarLeitura";
+import { rememberEquipmentReading, rememberReading, useReadingReturn } from "@/components/VoltarLeitura";
 
 export const itensConjunto = [
   "Aparelho DETOX BIOEQUILÍBRIO",
@@ -41,6 +41,7 @@ export function DestaqueBioequilibrio() {
           </p>
           <div className="mt-8 flex flex-col items-start gap-4">
             <a
+              id="leitura-equipamento-destaque" onClick={rememberEquipmentReading}
               href="/nossa-historia#bioequilibrio-atual"
               className="inline-flex min-h-12 items-center rounded-full bg-aqua-soft px-6 py-3 text-sm font-semibold text-deep"
             >
