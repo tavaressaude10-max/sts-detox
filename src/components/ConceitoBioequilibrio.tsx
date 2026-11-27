@@ -34,6 +34,7 @@ export function ConceitoBioequilibrio() {
             ))}
           </ul>
           <p className="mt-6 text-pretty text-base leading-8 text-muted-foreground">As experiências e percepções podem variar de uma pessoa para outra. O equipamento não se destina ao diagnóstico, à prevenção, ao tratamento ou à cura de doenças.</p>
+          <p className="mt-4 text-pretty text-base leading-8 text-muted-foreground"><strong className="font-semibold text-deep">Não substitui consulta, diagnóstico, acompanhamento ou tratamento médico.</strong></p>
         </div>
       </div>
     </section>

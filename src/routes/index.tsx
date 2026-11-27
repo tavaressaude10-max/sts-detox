@@ -164,32 +164,29 @@ function Index() {
       >
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:px-10 lg:py-20">
           <div className="rise min-w-0 lg:col-span-7">
+            <p className="eyebrow mb-4 text-aqua">BEM-VINDOS À STS DETOX IÔNICO</p>
             <h1
               id="titulo-entrada"
-              className="font-display text-[clamp(2rem,5vw,3.75rem)] font-extrabold leading-[1.12] tracking-tight text-deep"
+              className="font-display text-[clamp(1.75rem,5vw,3.75rem)] font-extrabold leading-[1.12] tracking-tight text-deep"
             >
-              Bem-vindos ao DETOX IÔNICO – <span className="block text-deep-2">BioEquilíbrio</span>
+              BIOEQUILÍBRIO
             </h1>
-            <p className="mt-6 max-w-[32ch] font-display text-xl font-semibold leading-relaxed text-foreground sm:text-2xl">
-              Equipamento e conhecimento para compreender a técnica
-            </p>
             <p className="mt-5 max-w-[52ch] text-lg leading-8 text-muted-foreground">
-              Conheça o aparelho, explore os materiais de estudo e descubra os
-              livros de Severino Tavares da Silva.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
                 id="leitura-equipamento-entrada" onClick={rememberEquipmentReading}
                 href="/nossa-historia#bioequilibrio-atual"
-                className="inline-flex min-h-14 items-center justify-center rounded-full bg-deep px-6 py-4 text-center text-base font-semibold text-white shadow-md transition-colors hover:bg-deep-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
+                className="font-bold text-deep underline underline-offset-4 hover:text-deep-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
               >
-                Conhecer o equipamento
-              </a>
+                Conheça o equipamento
+              </a>, seus acessórios, os materiais de estudo e os livros de Severino Tavares da Silva.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
+                id="contato"
                 href={waGeral}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-14 items-center justify-center rounded-full border border-deep/35 bg-surface px-6 py-4 text-center text-base font-semibold text-deep transition-colors hover:bg-aqua-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
+                className="scroll-mt-24 inline-flex min-h-14 items-center justify-center rounded-full border border-deep/35 bg-surface px-6 py-4 text-center text-base font-semibold text-deep transition-colors hover:bg-aqua-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep"
               >
                 Falar com o professor Tavares
               </a>
@@ -468,53 +465,9 @@ function Index() {
         </div>
       </section>
 
-      {/* 10 — CONTATO */}
-      <section
-        id="contato"
-        className="mx-auto max-w-7xl scroll-mt-24 px-6 py-24 lg:px-10 lg:py-32"
-      >
-        <div className="grid gap-16 lg:grid-cols-12">
-          <div className="rise lg:col-span-7">
-            <p className="eyebrow mb-4 text-aqua">Contato</p>
-            <h2 className="text-balance font-display text-4xl font-bold">
-              Quero conhecer o DETOX BIOEQUILÍBRIO
-            </h2>
-            <div className="mt-8 flex max-w-xl flex-wrap gap-4">
-              <a
-                className="rounded-xl bg-deep px-6 py-4 text-sm font-semibold text-aqua-soft transition-all hover:-translate-y-0.5 hover:bg-deep-2"
-                id="leitura-equipamento-contato" onClick={rememberEquipmentReading}
-                href="/nossa-historia#bioequilibrio-atual"
-              >
-                CONHECER O DETOX BIOEQUILÍBRIO
-              </a>
-              <a
-                href={waProfissional}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-xl bg-surface px-6 py-4 text-sm font-semibold text-foreground ring-1 ring-border transition-all hover:-translate-y-0.5 hover:ring-aqua/40"
-              >
-                Falar com professor Tavares
-              </a>
-            </div>
-          </div>
-          <div className="rise self-start border-l border-aqua/40 bg-aqua-soft/40 p-8 lg:col-span-5 lg:p-10">
-            <p className="eyebrow mb-3 text-deep/60">Informação importante</p>
-            <p className="text-pretty text-base leading-8 text-deep/80">
-              O DETOX BIOEQUILÍBRIO é apresentado como uma prática
-              complementar de bem-estar e relaxamento.{" "}
-              <strong className="font-semibold text-deep">
-                Não substitui consulta, diagnóstico, acompanhamento ou
-                tratamento médico
-              </strong>{" "}
-              e não deve ser utilizado para prometer diagnóstico, prevenção,
-              tratamento ou cura de doenças. As experiências e percepções podem
-              variar individualmente.
-            </p>
-          </div>
-        </div>
-
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SiteFooter />
-      </section>
+      </div>
 
       <WhatsAppFab href={waGeral} />
     </div>
